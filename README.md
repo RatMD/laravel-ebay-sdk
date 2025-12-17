@@ -9,6 +9,9 @@ A work-in-progress Laravel SDK for integrating with eBay APIs. It provides OAuth
 webhook handling, event-based notifications, and typed clients for both Modern and Traditional 
 (XML/SOAP) eBay APIs.
 
+- [How to authorize with eBay](#how-to-authorize-with-ebay)
+- [How to Listening for eBay Notifications](#how-to-listening-for-ebay-notifications)
+
 ## Features
 
 - OAuth 2.0 authentication flow (authorization and callback).
