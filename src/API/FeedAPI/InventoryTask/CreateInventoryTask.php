@@ -5,7 +5,7 @@ namespace Rat\eBaySDK\API\FeedAPI\InventoryTask;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 use Rat\eBaySDK\Enums\ListingFormat;
 
@@ -13,7 +13,7 @@ use Rat\eBaySDK\Enums\ListingFormat;
  * POST /inventory_task
  * @see https://developer.ebay.com/api-docs/sell/feed/resources/inventory_task/methods/createInventoryTask
  */
-class CreateInventoryTask implements APIRequest
+class CreateInventoryTask implements BaseAPIRequest
 {
     use CommonMethods;
 

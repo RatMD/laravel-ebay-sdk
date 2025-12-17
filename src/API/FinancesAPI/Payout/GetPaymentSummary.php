@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\FinancesAPI\Payout;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * GET /payout_summary
  * @see https://developer.ebay.com/api-docs/sell/finances/resources/payout/methods/getPayoutSummary
  */
-class GetPaymentSummary implements APIRequest
+class GetPaymentSummary implements BaseAPIRequest
 {
     use CommonMethods;
 

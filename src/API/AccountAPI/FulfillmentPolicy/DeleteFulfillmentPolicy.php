@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\AccountAPI\FulfillmentPolicy;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * DELETE /fulfillment_policy/{fulfillmentPolicyId}
  * @see https://developer.ebay.com/api-docs/sell/account/resources/fulfillment_policy/methods/deleteFulfillmentPolicy
  */
-class DeleteFulfillmentPolicy implements APIRequest
+class DeleteFulfillmentPolicy implements BaseAPIRequest
 {
     use CommonMethods;
 
@@ -23,7 +23,6 @@ class DeleteFulfillmentPolicy implements APIRequest
     /**
      * Create a new instance.
      * @param string $fulfillmentPolicyId
-     * @param array $payload
      * @return void
      */
     public function __construct(

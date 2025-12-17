@@ -4,14 +4,14 @@ namespace Rat\eBaySDK\API\FeedAPI\Schedule;
 
 use Illuminate\Support\Facades\Validator;
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * GET /schedule
  * @see https://developer.ebay.com/api-docs/sell/feed/resources/schedule/methods/getSchedules
  */
-class GetSchedules implements APIRequest
+class GetSchedules implements BaseAPIRequest
 {
     use CommonMethods;
 

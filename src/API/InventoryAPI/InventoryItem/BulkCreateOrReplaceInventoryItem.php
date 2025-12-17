@@ -4,14 +4,14 @@ namespace Rat\eBaySDK\API\InventoryAPI\InventoryItem;
 
 use Illuminate\Support\Facades\Validator;
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * POST /bulk_create_or_replace_inventory_item
  * @see https://developer.ebay.com/api-docs/sell/inventory/resources/inventory_item/methods/bulkCreateOrReplaceInventoryItem
  */
-class BulkCreateOrReplaceInventoryItem implements APIRequest
+class BulkCreateOrReplaceInventoryItem implements BaseAPIRequest
 {
     use CommonMethods;
 

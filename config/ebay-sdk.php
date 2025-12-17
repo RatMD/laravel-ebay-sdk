@@ -67,7 +67,7 @@ return [
          | Toggle registration of the package's default routes.
          |
          */
-        'enabled' => true,
+        'enabled' => false,
 
         /*
          |----------------------------------------------------------------------

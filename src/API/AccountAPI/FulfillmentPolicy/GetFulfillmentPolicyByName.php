@@ -3,7 +3,7 @@
 namespace Rat\eBaySDK\API\AccountAPI\FulfillmentPolicy;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 use Rat\eBaySDK\Enums\Marketplace;
 
@@ -11,7 +11,7 @@ use Rat\eBaySDK\Enums\Marketplace;
  * GET /fulfillment_policy/get_by_policy_name
  * @see https://developer.ebay.com/api-docs/sell/account/resources/fulfillment_policy/methods/getFulfillmentPolicyByName
  */
-class GetFulfillmentPolicyByName implements APIRequest
+class GetFulfillmentPolicyByName implements BaseAPIRequest
 {
     use CommonMethods;
 

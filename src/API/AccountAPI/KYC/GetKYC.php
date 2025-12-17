@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\AccountAPI\KYC;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * GET /kyc
  * @see https://developer.ebay.com/api-docs/sell/account/resources/kyc/methods/getKYC
  */
-class GetKYC implements APIRequest
+class GetKYC implements BaseAPIRequest
 {
     use CommonMethods;
 

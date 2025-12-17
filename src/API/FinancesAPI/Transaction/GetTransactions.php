@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\FinancesAPI\Transaction;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * GET /transaction
  * @see https://developer.ebay.com/api-docs/sell/finances/resources/transaction/methods/getTransactions
  */
-class GetTransactions implements APIRequest
+class GetTransactions implements BaseAPIRequest
 {
     use CommonMethods;
 

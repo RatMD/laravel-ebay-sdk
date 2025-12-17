@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\AccountAPI\PaymentPolicy;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * DELETE /payment_policy/{paymentPolicyId}
  * @see https://developer.ebay.com/api-docs/sell/account/resources/payment_policy/methods/deletePaymentPolicy
  */
-class DeletePaymentPolicy implements APIRequest
+class DeletePaymentPolicy implements BaseAPIRequest
 {
     use CommonMethods;
 
@@ -23,7 +23,6 @@ class DeletePaymentPolicy implements APIRequest
     /**
      * Create a new instance.
      * @param string $paymentPolicyId
-     * @param array $payload
      * @return void
      */
     public function __construct(

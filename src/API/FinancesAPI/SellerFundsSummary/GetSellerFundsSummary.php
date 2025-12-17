@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\FinancesAPI\SellerFundsSummary;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * GET /seller_funds_summary
  * @see https://developer.ebay.com/api-docs/sell/finances/resources/seller_funds_summary/methods/getSellerFundsSummary
  */
-class GetSellerFundsSummary implements APIRequest
+class GetSellerFundsSummary implements BaseAPIRequest
 {
     use CommonMethods;
 

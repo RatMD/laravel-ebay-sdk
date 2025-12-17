@@ -3,7 +3,7 @@
 namespace Rat\eBaySDK\API\AccountAPI\SalesTax;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\CountryCode;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
@@ -11,7 +11,7 @@ use Rat\eBaySDK\Enums\HTTPMethod;
  * GET /sales_tax
  * @see https://developer.ebay.com/api-docs/sell/account/resources/sales_tax/methods/getSalesTaxes
  */
-class GetSalesTaxes implements APIRequest
+class GetSalesTaxes implements BaseAPIRequest
 {
     use CommonMethods;
 
@@ -24,8 +24,6 @@ class GetSalesTaxes implements APIRequest
     /**
      * Create a new instance.
      * @param CountryCode $countryCode
-     * @param string $jurisdictionId
-     * @param array $payload
      * @return void
      */
     public function __construct(

@@ -4,14 +4,14 @@ namespace Rat\eBaySDK\API\StoreAPI\Store;
 
 use Illuminate\Support\Facades\Validator;
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * PUT /store/categories/{categoryId}
  * @see https://developer.ebay.com/api-docs/sell/stores/resources/store/methods/moveStoreCategory
  */
-class MoveStoreCategory implements APIRequest
+class MoveStoreCategory implements BaseAPIRequest
 {
     use CommonMethods;
 

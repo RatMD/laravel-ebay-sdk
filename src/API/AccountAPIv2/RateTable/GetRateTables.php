@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\AccountAPIv2\RateTable;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * GET /rate_table/{rateTableId}
  * @see https://developer.ebay.com/api-docs/sell/account/v2/resources/rate_table/methods/getRateTable
  */
-class GetRateTables implements APIRequest
+class GetRateTables implements BaseAPIRequest
 {
     use CommonMethods;
 

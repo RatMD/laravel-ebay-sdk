@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\AccountAPI\AdvertisingEligibility;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * GET /advertising_eligibility
  * @see https://developer.ebay.com/api-docs/sell/account/resources/advertising_eligibility/methods/getAdvertisingEligibility
  */
-class GetAdvertisingEligibility implements APIRequest
+class GetAdvertisingEligibility implements BaseAPIRequest
 {
     use CommonMethods;
 

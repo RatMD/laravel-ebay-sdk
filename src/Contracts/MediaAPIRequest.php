@@ -2,4 +2,4 @@
 
 namespace Rat\eBaySDK\Contracts;
 
-interface MediaAPIRequest extends APIRequest { }
+interface MediaAPIRequest extends BaseAPIRequest { }

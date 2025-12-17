@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\AccountAPI\CustomPolicy;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * GET /custom_policy/{customPolicyId}
  * @see https://developer.ebay.com/api-docs/sell/account/resources/custom_policy/methods/getCustomPolicy
  */
-class GetCustomPolicy implements APIRequest
+class GetCustomPolicy implements BaseAPIRequest
 {
     use CommonMethods;
 

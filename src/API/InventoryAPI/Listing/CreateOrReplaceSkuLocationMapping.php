@@ -4,14 +4,14 @@ namespace Rat\eBaySDK\API\InventoryAPI\Listing;
 
 use Illuminate\Support\Facades\Validator;
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * PUT /listing/{listingId}/sku/{sku}/locations
  * @see https://developer.ebay.com/api-docs/sell/inventory/resources/listing/methods/createOrReplaceSkuLocationMapping
  */
-class CreateOrReplaceSkuLocationMapping implements APIRequest
+class CreateOrReplaceSkuLocationMapping implements BaseAPIRequest
 {
     use CommonMethods;
 
@@ -31,7 +31,7 @@ class CreateOrReplaceSkuLocationMapping implements APIRequest
     public function __construct(
         public readonly string $listingId,
         public readonly string $sku,
-        public readonly string $payload,
+        public readonly array $payload,
     ) { }
 
     /**

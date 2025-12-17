@@ -4,14 +4,14 @@ namespace Rat\eBaySDK\API\FeedAPI\OrderTask;
 
 use Illuminate\Support\Facades\Validator;
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * POST /order_task
  * @see https://developer.ebay.com/api-docs/sell/feed/resources/order_task/methods/createOrderTask
  */
-class CreateOrderTask implements APIRequest
+class CreateOrderTask implements BaseAPIRequest
 {
     use CommonMethods;
 

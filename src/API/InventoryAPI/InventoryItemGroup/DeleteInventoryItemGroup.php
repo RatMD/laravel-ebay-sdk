@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\InventoryAPI\InventoryItemGroup;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * DELETE /inventory_item_group/{groupKey}
  * @see https://developer.ebay.com/api-docs/sell/inventory/resources/inventory_item_group/methods/deleteInventoryItemGroup
  */
-class DeleteInventoryItemGroup implements APIRequest
+class DeleteInventoryItemGroup implements BaseAPIRequest
 {
     use CommonMethods;
 

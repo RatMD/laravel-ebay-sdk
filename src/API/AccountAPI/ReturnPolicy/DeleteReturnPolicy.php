@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\AccountAPI\ReturnPolicy;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * DELETE /return_policy/{returnPolicyId}
  * @see https://developer.ebay.com/api-docs/sell/account/resources/return_policy/methods/deleteReturnPolicy
  */
-class DeleteReturnPolicy implements APIRequest
+class DeleteReturnPolicy implements BaseAPIRequest
 {
     use CommonMethods;
 
@@ -23,7 +23,6 @@ class DeleteReturnPolicy implements APIRequest
     /**
      * Create a new instance.
      * @param string $returnPolicyId
-     * @param array $payload
      * @return void
      */
     public function __construct(

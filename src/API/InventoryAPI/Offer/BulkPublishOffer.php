@@ -4,14 +4,14 @@ namespace Rat\eBaySDK\API\InventoryAPI\Offer;
 
 use Illuminate\Support\Facades\Validator;
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * POST /bulk_publish_offer
  * @see https://developer.ebay.com/api-docs/sell/inventory/resources/offer/methods/bulkPublishOffer
  */
-class BulkPublishOffer implements APIRequest
+class BulkPublishOffer implements BaseAPIRequest
 {
     use CommonMethods;
 

@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\InventoryAPI\Listing;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * GET /listing/{listingId}/sku/{sku}/locations
  * @see https://developer.ebay.com/api-docs/sell/inventory/resources/listing/methods/getSkuLocationMapping
  */
-class GetSkuLocationMapping implements APIRequest
+class GetSkuLocationMapping implements BaseAPIRequest
 {
     use CommonMethods;
 

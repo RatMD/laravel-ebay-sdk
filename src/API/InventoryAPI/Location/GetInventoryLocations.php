@@ -4,14 +4,14 @@ namespace Rat\eBaySDK\API\InventoryAPI\Location;
 
 use Illuminate\Support\Facades\Validator;
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * GET /location
  * @see https://developer.ebay.com/api-docs/sell/inventory/resources/location/methods/getInventoryLocations
  */
-class GetInventoryLocations implements APIRequest
+class GetInventoryLocations implements BaseAPIRequest
 {
     use CommonMethods;
 

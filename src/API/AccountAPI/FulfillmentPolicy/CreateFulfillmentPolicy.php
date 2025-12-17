@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\AccountAPI\FulfillmentPolicy;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * POST /fulfillment_policy
  * @see https://developer.ebay.com/api-docs/sell/account/resources/fulfillment_policy/methods/createFulfillmentPolicy
  */
-class CreateFulfillmentPolicy implements APIRequest
+class CreateFulfillmentPolicy implements BaseAPIRequest
 {
     use CommonMethods;
 

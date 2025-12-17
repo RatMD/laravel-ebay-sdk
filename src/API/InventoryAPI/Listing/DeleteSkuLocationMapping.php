@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\InventoryAPI\Listing;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * DELETE /listing/{listingId}/sku/{sku}/locations
  * @see https://developer.ebay.com/api-docs/sell/inventory/resources/listing/methods/deleteSkuLocationMapping
  */
-class DeleteSkuLocationMapping implements APIRequest
+class DeleteSkuLocationMapping implements BaseAPIRequest
 {
     use CommonMethods;
 

@@ -6,8 +6,8 @@ use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Validation\ValidationException;
 use Rat\eBaySDK\Authentication\OAuthAuthentication;
-use Rat\eBaySDK\Contracts\APIRequest;
 use Rat\eBaySDK\Contracts\Authentication;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Contracts\MediaAPIRequest;
 use Rat\eBaySDK\Contracts\TraditionalAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
@@ -107,8 +107,10 @@ class Client
 
     /**
      * Set Refresh Token.
-     * @param string $token
-     * @return Client
+     * @param string $appId
+     * @param string $devId
+     * @param string $certId
+     * @return self
      */
     public function setTraditionalApplicationKeys(string $appId, string $devId, string $certId): self
     {
@@ -182,10 +184,10 @@ class Client
 
     /**
      *
-     * @param APIRequest $request
+     * @param BaseAPIRequest $request
      * @return string
      */
-    protected function preparePath(APIRequest $request): string
+    protected function preparePath(BaseAPIRequest $request): string
     {
         $path = $request->path();
 
@@ -208,11 +210,10 @@ class Client
 
     /**
      *
-     * @param array $replacements
-     * @param array $body
+     * @param BaseAPIRequest $request
      * @return void
      */
-    public function execute(APIRequest $request) {
+    public function execute(BaseAPIRequest $request) {
         $body = null;
         try {
             $path = $this->preparePath($request);
@@ -274,7 +275,7 @@ class Client
                 $request instanceof MediaAPIRequest ? $this->getBaseApimUri() : null
             );
             $response = $client->request(
-                (string) $request->method(),
+                $request->method()->value,
                 (string) $path,
                 $options,
             );

@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\AccountAPI\PaymentPolicy;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * POST /payment_policy
  * @see https://developer.ebay.com/api-docs/sell/account/resources/payment_policy/methods/createPaymentPolicy
  */
-class CreatePaymentPolicy implements APIRequest
+class CreatePaymentPolicy implements BaseAPIRequest
 {
     use CommonMethods;
 

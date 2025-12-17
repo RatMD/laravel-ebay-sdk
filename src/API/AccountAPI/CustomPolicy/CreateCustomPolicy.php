@@ -5,7 +5,7 @@ namespace Rat\eBaySDK\API\AccountAPI\CustomPolicy;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\CustomerServiceMetricType;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
@@ -13,7 +13,7 @@ use Rat\eBaySDK\Enums\HTTPMethod;
  * POST /custom_policy
  * @see https://developer.ebay.com/api-docs/sell/account/resources/custom_policy/methods/createCustomPolicy
  */
-class CreateCustomPolicy implements APIRequest
+class CreateCustomPolicy implements BaseAPIRequest
 {
     use CommonMethods;
 

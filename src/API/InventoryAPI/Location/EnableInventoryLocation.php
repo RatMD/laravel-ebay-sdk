@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\InventoryAPI\Location;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * POST /location/{merchantLocationKey}/enable
  * @see https://developer.ebay.com/api-docs/sell/inventory/resources/location/methods/enableInventoryLocation
  */
-class EnableInventoryLocation implements APIRequest
+class EnableInventoryLocation implements BaseAPIRequest
 {
     use CommonMethods;
 

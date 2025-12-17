@@ -5,7 +5,7 @@ namespace Rat\eBaySDK\API\InventoryAPI\Offer;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 use Rat\eBaySDK\Enums\Marketplace;
 
@@ -13,7 +13,7 @@ use Rat\eBaySDK\Enums\Marketplace;
  * POST /offer/publish_by_inventory_item_group
  * @see https://developer.ebay.com/api-docs/sell/inventory/resources/offer/methods/publishOfferByInventoryItemGroup
  */
-class PublishOfferByInventoryItemGroup implements APIRequest
+class PublishOfferByInventoryItemGroup implements BaseAPIRequest
 {
     use CommonMethods;
 

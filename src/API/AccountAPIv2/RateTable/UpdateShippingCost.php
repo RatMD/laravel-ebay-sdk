@@ -4,14 +4,14 @@ namespace Rat\eBaySDK\API\AccountAPIv2\RateTable;
 
 use Illuminate\Support\Facades\Validator;
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * POST /rate_table/{rateTableId}/update_shipping_cost
  * @see https://developer.ebay.com/api-docs/sell/account/v2/resources/rate_table/methods/updateShippingCost
  */
-class UpdateShippingCost implements APIRequest
+class UpdateShippingCost implements BaseAPIRequest
 {
     use CommonMethods;
 

@@ -4,14 +4,14 @@ namespace Rat\eBaySDK\API\AccountAPIv2\RateTable;
 
 use Illuminate\Support\Facades\Validator;
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * POST /payout_settings/update_percentage
  * @see https://developer.ebay.com/api-docs/sell/account/v2/resources/payout_settings/methods/updatePayoutPercentage
  */
-class UpdatePayoutPercentage implements APIRequest
+class UpdatePayoutPercentage implements BaseAPIRequest
 {
     use CommonMethods;
 
@@ -19,11 +19,10 @@ class UpdatePayoutPercentage implements APIRequest
      * API Ressource Path
      * @var string
      */
-    public const PATH = '/sell/account/v2/payout_settings/update_percentaget';
+    public const PATH = '/sell/account/v2/payout_settings/update_percentage';
 
     /**
      * Create a new instance.
-     * @param string $rateTableId
      * @param array $payload
      * @return void
      */

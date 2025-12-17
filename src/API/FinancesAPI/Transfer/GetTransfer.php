@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\FinancesAPI\Transfer;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * GET /transfer/{transferId}
  * @see https://developer.ebay.com/api-docs/sell/finances/resources/transfer/methods/getTransfer
  */
-class GetTransfer implements APIRequest
+class GetTransfer implements BaseAPIRequest
 {
     use CommonMethods;
 

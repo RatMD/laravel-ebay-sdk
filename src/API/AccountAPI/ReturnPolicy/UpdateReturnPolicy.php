@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\AccountAPI\ReturnPolicy;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * PUT /return_policy/{returnPolicyId}
  * @see hhttps://developer.ebay.com/api-docs/sell/account/resources/return_policy/methods/updateReturnPolicy
  */
-class UpdateReturnPolicy implements APIRequest
+class UpdateReturnPolicy implements BaseAPIRequest
 {
     use CommonMethods;
 

@@ -5,7 +5,7 @@ namespace Rat\eBaySDK\API\FeedAPI\CustomerServiceMetricTask;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\CustomerServiceMetricType;
 use Rat\eBaySDK\Enums\HTTPMethod;
 use Rat\eBaySDK\Enums\Marketplace;
@@ -14,7 +14,7 @@ use Rat\eBaySDK\Enums\Marketplace;
  * POST /customer_service_metric_task
  * @see https://developer.ebay.com/api-docs/sell/feed/resources/customer_service_metric_task/methods/createCustomerServiceMetricTask
  */
-class CreateCustomerServiceMetricTask implements APIRequest
+class CreateCustomerServiceMetricTask implements BaseAPIRequest
 {
     use CommonMethods;
 

@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\FeedAPI\CustomerServiceMetricTask;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * GET /customer_service_metric_task/{taskId}
  * @see https://developer.ebay.com/api-docs/sell/feed/resources/customer_service_metric_task/methods/getCustomerServiceMetricTask
  */
-class GetCustomerServiceMetricTask implements APIRequest
+class GetCustomerServiceMetricTask implements BaseAPIRequest
 {
     use CommonMethods;
 

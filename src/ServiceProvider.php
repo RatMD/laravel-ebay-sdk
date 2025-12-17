@@ -12,10 +12,9 @@ class ServiceProvider extends LaravelServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(Client::class, function ($app) {
-            return new Client();
-        });
         $this->mergeConfigFrom(__DIR__ . '/../config/ebay-sdk.php', 'ebay-sdk');
+
+        $this->app->bind(Client::class, fn ($app) =>  new Client());
     }
 
     /**

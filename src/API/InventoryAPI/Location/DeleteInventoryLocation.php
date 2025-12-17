@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\InventoryAPI\Location;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * DELETE /location/{merchantLocationKey}
  * @see https://developer.ebay.com/api-docs/sell/inventory/resources/location/methods/deleteInventoryLocation
  */
-class DeleteInventoryLocation implements APIRequest
+class DeleteInventoryLocation implements BaseAPIRequest
 {
     use CommonMethods;
 

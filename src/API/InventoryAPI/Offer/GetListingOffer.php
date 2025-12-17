@@ -4,14 +4,14 @@ namespace Rat\eBaySDK\API\InventoryAPI\Offer;
 
 use Illuminate\Support\Facades\Validator;
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * POST /offer/get_listing_fees
  * @see https://developer.ebay.com/api-docs/sell/inventory/resources/offer/methods/getListingFees
  */
-class GetListingOffer implements APIRequest
+class GetListingOffer implements BaseAPIRequest
 {
     use CommonMethods;
 

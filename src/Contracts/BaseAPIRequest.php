@@ -4,7 +4,7 @@ namespace Rat\eBaySDK\Contracts;
 
 use Rat\eBaySDK\Enums\HTTPMethod;
 
-interface APIRequest {
+interface BaseAPIRequest {
     /**
      * The HTTP method used for the request.
      * @return HTTPMethod
@@ -19,13 +19,13 @@ interface APIRequest {
 
     /**
      * The Path parameters used to replace placeholders in the path.
-     * @return array<string, scalar>
+     * @return array<string, mixed>
      */
     public function params(): array;
 
     /**
      * The Query parameters appended to the URL.
-     * @return array<string, scalar|array>
+     * @return array<string, mixed>
      */
     public function query(): array;
 

@@ -27,7 +27,7 @@ trait CommonTraditions
 
     /**
      *
-     * @var null|string
+     * @var null|int
      */
     protected ?int $siteId = null;
 
@@ -65,7 +65,7 @@ trait CommonTraditions
     /**
      * @inheritdoc
      */
-    public function compatibilityLevel()
+    public function compatibilityLevel(): string
     {
         return $this->compatibilityLevel ?? config('ebay-sdk.traditional.compatibility_level');
     }
@@ -82,7 +82,7 @@ trait CommonTraditions
     /**
      * @inheritdoc
      */
-    public function errorLanguage()
+    public function errorLanguage(): string
     {
         return $this->errorLanguage ?? config('ebay-sdk.traditional.error_language');
     }
@@ -99,7 +99,7 @@ trait CommonTraditions
     /**
      * @inheritdoc
      */
-    public function errorHandling()
+    public function errorHandling(): string
     {
         return $this->errorHandling ?? config('ebay-sdk.traditional.error_handling');
     }
@@ -116,7 +116,7 @@ trait CommonTraditions
     /**
      * @inheritdoc
      */
-    public function sideId()
+    public function sideId(): int
     {
         return $this->siteId ?? config('ebay-sdk.traditional.site_id');
     }
@@ -133,7 +133,7 @@ trait CommonTraditions
     /**
      * @inheritdoc
      */
-    public function warningLevel()
+    public function warningLevel(): string
     {
         return $this->warningLevel ?? config('ebay-sdk.traditional.warning_level');
     }
@@ -166,6 +166,14 @@ trait CommonTraditions
      * @inheritdoc
      */
     public function query(): array
+    {
+        return [];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function headers(): array
     {
         return [];
     }

@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\AccountAPIv2\PayoutSettings;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * GET /payout_settings
  * @see https://developer.ebay.com/api-docs/sell/account/v2/resources/payout_settings/methods/getPayoutSettings
  */
-class GetPayoutSettings implements APIRequest
+class GetPayoutSettings implements BaseAPIRequest
 {
     use CommonMethods;
 

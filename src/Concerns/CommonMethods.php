@@ -23,7 +23,7 @@ trait CommonMethods
     /**
      * @inheritdoc
      */
-    public function headers(): mixed
+    public function headers(): array
     {
         return [];
     }

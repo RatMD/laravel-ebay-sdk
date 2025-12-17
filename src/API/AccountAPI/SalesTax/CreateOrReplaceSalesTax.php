@@ -4,7 +4,7 @@ namespace Rat\eBaySDK\API\AccountAPI\SalesTax;
 
 use Illuminate\Support\Facades\Validator;
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\CountryCode;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
@@ -12,7 +12,7 @@ use Rat\eBaySDK\Enums\HTTPMethod;
  * POST /sales_tax/{countryCode}/{jurisdictionId}
  * @see https://developer.ebay.com/api-docs/sell/account/resources/sales_tax/methods/createOrReplaceSalesTax
  */
-class CreateOrReplaceSalesTax implements APIRequest
+class CreateOrReplaceSalesTax implements BaseAPIRequest
 {
     use CommonMethods;
 

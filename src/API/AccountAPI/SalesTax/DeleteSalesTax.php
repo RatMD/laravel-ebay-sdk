@@ -3,7 +3,7 @@
 namespace Rat\eBaySDK\API\AccountAPI\SalesTax;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\CountryCode;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
@@ -11,7 +11,7 @@ use Rat\eBaySDK\Enums\HTTPMethod;
  * DELETE /sales_tax/{countryCode}/{jurisdictionId}
  * @see https://developer.ebay.com/api-docs/sell/account/resources/sales_tax/methods/deleteSalesTax
  */
-class DeleteSalesTax implements APIRequest
+class DeleteSalesTax implements BaseAPIRequest
 {
     use CommonMethods;
 
@@ -25,7 +25,6 @@ class DeleteSalesTax implements APIRequest
      * Create a new instance.
      * @param CountryCode $countryCode
      * @param string $jurisdictionId
-     * @param array $payload
      * @return void
      */
     public function __construct(

@@ -30,7 +30,7 @@ enum SiteCode: int
     /**
      * Canada, site ID 2, abbreviation CA, currencies CAD and USD. (http://www.ebay.ca)
      */
-    case CANADA = 16;
+    case CANADA = 2;
 
     /**
      * CanadaFrench	Canada French, site ID 210, abbreviation CAFR, currencies CAD and USD.
@@ -105,7 +105,7 @@ enum SiteCode: int
     /**
      * Poland, site ID 212, abbreviation PL, currency PLN. (http://www.ebay.pl)
      */
-    case POLAND = 211;
+    case POLAND = 212;
 
     /**
      * 	Russia, site ID 215, abbreviation RU, currency RUB. Sellers must use Merchant Integration

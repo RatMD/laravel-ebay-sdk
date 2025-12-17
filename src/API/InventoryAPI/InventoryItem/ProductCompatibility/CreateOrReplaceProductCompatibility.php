@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\InventoryAPI\InventoryItem\ProductCompatibility;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * PUT /inventory_item/{sku}/product_compatibility
  * @see https://developer.ebay.com/api-docs/sell/inventory/resources/inventory_item/product_compatibility/methods/createOrReplaceProductCompatibility
  */
-class CreateOrReplaceInventoryItem implements APIRequest
+class CreateOrReplaceInventoryItem implements BaseAPIRequest
 {
     use CommonMethods;
 

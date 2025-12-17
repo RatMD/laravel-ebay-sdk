@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\FeedAPI\InventoryTask;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * GET /inventory_task/{taskId}
  * @see https://developer.ebay.com/api-docs/sell/feed/resources/inventory_task/methods/getInventoryTask
  */
-class GetInventoryTask implements APIRequest
+class GetInventoryTask implements BaseAPIRequest
 {
     use CommonMethods;
 

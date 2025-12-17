@@ -3,7 +3,7 @@
 namespace Rat\eBaySDK\API\AccountAPI\ReturnPolicy;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 use Rat\eBaySDK\Enums\Marketplace;
 
@@ -11,7 +11,7 @@ use Rat\eBaySDK\Enums\Marketplace;
  * GET /return_policy/get_by_policy_name
  * @see https://developer.ebay.com/api-docs/sell/account/resources/return_policy/methods/getReturnPolicyByName
  */
-class GetReturnPolicyByName implements APIRequest
+class GetReturnPolicyByName implements BaseAPIRequest
 {
     use CommonMethods;
 

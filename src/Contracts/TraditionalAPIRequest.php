@@ -4,7 +4,7 @@ namespace Rat\eBaySDK\Contracts;
 
 use Rat\eBaySDK\Enums\SiteCode;
 
-interface TraditionalAPIRequest extends APIRequest
+interface TraditionalAPIRequest extends BaseAPIRequest
 {
     /**
      *

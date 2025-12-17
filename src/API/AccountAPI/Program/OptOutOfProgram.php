@@ -3,7 +3,7 @@
 namespace Rat\eBaySDK\API\AccountAPI\Program;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 use Rat\eBaySDK\Enums\ProgramType;
 
@@ -11,7 +11,7 @@ use Rat\eBaySDK\Enums\ProgramType;
  * POST /program/opt_out
  * @see https://developer.ebay.com/api-docs/sell/account/resources/program/methods/optOutOfProgram
  */
-class OptOutOfProgram implements APIRequest
+class OptOutOfProgram implements BaseAPIRequest
 {
     use CommonMethods;
 

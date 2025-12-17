@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\InventoryAPI\InventoryItemGroup;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * PUT /inventory_item_group/{groupKey}
  * @see https://developer.ebay.com/api-docs/sell/inventory/resources/inventory_item_group/methods/createOrReplaceInventoryItemGroup
  */
-class CreateOrReplaceInventoryItemGroup implements APIRequest
+class CreateOrReplaceInventoryItemGroup implements BaseAPIRequest
 {
     use CommonMethods;
 

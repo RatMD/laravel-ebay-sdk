@@ -181,7 +181,7 @@ class OAuthAuthentication implements Authentication
     /**
      * Set Refresh Token.
      * @param string $token
-     * @return Client
+     * @return self
      */
     public function setRefreshToken(string $token): self
     {
@@ -200,8 +200,6 @@ class OAuthAuthentication implements Authentication
 
     /**
      * Get the Guzzle HTTP client configured with authentication headers.
-     * @param bool $credentialsToken
-     * @param ?string $baseUri
      * @return GuzzleClient
      */
     public function getClient(): GuzzleClient

@@ -3,7 +3,7 @@
 namespace Rat\eBaySDK\API\AccountAPI\PaymentsProgram;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 use Rat\eBaySDK\Enums\Marketplace;
 use Rat\eBaySDK\Enums\PaymentsProgramType;
@@ -12,7 +12,7 @@ use Rat\eBaySDK\Enums\PaymentsProgramType;
  * GET /payments_program/{marketplace_id}/{payments_program_type}
  * @see https://developer.ebay.com/api-docs/sell/account/resources/payments_program/methods/getPaymentsProgram
  */
-class GetPaymentsProgram implements APIRequest
+class GetPaymentsProgram implements BaseAPIRequest
 {
     use CommonMethods;
 

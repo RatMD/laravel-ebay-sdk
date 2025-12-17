@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\FeedAPI\Schedule;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * GET /schedule/{scheduleId}/download_result_file
  * @see https://developer.ebay.com/api-docs/sell/feed/resources/schedule/methods/getLatestResultFile
  */
-class GetLastResultFile implements APIRequest
+class GetLastResultFile implements BaseAPIRequest
 {
     use CommonMethods;
 

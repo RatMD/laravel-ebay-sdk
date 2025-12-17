@@ -4,14 +4,14 @@ namespace Rat\eBaySDK\API\InventoryAPI\InventoryItem;
 
 use Illuminate\Support\Facades\Validator;
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * GET /inventory_item
  * @see https://developer.ebay.com/api-docs/sell/inventory/resources/inventory_item/methods/getInventoryItems
  */
-class GetInventoryItems implements APIRequest
+class GetInventoryItems implements BaseAPIRequest
 {
     use CommonMethods;
 

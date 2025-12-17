@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\InventoryAPI\Offer;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * POST /offer/{offerId}/publish
  * @see https://developer.ebay.com/api-docs/sell/inventory/resources/offer/methods/publishOffer
  */
-class PublishOffer implements APIRequest
+class PublishOffer implements BaseAPIRequest
 {
     use CommonMethods;
 

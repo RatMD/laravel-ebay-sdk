@@ -4,14 +4,14 @@ namespace Rat\eBaySDK\API\AccountAPI\CustomPolicy;
 
 use Illuminate\Support\Facades\Validator;
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * PUT /custom_policy/{customPolicyId}
  * @see https://developer.ebay.com/api-docs/sell/account/resources/custom_policy/methods/updateCustomPolicy
  */
-class UpdateCustomPolicy implements APIRequest
+class UpdateCustomPolicy implements BaseAPIRequest
 {
     use CommonMethods;
 

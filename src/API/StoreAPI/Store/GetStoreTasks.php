@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\StoreAPI\Store;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * GET /store/tasks
  * @see https://developer.ebay.com/api-docs/sell/stores/resources/store/methods/getStoreTasks
  */
-class GetStoreTasks implements APIRequest
+class GetStoreTasks implements BaseAPIRequest
 {
     use CommonMethods;
 

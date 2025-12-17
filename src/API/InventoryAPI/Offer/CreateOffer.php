@@ -5,7 +5,7 @@ namespace Rat\eBaySDK\API\InventoryAPI\Offer;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 use Rat\eBaySDK\Enums\Marketplace;
 
@@ -13,7 +13,7 @@ use Rat\eBaySDK\Enums\Marketplace;
  * POST /offer
  * @see https://developer.ebay.com/api-docs/sell/inventory/resources/offer/methods/createOffer
  */
-class CreateOffer implements APIRequest
+class CreateOffer implements BaseAPIRequest
 {
     use CommonMethods;
 

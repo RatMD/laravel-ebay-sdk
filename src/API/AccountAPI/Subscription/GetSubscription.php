@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\AccountAPI\Subscription;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * GET /subscription
  * @see https://developer.ebay.com/api-docs/sell/account/resources/subscription/methods/getSubscription
  */
-class GetSubscription implements APIRequest
+class GetSubscription implements BaseAPIRequest
 {
     use CommonMethods;
 

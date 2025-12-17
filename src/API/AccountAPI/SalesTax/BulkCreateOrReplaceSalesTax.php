@@ -4,14 +4,14 @@ namespace Rat\eBaySDK\API\AccountAPI\SalesTax;
 
 use Illuminate\Support\Facades\Validator;
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * POST /bulk_create_or_replace_sales_tax
  * @see https://developer.ebay.com/api-docs/sell/account/resources/sales_tax/methods/bulkCreateOrReplaceSalesTax
  */
-class BulkCreateOrReplaceSalesTax implements APIRequest
+class BulkCreateOrReplaceSalesTax implements BaseAPIRequest
 {
     use CommonMethods;
 

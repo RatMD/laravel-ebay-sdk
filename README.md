@@ -44,6 +44,42 @@ $client->setRefreshToken($refreshToken);
 $response = $client->execute(new GetInventoryItem('MyCustomSKU'));
 ```
 
+### Configure the Client using Dependency Injection
+
+The recommended way to configure the eBay client is to extend the container binding. This allows you 
+to inject dynamic, runtime-specific data (like refresh tokens) without storing them in the package 
+configuration.
+
+The client is resolved through Laravel’s service container, so any extensions will automatically 
+apply wherever the client is injected or resolved via `app()`.
+
+```php
+namespace App\Providers;
+
+use App\Models\Setting;
+use Illuminate\Support\ServiceProvider;
+use Rat\eBaySDK\Client;
+
+class AppServiceProvider extends ServiceProvider
+{
+    /**
+     * Register any application services.
+     */
+    public function register(): void
+    {
+        $this->app->extend(Client::class, function (Client $client) {
+            $token = Setting::getOption('ebay_refresh_token');
+
+            if (!empty($token)) {
+                $client->setRefreshToken($token);
+            }
+
+            return $client;
+        });
+    }
+}
+```
+
 ## Testing
 
 ```bash

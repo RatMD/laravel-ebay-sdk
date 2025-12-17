@@ -4,14 +4,14 @@ namespace Rat\eBaySDK\API\FeedAPI\Task;
 
 use Illuminate\Support\Facades\Validator;
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * GET /task
  * @see hhttps://developer.ebay.com/api-docs/sell/feed/resources/task/methods/getTasks
  */
-class GetTasks implements APIRequest
+class GetTasks implements BaseAPIRequest
 {
     use CommonMethods;
 

@@ -4,14 +4,14 @@ namespace Rat\eBaySDK\API\InventoryAPI\Listing;
 
 use Illuminate\Support\Facades\Validator;
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * POST /bulk_migrate_listing
  * @see https://developer.ebay.com/api-docs/sell/inventory/resources/listing/methods/bulkMigrateListing
  */
-class BulkMigrateListing implements APIRequest
+class BulkMigrateListing implements BaseAPIRequest
 {
     use CommonMethods;
 

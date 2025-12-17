@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\AccountAPI\Program;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\APIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * GET /program/get_opted_in_programs
  * @see https://developer.ebay.com/api-docs/sell/account/resources/program/methods/getOptedInPrograms
  */
-class GetOptedInPrograms implements APIRequest
+class GetOptedInPrograms implements BaseAPIRequest
 {
     use CommonMethods;
 
