@@ -6,7 +6,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Rat\eBaySDK\Client;
-use Rat\eBaySDK\Events\OAuthExchange;
+use Rat\eBaySDK\Events\OAuthFailure;
+use Rat\eBaySDK\Events\OAuthSuccess;
 
 class AuthController extends Controller
 {
@@ -42,16 +43,26 @@ class AuthController extends Controller
         $state = $request->query('state');
 
         if ($code === '') {
-            abort(400, 'Code is missing');
+            event(new OAuthFailure);
+            return abort(400, 'Code is missing');
+        } else {
+            $tokens = $this->client->getAuthentication()->exchangeAuthorizationCode(
+                (string) $code,
+                is_string($state) ? $state : null
+            );
+            event(new OAuthSuccess($tokens));
+            return redirect()->to('/');
         }
+    }
 
-        $client = new Client;
-        $tokens = $this->client->getAuthentication()->exchangeAuthorizationCode(
-            (string) $code,
-            is_string($state) ? $state : null
-        );
-        event(new OAuthExchange($tokens));
-
+    /**
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function rejected(Request $request)
+    {
+        event(new OAuthFailure);
         return redirect()->to('/');
     }
 }

@@ -8,6 +8,8 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
 use Rat\eBaySDK\Events\GenericEvent;
 use Rat\eBaySDK\Events\UnknownEvent;
+use Rat\eBaySDK\Notifications\GenericNotification;
+use Rat\eBaySDK\Notifications\UnknownNotification;
 
 class EventController extends Controller
 {
@@ -53,15 +55,15 @@ class EventController extends Controller
         // Execute Event Action
         $eventName = $payload['NotificationEventName'];
         if ($eventName === '') {
-            event(new UnknownEvent('[missing]', $headers, $payload, $content));
+            event(new UnknownNotification('[missing]', $headers, $payload, $content));
         } else {
-            event(new GenericEvent($eventName, $headers, $payload, $content));
+            event(new GenericNotification($eventName, $headers, $payload, $content));
 
-            $class = "Rat\\eBaySDK\\Events\\{$eventName}";
+            $class = "Rat\\eBaySDK\\Notifications\\{$eventName}";
             if (class_exists($class)) {
                 event(new $class($headers, $payload));
             } else {
-                event(new UnknownEvent($eventName, $headers, $payload, $content));
+                event(new UnknownNotification($eventName, $headers, $payload, $content));
             }
         }
 

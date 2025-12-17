@@ -9,8 +9,14 @@ Route::prefix('ebay')->name('ebay-sdk.')->group(function () {
         ->name('webhook.notify');
 
     Route::get('/oauth/authorize', [AuthController::class, 'authorize'])
-        ->name('oauth.authorize');
+        ->name('oauth.authorize')
+        ->middleware('web');
 
     Route::get('/oauth/callback', [AuthController::class, 'handleCallback'])
-        ->name('oauth.callback');
+        ->name('oauth.callback')
+        ->middleware('web');
+
+    Route::get('/oauth/rejected', [AuthController::class, 'rejected'])
+        ->name('oauth.rejected')
+        ->middleware('web');
 });

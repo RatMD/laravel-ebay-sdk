@@ -8,14 +8,14 @@ return [
      |
      | - client_id: Your eBay App's Client ID (App ID).
      | - client_secret: Your eBay App's Client Secret (Cert ID).
-     | - redirect_url: Your eBay App's Redirect URI or RuName.
+     | - redirect_uri: Your eBay App's Redirect URI or RuName.
      | - environment: The desired environment 'sandbox' or 'production'.
      |
      */
     'credentials' => [
         'client_id' => env('EBAY_CLIENT_ID', null),
         'client_secret' => env('EBAY_CLIENT_SECRET', null),
-        'redirect_url' => env('EBAY_REDIRECT_URI', null),
+        'redirect_uri' => env('EBAY_REDIRECT_URI', null),
         'environment' => env('EBAY_API_ENVIRONMENT', 'sandbox'),
     ],
 
