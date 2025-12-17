@@ -310,8 +310,6 @@ class Client
         $options['body'] = $body->render(
             $request,
             $this->auth->getAccessToken(),
-            $level,
-            $siteId
         );
 
         // Custom Headers

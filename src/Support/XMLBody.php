@@ -8,11 +8,11 @@ class XMLBody
 {
     /**
      *
-     * @param array|string $payload
+     * @param null|array|string $payload
      * @return void
      */
     public function __construct(
-        protected array|string $payload
+        protected null|array|string $payload = null
     ){ }
 
     /**
@@ -56,11 +56,9 @@ class XMLBody
      *
      * @param TraditionalAPIRequest $request
      * @param string $authToken
-     * @param string $compatibilityLevel
-     * @param int $siteId
      * @return string
      */
-    public function render(TraditionalAPIRequest $request, string $authToken, string $compatibilityLevel, int $siteId)
+    public function render(TraditionalAPIRequest $request, string $authToken)
     {
         $payload = is_array($this->payload) ? $this->arrayToXml($this->payload) : $this->payload;
         $authToken = htmlspecialchars($authToken, \ENT_XML1);
@@ -74,7 +72,7 @@ class XMLBody
                 <RequesterCredentials>
                     <eBayAuthToken>{$authToken}</eBayAuthToken>
                 </RequesterCredentials>
-                <Version>{$$request->compatibilityLevel()}</Version>
+                <Version>{$request->compatibilityLevel()}</Version>
                 <WarningLevel>{$request->warningLevel()}</WarningLevel>
 
                 {$payload}

@@ -16,11 +16,11 @@ class LeaveFeedback implements TraditionalAPIRequest
 
     /**
      * Create a new instance.
-     * @param array|string $payload
+     * @param null|array|string $payload
      * @return void
      */
     public function __construct(
-        public readonly array|string $payload,
+        public readonly null|array|string $payload = null,
     ) { }
 
     /**
