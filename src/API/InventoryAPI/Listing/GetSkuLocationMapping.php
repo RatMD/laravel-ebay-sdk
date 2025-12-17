@@ -52,9 +52,10 @@ class GetSkuLocationMapping implements BaseAPIRequest
      */
     public function params(): array
     {
+        $sku = str_replace('#', '%23', $this->sku);
         return [
             'listingId' => $this->listingId,
-            'sku'       => $this->sku,
+            'sku'       => $sku,
         ];
     }
 }

@@ -50,6 +50,7 @@ class DeleteInventoryItem implements BaseAPIRequest
      */
     public function params(): array
     {
-        return ['sku' => $this->sku];
+        $sku = str_replace('#', '%23', $this->sku);
+        return ['sku' => $sku];
     }
 }
