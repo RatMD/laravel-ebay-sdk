@@ -4,14 +4,21 @@ namespace Rat\eBaySDK;
 
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
 use Illuminate\Validation\ValidationException;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Rat\eBaySDK\Authentication\OAuthAuthentication;
 use Rat\eBaySDK\Contracts\Authentication;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Contracts\MediaAPIRequest;
 use Rat\eBaySDK\Contracts\TraditionalAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
+use Rat\eBaySDK\Events\APIRequest;
+use Rat\eBaySDK\Events\APIResponse;
 use Rat\eBaySDK\Exceptions\AuthorizationException;
+use Rat\eBaySDK\Exceptions\RequestException;
 use Rat\eBaySDK\Support\MultipartBody;
 use Rat\eBaySDK\Support\XMLBody;
 
@@ -77,7 +84,7 @@ class Client
         array $options = []
     ) {
         $this->auth = $auth ?? new OAuthAuthentication(environment: $environment, options: $options);
-        $this->environment = $environment ?? config('ebay-sdk.environment', null);
+        $this->environment = $environment ?? config('ebay-sdk.credentials.environment', null);
         $this->options = [
             'debug'     => $options['debug'] ?? config('ebay-sdk.options.debug', false),
             'caching'   => $options['caching'] ?? config('ebay-sdk.options.caching', true),
@@ -163,6 +170,29 @@ class Client
     }
 
     /**
+     *
+     * @param RequestInterface $request
+     * @param array $options
+     * @return void
+     */
+    protected function before(RequestInterface $request, array $options)
+    {
+        event(new APIRequest($request, $options));
+    }
+
+    /**
+     *
+     * @param RequestInterface $request
+     * @param array $options
+     * @param ResponseInterface $response
+     * @return void
+     */
+    protected function after(RequestInterface $request, array $options, ResponseInterface $response)
+    {
+        event(new APIResponse($request, $options, $response));
+    }
+
+    /**
      * Get the Guzzle HTTP client configured with authentication headers.
      * @param bool $credentialsToken
      * @param ?string $baseUri
@@ -171,10 +201,17 @@ class Client
     public function getClient(bool $credentialsToken = false, ?string $baseUri = null): GuzzleClient
     {
         $token = $credentialsToken ? $this->auth->getClientCredentialsToken() : $this->auth->getAccessToken();
+        $stack = HandlerStack::create();
+        $stack->push(Middleware::tap(
+            fn ($request, $options) => $this->before($request, $options),
+            fn ($request, $options, $response) => $this->after($request, $options, $response),
+        ));
         return new GuzzleClient([
             'base_uri'  => $baseUri ?? $this->getBaseUri(),
+            'handler'   => $stack,
             'headers'   => [
                 'Accept'            => 'application/json',
+                'Accept-Language'   => $this->options['locale'],
                 'Authorization'     => "Bearer {$token}",
                 'Content-Language'  => $this->options['locale'],
             ],
@@ -211,11 +248,86 @@ class Client
     /**
      *
      * @param BaseAPIRequest $request
+     * @param array $options
+     * @return array
+     */
+    protected function prepareRequest(BaseAPIRequest $request, array $options): array
+    {
+        $body = $request->body();
+
+        // Set Body
+        if ($body instanceof MultipartBody) {
+            $options['multipart'] = $body->toArray();
+        } else if (is_array($body)) {
+            $options['headers']['Content-Type'] = 'application/json';
+            $options['json'] = $body;
+        } else {
+            $options['body'] = $body;
+        }
+
+        // Custom Headers
+        foreach ($request->headers() AS $key => $value) {
+            $options['headers'][$key] = $value;
+        }
+
+        return [$options, $body instanceof MultipartBody ? $body : null];
+    }
+
+    /**
+     *
+     * @param TraditionalAPIRequest $request
+     * @param array $options
+     * @return array
+     */
+    protected function prepareTraditionalRequest(TraditionalAPIRequest $request, array $options): array
+    {
+        if (empty($applicationKeys = $this->applicationKeys)) {
+            throw new AuthorizationException(
+                'No traditional application keys has been set. Call setTraditionalApplicationKeys() before using a TraditionalAPI request.'
+            );
+        }
+
+        $body = $request->body();
+        if (!($body instanceof XMLBody)) {
+            throw new AuthorizationException(
+                'No XMLBody passed by the request interface. The TraditionalAPIs only supports XMLBody instances.'
+            );
+        }
+
+        $level = $request->compatibilityLevel ?? config('ebay-sdk.traditional_compatibility_level', '1395');
+        $siteId = $request->siteId ?? config('ebay-sdk.traditional_site_id', 0);
+
+        // Set required options
+        $options['headers']['X-EBAY-API-COMPATIBILITY-LEVEL'] = $level;
+        $options['headers']['X-EBAY-API-APP-NAME'] = $applicationKeys['app_id'];
+        $options['headers']['X-EBAY-API-DEV-NAME'] = $applicationKeys['dev_id'];
+        $options['headers']['X-EBAY-API-CERT-NAME'] = $applicationKeys['cert_id'];
+        $options['headers']['X-EBAY-API-CALL-NAME'] = $request->callName();
+        $options['headers']['X-EBAY-API-SITEID'] = $siteId;
+        $options['headers']['Content-Type'] = 'text/xml; charset=utf-8';
+        $options['body'] = $body->render(
+            $request,
+            $this->auth->getAccessToken(),
+            $level,
+            $siteId
+        );
+
+        // Custom Headers
+        foreach ($request->headers() AS $key => $value) {
+            $options['headers'][$key] = $value;
+        }
+
+        return $options;
+    }
+
+    /**
+     *
+     * @param BaseAPIRequest $request
      * @return Response
      */
-    public function execute(BaseAPIRequest $request) {
-        $body = null;
-        $result = null;
+    public function execute(BaseAPIRequest $request): Response
+    {
+        $closer = null;
         try {
             $path = $this->preparePath($request);
             $options = ['headers' => []];
@@ -223,54 +335,14 @@ class Client
             // Validate Request
             $request->validate();
 
-            // Append Body
+            // Prepare Request
             if ($request instanceof TraditionalAPIRequest) {
-                if (empty($applicationKeys = $this->applicationKeys)) {
-                    throw new AuthorizationException(
-                        'No traditional application keys has been set. Call setTraditionalApplicationKeys() before using a TraditionalAPI request.'
-                    );
-                }
-
-                $body = $request->body();
-                if (!($body instanceof XMLBody)) {
-                    throw new AuthorizationException(
-                        'No XMLBody passed by the request interface. The TraditionalAPIs only supports XMLBody instances.'
-                    );
-                }
-                $level = $request->compatibilityLevel ?? config('ebay-sdk.traditional_compatibility_level', '1395');
-                $siteId = $request->siteId ?? config('ebay-sdk.traditional_site_id', 0);
-
-                $options['headers']['X-EBAY-API-COMPATIBILITY-LEVEL'] = $level;
-                $options['headers']['X-EBAY-API-APP-NAME'] = $applicationKeys['app_id'];
-                $options['headers']['X-EBAY-API-DEV-NAME'] = $applicationKeys['dev_id'];
-                $options['headers']['X-EBAY-API-CERT-NAME'] = $applicationKeys['cert_id'];
-                $options['headers']['X-EBAY-API-CALL-NAME'] = $request->callName();
-                $options['headers']['X-EBAY-API-SITEID'] = $siteId;
-                $options['headers']['Content-Type'] = 'text/xml; charset=utf-8';
-                $options['body'] = $body->render(
-                    $request,
-                    $this->auth->getAccessToken(),
-                    $level,
-                    $siteId
-                );
+                $options = $this->prepareTraditionalRequest($request, $options);
             } else if ($request->method() !== HTTPMethod::GET) {
-                $body = $request->body();
-
-                if ($body instanceof MultipartBody) {
-                    $options['multipart'] = $body->toArray();
-                } else if (is_array($body)) {
-                    $options['headers']['Content-Type'] = 'application/json';
-                    $options['json'] = $body;
-                } else {
-                    $options['body'] = $body;
-                }
+                [$options, $closer] = $this->prepareRequest($request, $options);
             }
 
-            foreach ($request->headers() AS $key => $value) {
-                $options['headers'][$key] = $value;
-            }
-
-            // Request
+            // Execute Request
             $client = $this->getClient(
                 $request->requiresCredentialsToken(),
                 $request instanceof MediaAPIRequest ? $this->getBaseApimUri() : null
@@ -280,16 +352,16 @@ class Client
                 (string) $path,
                 $options,
             );
-            $result = Response::createFromResponse($response);
+            return Response::createFromResponse($response);
         } catch (GuzzleException $exc) {
-            throw $exc;
-        } catch (ValidationException $exc) {
+            throw new RequestException("eBay Request failed ({$exc->getMessage()}).", previous: $exc);
+        } catch (AuthorizationException|ValidationException $exc) {
             throw $exc;
         } finally {
-            if ($body instanceof MultipartBody) {
-                $body->close();
+            if ($closer && $closer instanceof MultipartBody) {
+                $closer->close();
+                unset($closer);
             }
         }
-        return $result;
     }
 }
