@@ -211,10 +211,11 @@ class Client
     /**
      *
      * @param BaseAPIRequest $request
-     * @return void
+     * @return Response
      */
     public function execute(BaseAPIRequest $request) {
         $body = null;
+        $result = null;
         try {
             $path = $this->preparePath($request);
             $options = ['headers' => []];
@@ -279,14 +280,16 @@ class Client
                 (string) $path,
                 $options,
             );
+            $result = Response::createFromResponse($response);
         } catch (GuzzleException $exc) {
-
+            throw $exc;
         } catch (ValidationException $exc) {
-
+            throw $exc;
         } finally {
             if ($body instanceof MultipartBody) {
                 $body->close();
             }
         }
+        return $result;
     }
 }
