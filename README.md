@@ -166,9 +166,7 @@ Make sure to enable the option: “My server is ready to receive events”.
 
 To **Secure your webhook endpoint** the SDK supports an optional `webhook_token` in the 
 `ebay-sdk.php` configuration file. This shared secret is used to validate incoming webhook requests 
-from eBay.
-
-When a webhook_token is configured, include it in your webhook URL:
+from eBay. When a `webhook_token` is configured, include it in your webhook URL:
 
 https://example.tld/ebay/notify/{webhook_token}
 
