@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Route;
 use Rat\eBaySDK\Http\Controllers\AuthController;
 use Rat\eBaySDK\Http\Controllers\EventController;
 
