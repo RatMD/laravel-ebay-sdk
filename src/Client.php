@@ -204,7 +204,9 @@ class Client
         $stack = HandlerStack::create();
         $stack->push(Middleware::tap(
             fn ($request, $options) => $this->before($request, $options),
-            fn ($request, $options, $response) => $this->after($request, $options, $response),
+            fn ($request, $options, $promise) => $promise->then(
+                fn ($response) => $this->after($request, $options, $response)
+            ),
         ));
         return new GuzzleClient([
             'base_uri'  => $baseUri ?? $this->getBaseUri(),
