@@ -2,8 +2,8 @@ import { defineConfig } from "vitepress";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+    base: '/laravel-ebay-sdk/',
     srcDir: "docs",
-
     title: "Laravel eBay SDK",
     description: "The RAT Laravel eBay SDK",
     themeConfig: {
