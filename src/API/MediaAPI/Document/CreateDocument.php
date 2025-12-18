@@ -5,7 +5,7 @@ namespace Rat\eBaySDK\API\MediaAPI\Document;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\MediaAPIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\DocumentType;
 use Rat\eBaySDK\Enums\HTTPMethod;
 use Rat\eBaySDK\Enums\Language;
@@ -14,7 +14,7 @@ use Rat\eBaySDK\Enums\Language;
  * POST /document
  * @see https://developer.ebay.com/api-docs/commerce/media/resources/document/methods/createDocument
  */
-class CreateDocument implements MediaAPIRequest
+class CreateDocument implements BaseAPIRequest
 {
     use CommonMethods;
 
@@ -32,6 +32,18 @@ class CreateDocument implements MediaAPIRequest
     public function __construct(
         public readonly array $payload,
     ) { }
+
+    /**
+     * @inheritdoc
+     */
+    public function base(string $environment): ?string
+    {
+        if ($environment === 'production') {
+            return 'https://apim.ebay.com';
+        } else {
+            return 'https://apim.sandbox.ebay.com';
+        }
+    }
 
     /**
      * @inheritdoc

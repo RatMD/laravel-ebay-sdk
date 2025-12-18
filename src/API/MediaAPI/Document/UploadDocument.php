@@ -3,7 +3,7 @@
 namespace Rat\eBaySDK\API\MediaAPI\Document;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\MediaAPIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 use Rat\eBaySDK\Support\MultipartBody;
 
@@ -11,7 +11,7 @@ use Rat\eBaySDK\Support\MultipartBody;
  * POST /document/{documentId}/upload
  * @see https://developer.ebay.com/api-docs/commerce/media/resources/document/methods/uploadDocument
  */
-class UploadDocument implements MediaAPIRequest
+class UploadDocument implements BaseAPIRequest
 {
     use CommonMethods;
 
@@ -33,6 +33,18 @@ class UploadDocument implements MediaAPIRequest
         public readonly string $documentPath,
         public readonly ?string $fileName = null,
     ) { }
+
+    /**
+     * @inheritdoc
+     */
+    public function base(string $environment): ?string
+    {
+        if ($environment === 'production') {
+            return 'https://apim.ebay.com';
+        } else {
+            return 'https://apim.sandbox.ebay.com';
+        }
+    }
 
     /**
      * @inheritdoc

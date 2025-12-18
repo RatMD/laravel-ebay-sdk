@@ -6,6 +6,13 @@ use Rat\eBaySDK\Enums\HTTPMethod;
 
 interface BaseAPIRequest {
     /**
+     * The base environment URL.
+     * @param string $environment
+     * @return ?string
+     */
+    public function base(string $environment): ?string;
+
+    /**
      * The HTTP method used for the request.
      * @return HTTPMethod
      */

@@ -3,7 +3,7 @@
 namespace Rat\eBaySDK\API\MediaAPI\Video;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\MediaAPIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 use Rat\eBaySDK\Support\MultipartBody;
 
@@ -11,7 +11,7 @@ use Rat\eBaySDK\Support\MultipartBody;
  * POST /video/{videoId}/upload
  * @see https://developer.ebay.com/api-docs/commerce/media/resources/video/methods/uploadVideo
  */
-class UploadVideo implements MediaAPIRequest
+class UploadVideo implements BaseAPIRequest
 {
     use CommonMethods;
 
@@ -33,6 +33,18 @@ class UploadVideo implements MediaAPIRequest
         public readonly string $videoPath,
         public readonly ?string $fileName = null,
     ) { }
+
+    /**
+     * @inheritdoc
+     */
+    public function base(string $environment): ?string
+    {
+        if ($environment === 'production') {
+            return 'https://apim.ebay.com';
+        } else {
+            return 'https://apim.sandbox.ebay.com';
+        }
+    }
 
     /**
      * @inheritdoc

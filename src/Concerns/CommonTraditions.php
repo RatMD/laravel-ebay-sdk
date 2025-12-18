@@ -141,6 +141,14 @@ trait CommonTraditions
     /**
      * @inheritdoc
      */
+    public function base(string $environment): ?string
+    {
+        return null;
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function method(): HTTPMethod
     {
         return HTTPMethod::POST;

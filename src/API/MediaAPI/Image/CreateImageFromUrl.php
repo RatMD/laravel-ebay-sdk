@@ -3,14 +3,14 @@
 namespace Rat\eBaySDK\API\MediaAPI\Image;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\MediaAPIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
  * POST /image/create_image_from_url
  * @see https://developer.ebay.com/api-docs/commerce/media/resources/image/methods/createImageFromUrl
  */
-class CreateImageFromUrl implements MediaAPIRequest
+class CreateImageFromUrl implements BaseAPIRequest
 {
     use CommonMethods;
 
@@ -28,6 +28,18 @@ class CreateImageFromUrl implements MediaAPIRequest
     public function __construct(
         public readonly string $imageUrl,
     ) { }
+
+    /**
+     * @inheritdoc
+     */
+    public function base(string $environment): ?string
+    {
+        if ($environment === 'production') {
+            return 'https://apim.ebay.com';
+        } else {
+            return 'https://apim.sandbox.ebay.com';
+        }
+    }
 
     /**
      * @inheritdoc

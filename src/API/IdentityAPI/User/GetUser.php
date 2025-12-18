@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace Rat\eBaySDK\API\MediaAPI\Image;
+namespace Rat\eBaySDK\API\IdentityAPI\User;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
- * GET /image/{imageId}
- * @see https://developer.ebay.com/api-docs/commerce/media/resources/image/methods/getImage
+ * GET /user
+ * @see https://developer.ebay.com/api-docs/sell/identity/resources/user/methods/getUser
  */
-class GetImage implements BaseAPIRequest
+class GetUser implements BaseAPIRequest
 {
     use CommonMethods;
 
@@ -18,16 +18,13 @@ class GetImage implements BaseAPIRequest
      * API Ressource Path
      * @var string
      */
-    public const PATH = '/commerce/media/v1_beta/image/{imageId}';
+    public const PATH = '/commerce/identity/v1/user/';
 
     /**
      * Create a new instance.
-     * @param string $imageId
      * @return void
      */
-    public function __construct(
-        public readonly string $imageId,
-    ) { }
+    public function __construct() { }
 
     /**
      * @inheritdoc
@@ -35,9 +32,9 @@ class GetImage implements BaseAPIRequest
     public function base(string $environment): ?string
     {
         if ($environment === 'production') {
-            return 'https://apim.ebay.com';
+            return 'https://apiz.ebay.com';
         } else {
-            return 'https://apim.sandbox.ebay.com';
+            return 'https://apiz.sandbox.ebay.com';
         }
     }
 
@@ -55,13 +52,5 @@ class GetImage implements BaseAPIRequest
     public function path(): string
     {
         return self::PATH;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function params(): array
-    {
-        return ['imageId' => $this->imageId];
     }
 }

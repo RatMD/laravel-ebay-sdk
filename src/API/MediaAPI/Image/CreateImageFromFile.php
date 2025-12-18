@@ -3,7 +3,7 @@
 namespace Rat\eBaySDK\API\MediaAPI\Image;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
-use Rat\eBaySDK\Contracts\MediaAPIRequest;
+use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 use Rat\eBaySDK\Support\MultipartBody;
 
@@ -11,7 +11,7 @@ use Rat\eBaySDK\Support\MultipartBody;
  * POST /image/create_image_from_file
  * @see https://developer.ebay.com/api-docs/commerce/media/resources/image/methods/createImageFromFile
  */
-class CreateImageFromFile implements MediaAPIRequest
+class CreateImageFromFile implements BaseAPIRequest
 {
     use CommonMethods;
 
@@ -31,6 +31,18 @@ class CreateImageFromFile implements MediaAPIRequest
         public readonly string $imagePath,
         public readonly ?string $fileName = null,
     ) { }
+
+    /**
+     * @inheritdoc
+     */
+    public function base(string $environment): ?string
+    {
+        if ($environment === 'production') {
+            return 'https://apim.ebay.com';
+        } else {
+            return 'https://apim.sandbox.ebay.com';
+        }
+    }
 
     /**
      * @inheritdoc

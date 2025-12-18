@@ -12,7 +12,6 @@ use Psr\Http\Message\ResponseInterface;
 use Rat\eBaySDK\Authentication\OAuthAuthentication;
 use Rat\eBaySDK\Contracts\Authentication;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;
-use Rat\eBaySDK\Contracts\MediaAPIRequest;
 use Rat\eBaySDK\Contracts\TraditionalAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 use Rat\eBaySDK\Events\APIRequest;
@@ -35,18 +34,6 @@ class Client
      * @var string
      */
     public const API_SANDBOX_URL = 'https://api.sandbox.ebay.com';
-
-    /**
-     *
-     * @var string
-     */
-    public const APIM_PRODUCTION_URL = 'https://apim.ebay.com';
-
-    /**
-     *
-     * @var string
-     */
-    public const APIM_SANDBOX_URL = 'https://apim.sandbox.ebay.com';
 
     /**
      *
@@ -156,17 +143,6 @@ class Client
         return $this->environment === 'production'
             ? self::API_PRODUCTION_URL
             : self::API_SANDBOX_URL;
-    }
-
-    /**
-     *
-     * @return string
-     */
-    protected function getBaseApimUri(): string
-    {
-        return $this->environment === 'production'
-            ? self::APIM_PRODUCTION_URL
-            : self::APIM_SANDBOX_URL;
     }
 
     /**
@@ -345,7 +321,7 @@ class Client
             // Execute Request
             $client = $this->getClient(
                 $request->requiresCredentialsToken(),
-                $request instanceof MediaAPIRequest ? $this->getBaseApimUri() : null
+                $request->base($this->environment)
             );
             $response = $client->request(
                 $request->method()->value,

@@ -7,6 +7,14 @@ trait CommonMethods
     /**
      * @inheritdoc
      */
+    public function base(string $environment): ?string
+    {
+        return null;
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function params(): array
     {
         return [];
