@@ -44,6 +44,13 @@ export default defineConfig({
                         { text: "TraditionalAPI (XML)", link: "/reference/api/traditional-api" },
                     ],
                 },
+                {
+                    text: "Events",
+                    items: [
+                        { text: "Package Events", link: "/reference/events/package" },
+                        { text: "eBay Notifications", link: "/reference/events/ebay" },
+                    ],
+                },
             ]
         },
 
