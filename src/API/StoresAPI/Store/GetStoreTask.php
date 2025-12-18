@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Rat\eBaySDK\API\StoreAPI\Store;
+namespace Rat\eBaySDK\API\StoresAPI\Store;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;

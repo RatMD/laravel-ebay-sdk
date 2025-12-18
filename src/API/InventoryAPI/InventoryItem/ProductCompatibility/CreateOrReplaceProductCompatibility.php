@@ -10,7 +10,7 @@ use Rat\eBaySDK\Enums\HTTPMethod;
  * PUT /inventory_item/{sku}/product_compatibility
  * @see https://developer.ebay.com/api-docs/sell/inventory/resources/inventory_item/product_compatibility/methods/createOrReplaceProductCompatibility
  */
-class CreateOrReplaceInventoryItem implements BaseAPIRequest
+class CreateOrReplaceProductCompatibility implements BaseAPIRequest
 {
     use CommonMethods;
 

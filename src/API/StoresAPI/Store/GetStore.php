@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace Rat\eBaySDK\API\StoreAPI\Store;
+namespace Rat\eBaySDK\API\StoresAPI\Store;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
- * GET /store/categories
- * @see https://developer.ebay.com/api-docs/sell/stores/resources/store/methods/getStoreCategories
+ * GET /store
+ * @see https://developer.ebay.com/api-docs/sell/stores/resources/store/methods/getStore
  */
-class GetStoreCategories implements BaseAPIRequest
+class GetStore implements BaseAPIRequest
 {
     use CommonMethods;
 
@@ -18,7 +18,7 @@ class GetStoreCategories implements BaseAPIRequest
      * API Ressource Path
      * @var string
      */
-    public const PATH = '/sell/stores/v1/store/categories';
+    public const PATH = '/sell/stores/v1/store';
 
     /**
      * Create a new instance.

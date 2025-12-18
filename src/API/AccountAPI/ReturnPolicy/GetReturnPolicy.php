@@ -7,7 +7,7 @@ use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
- * GET /return_policy/{paymentPreturnPolicyIdolicyId}
+ * GET /return_policy/{returnPolicyId}
  * @see https://developer.ebay.com/api-docs/sell/account/resources/return_policy/methods/getReturnPolicy
  */
 class GetReturnPolicy implements BaseAPIRequest

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Rat\eBaySDK\API\InventoryAPI\Offer;
+namespace Rat\eBaySDK\API\StoresAPI\Store;
 
 use Illuminate\Support\Facades\Validator;
 use Rat\eBaySDK\Concerns\CommonMethods;
@@ -8,10 +8,10 @@ use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
- * POST /offer/get_listing_fees
- * @see https://developer.ebay.com/api-docs/sell/inventory/resources/offer/methods/getListingFees
+ * PUT /store/categories/{categoryId}
+ * @see https://developer.ebay.com/api-docs/sell/stores/resources/store/methods/renameStoreCategory
  */
-class GetListingOffer implements BaseAPIRequest
+class MoveStoreCategory implements BaseAPIRequest
 {
     use CommonMethods;
 
@@ -19,14 +19,16 @@ class GetListingOffer implements BaseAPIRequest
      * API Ressource Path
      * @var string
      */
-    public const PATH = '/sell/inventory/v1/offer/get_listing_fees';
+    public const PATH = '/sell/stores/v1/store/categories/{categoryId}';
 
     /**
      * Create a new instance.
+     * @param string $categoryId
      * @param array $payload
      * @return void
      */
     public function __construct(
+        public readonly string $categoryId,
         public readonly array $payload,
     ) { }
 
@@ -35,7 +37,7 @@ class GetListingOffer implements BaseAPIRequest
      */
     public function method(): HTTPMethod
     {
-        return HTTPMethod::POST;
+        return HTTPMethod::PUT;
     }
 
     /**
@@ -44,6 +46,14 @@ class GetListingOffer implements BaseAPIRequest
     public function path(): string
     {
         return self::PATH;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function params(): array
+    {
+        return ['categoryId' => $this->categoryId];
     }
 
     /**
@@ -59,9 +69,8 @@ class GetListingOffer implements BaseAPIRequest
      */
     public function validate(): void
     {
-        Validator::make($this->payload, [
-            'offers'            => ['required', 'array', 'min:1', 'max:250'],
-            'offers.*.offerId'  => ['required'],
+        Validator::make($this->query(), [
+            'categoryName'  => ['required', 'max:35'],
         ])->validate();
     }
 }

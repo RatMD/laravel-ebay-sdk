@@ -26,7 +26,8 @@ class GetPayout implements BaseAPIRequest
      * @return void
      */
     public function __construct(
-        public readonly string $marketplaceId
+        public readonly string $marketplaceId,
+        public readonly string $payoutId,
     ) { }
 
     /**
@@ -43,6 +44,16 @@ class GetPayout implements BaseAPIRequest
     public function path(): string
     {
         return self::PATH;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function params(): array
+    {
+        return [
+            'payoutId'  => $this->payoutId,
+        ];
     }
 
     /**

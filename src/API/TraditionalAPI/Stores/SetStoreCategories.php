@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace Rat\eBaySDK\API\TraditionalAPI\Store;
+namespace Rat\eBaySDK\API\TraditionalAPI\Stores;
 
 use Rat\eBaySDK\Concerns\CommonTraditions;
 use Rat\eBaySDK\Contracts\TraditionalAPIRequest;
 use Rat\eBaySDK\Support\XMLBody;
 
 /**
- * GetStoreCategoryUpdateStatus
- * @see https://developer.ebay.com/devzone/xml/docs/Reference/eBay/GetStoreCategoryUpdateStatus.html
+ * SetStoreCategories
+ * @see https://developer.ebay.com/devzone/xml/docs/Reference/eBay/SetStoreCategories.html
  */
-class GetStoreCategoryUpdateStatus implements TraditionalAPIRequest
+class SetStoreCategories implements TraditionalAPIRequest
 {
     use CommonTraditions;
 

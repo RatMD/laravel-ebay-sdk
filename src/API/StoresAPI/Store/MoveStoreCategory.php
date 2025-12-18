@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Rat\eBaySDK\API\StoreAPI\Store;
+namespace Rat\eBaySDK\API\StoresAPI\Store;
 
 use Illuminate\Support\Facades\Validator;
 use Rat\eBaySDK\Concerns\CommonMethods;
@@ -8,10 +8,10 @@ use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
- * POST /store/categories
- * @see https://developer.ebay.com/api-docs/sell/stores/resources/store/methods/addStoreCategory
+ * POST /store/categories/move_category
+ * @see https://developer.ebay.com/api-docs/sell/stores/resources/store/methods/moveStoreCategory
  */
-class AddStoreCategory implements BaseAPIRequest
+class MoveStoreCategory implements BaseAPIRequest
 {
     use CommonMethods;
 
@@ -19,7 +19,7 @@ class AddStoreCategory implements BaseAPIRequest
      * API Ressource Path
      * @var string
      */
-    public const PATH = '/sell/stores/v1/store/categories';
+    public const PATH = '/sell/stores/v1/store/categories/move_category';
 
     /**
      * Create a new instance.
@@ -60,7 +60,8 @@ class AddStoreCategory implements BaseAPIRequest
     public function validate(): void
     {
         Validator::make($this->query(), [
-            'categoryName'  => ['required', 'max:35'],
+            'categoryId'                    => ['required'],
+            'destinationParentCategoryId'   => ['required'],
         ])->validate();
     }
 }

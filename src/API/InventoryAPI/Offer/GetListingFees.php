@@ -1,16 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace Rat\eBaySDK\API\StoreAPI\Store;
+namespace Rat\eBaySDK\API\InventoryAPI\Offer;
 
+use Illuminate\Support\Facades\Validator;
 use Rat\eBaySDK\Concerns\CommonMethods;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
- * DELETE /store/categories/{categoryId}
- * @see https://developer.ebay.com/api-docs/sell/stores/resources/store/methods/deleteStoreCategory
+ * POST /offer/get_listing_fees
+ * @see https://developer.ebay.com/api-docs/sell/inventory/resources/offer/methods/getListingFees
  */
-class DeleteStoreCategory implements BaseAPIRequest
+class GetListingFees implements BaseAPIRequest
 {
     use CommonMethods;
 
@@ -18,16 +19,14 @@ class DeleteStoreCategory implements BaseAPIRequest
      * API Ressource Path
      * @var string
      */
-    public const PATH = '/sell/stores/v1/store/categories/{categoryId}';
+    public const PATH = '/sell/inventory/v1/offer/get_listing_fees';
 
     /**
      * Create a new instance.
-     * @param string $categoryId
      * @param array $payload
      * @return void
      */
     public function __construct(
-        public readonly string $categoryId,
         public readonly array $payload,
     ) { }
 
@@ -36,7 +35,7 @@ class DeleteStoreCategory implements BaseAPIRequest
      */
     public function method(): HTTPMethod
     {
-        return HTTPMethod::DELETE;
+        return HTTPMethod::POST;
     }
 
     /**
@@ -50,16 +49,19 @@ class DeleteStoreCategory implements BaseAPIRequest
     /**
      * @inheritdoc
      */
-    public function params(): array
+    public function body(): array
     {
-        return ['categoryId' => $this->categoryId];
+        return $this->payload;
     }
 
     /**
      * @inheritdoc
      */
-    public function body(): array
+    public function validate(): void
     {
-        return $this->payload;
+        Validator::make($this->payload, [
+            'offers'            => ['required', 'array', 'min:1', 'max:250'],
+            'offers.*.offerId'  => ['required'],
+        ])->validate();
     }
 }

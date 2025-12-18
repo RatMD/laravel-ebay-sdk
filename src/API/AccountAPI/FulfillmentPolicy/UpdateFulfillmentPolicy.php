@@ -10,7 +10,7 @@ use Rat\eBaySDK\Enums\HTTPMethod;
  * PUT /fulfillment_policy/{fulfillmentPolicyId}
  * @see https://developer.ebay.com/api-docs/sell/account/resources/fulfillment_policy/methods/updateFulfillmentPolicy
  */
-class CreateFulfillmentPolicy implements BaseAPIRequest
+class UpdateFulfillmentPolicy implements BaseAPIRequest
 {
     use CommonMethods;
 

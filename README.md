@@ -192,4 +192,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ## License
 Published under MIT License \
-Copyright © 2023 - 2025 Sam @ rat.md
+Copyright © 2024 - 2026 Sam @ rat.md
+
+This software is not an official eBay product and is not associated with, sponsored by, or endorsed 
+by eBay Inc.

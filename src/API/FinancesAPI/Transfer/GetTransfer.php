@@ -22,13 +22,13 @@ class GetTransfer implements BaseAPIRequest
 
     /**
      * Create a new instance.
-     * @param string $transferId
      * @param string $marketplaceId
+     * @param string $transferId
      * @return void
      */
     public function __construct(
-        public readonly string $transferId,
         public readonly string $marketplaceId,
+        public readonly string $transferId,
     ) { }
 
     /**

@@ -1,17 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace Rat\eBaySDK\API\StoreAPI\Store;
+namespace Rat\eBaySDK\API\StoresAPI\Store;
 
-use Illuminate\Support\Facades\Validator;
 use Rat\eBaySDK\Concerns\CommonMethods;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
- * POST /store/categories/move_category
- * @see https://developer.ebay.com/api-docs/sell/stores/resources/store/methods/moveStoreCategory
+ * DELETE /store/categories/{categoryId}
+ * @see https://developer.ebay.com/api-docs/sell/stores/resources/store/methods/deleteStoreCategory
  */
-class MoveStoreCategory implements BaseAPIRequest
+class DeleteStoreCategory implements BaseAPIRequest
 {
     use CommonMethods;
 
@@ -19,14 +18,16 @@ class MoveStoreCategory implements BaseAPIRequest
      * API Ressource Path
      * @var string
      */
-    public const PATH = '/sell/stores/v1/store/categories/move_category';
+    public const PATH = '/sell/stores/v1/store/categories/{categoryId}';
 
     /**
      * Create a new instance.
+     * @param string $categoryId
      * @param array $payload
      * @return void
      */
     public function __construct(
+        public readonly string $categoryId,
         public readonly array $payload,
     ) { }
 
@@ -35,7 +36,7 @@ class MoveStoreCategory implements BaseAPIRequest
      */
     public function method(): HTTPMethod
     {
-        return HTTPMethod::POST;
+        return HTTPMethod::DELETE;
     }
 
     /**
@@ -49,19 +50,16 @@ class MoveStoreCategory implements BaseAPIRequest
     /**
      * @inheritdoc
      */
-    public function body(): array
+    public function params(): array
     {
-        return $this->payload;
+        return ['categoryId' => $this->categoryId];
     }
 
     /**
      * @inheritdoc
      */
-    public function validate(): void
+    public function body(): array
     {
-        Validator::make($this->query(), [
-            'categoryId'                    => ['required'],
-            'destinationParentCategoryId'   => ['required'],
-        ])->validate();
+        return $this->payload;
     }
 }

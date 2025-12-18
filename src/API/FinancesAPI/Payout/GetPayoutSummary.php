@@ -10,7 +10,7 @@ use Rat\eBaySDK\Enums\HTTPMethod;
  * GET /payout_summary
  * @see https://developer.ebay.com/api-docs/sell/finances/resources/payout/methods/getPayoutSummary
  */
-class GetPaymentSummary implements BaseAPIRequest
+class GetPayoutSummary implements BaseAPIRequest
 {
     use CommonMethods;
 
