@@ -32,15 +32,30 @@ export default defineConfig({
                     ]
                 },
                 {
-                    text: "APIs",
+                    text: "Selling APIs",
                     items: [
-                        { text: "AccountAPI", link: "/reference/api/account-api" },
-                        { text: "AccountAPI v2", link: "/reference/api/account-api-v2" },
-                        { text: "FeedAPI", link: "/reference/api/feed-api" },
-                        { text: "FinancesAPI", link: "/reference/api/finances-api" },
-                        { text: "InventoryAPI", link: "/reference/api/inventory-api" },
-                        { text: "MediaAPI", link: "/reference/api/media-api" },
-                        { text: "StoresAPI", link: "/reference/api/stores-api" },
+                        { text: "AccountAPI", link: "/reference/selling-apis/account-api" },
+                        { text: "AccountAPI v2", link: "/reference/selling-apis/account-api-v2" },
+                        { text: "AnalyticsAPI", link: "/reference/selling-apis/analytics-api" },
+                        { text: "CatalogAPI", link: "/reference/selling-apis/catalog-api" },
+                        { text: "ComplianceAPI", link: "/reference/selling-apis/compliance-api" },
+                        { text: "FeedAPI", link: "/reference/selling-apis/feed-api" },
+                        { text: "FeedbackAPI", link: "/reference/selling-apis/feedback-api" },
+                        { text: "FinancesAPI", link: "/reference/selling-apis/finances-api" },
+                        { text: "FulfillmentAPI", link: "/reference/selling-apis/fulfillment-api" },
+                        { text: "IdentityAPI", link: "/reference/selling-apis/identity-api" },
+                        { text: "InventoryAPI", link: "/reference/selling-apis/inventory-api" },
+                        { text: "LeadsAPI", link: "/reference/selling-apis/leads-api" },
+                        { text: "MarketingAPI", link: "/reference/selling-apis/marketing-api" },
+                        { text: "MediaAPI", link: "/reference/selling-apis/media-api" },
+                        { text: "MessageAPI", link: "/reference/selling-apis/message-api" },
+                        { text: "MetadataAPI", link: "/reference/selling-apis/metadata-api" },
+                        { text: "NegotiationAPI", link: "/reference/selling-apis/negotiation-api" },
+                        { text: "NotificationAPI", link: "/reference/selling-apis/notification-api" },
+                        { text: "RecommendationAPI", link: "/reference/selling-apis/recommendation-api" },
+                        { text: "StoresAPI", link: "/reference/selling-apis/stores-api" },
+                        { text: "TaxonomyAPI", link: "/reference/selling-apis/taxonomy-api" },
+                        { text: "TranslationAPI", link: "/reference/selling-apis/translation-api" },
                         { 
                             text: "TraditionalAPI (XML)", 
                             items: [
@@ -51,7 +66,8 @@ export default defineConfig({
                                 { text: "Order", link: "/reference/api/traditional/order" },
                                 { text: "Special", link: "/reference/api/traditional/special" },
                                 { text: "Stores", link: "/reference/api/traditional/stores" },
-                            ]
+                            ],
+                            collapsed: true
                         },
                     ],
                 },
