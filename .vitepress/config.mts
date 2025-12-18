@@ -9,25 +9,26 @@ export default defineConfig({
     themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
         nav: [
-            { text: "Guide", link: "/guide", activeMatch: '/guide' },
-            { text: "Reference", link: "/reference", activeMatch: '/reference' },
+            { text: "Guide", link: "/guide/start", activeMatch: '/guide' },
+            { text: "Reference", link: "/reference/overview", activeMatch: '/reference' },
         ],
 
         sidebar: {
             '/guide': [
                 {
-                    text: "Examples",
+                    text: "Guide",
                     items: [
-                        { text: "Markdown Examples", link: "/markdown-examples" },
-                        { text: "Runtime API Examples", link: "/api-examples" },
-                    ],
+                        { text: "Getting Started", link: "/guide/start" },
+                        { text: "Authorize (OAuth)", link: "/guide/authorize" },
+                        { text: "Webhook (Notifications)", link: "/guide/webhook" },
+                    ]
                 },
             ],
             '/reference': [
                 {
                     text: "Reference",
                     items: [
-                        { text: "Overview", link: "/reference/" },
+                        { text: "Overview", link: "/reference/overview" },
                     ]
                 },
                 {

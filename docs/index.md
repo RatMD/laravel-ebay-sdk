@@ -4,15 +4,15 @@ layout: home
 
 hero:
   name: "eBay SDK"
-  text: "The Laravel Edition"
+  text: "Laravel Edition"
   tagline: "An eBay SDK for integration with Laravel."
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: Getting Started
+      link: /guide/start
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: API Reference
+      link: /reference/overview
 
 features:
   - title: OAuth Flow
@@ -23,3 +23,12 @@ features:
     details: Support for eBay platform notifications with optional webhook validation.
 ---
 
+<div style="max-width:640px;margin-top:2.5rem">
+
+> [!CAUTION] This documentation is still under construction.
+
+> [!CAUTION]
+> This is an experimental eBay SDK under active development. Production use is discouraged.
+> Breaking changes may occur at any time, including minor and patch releases.
+
+</div>
