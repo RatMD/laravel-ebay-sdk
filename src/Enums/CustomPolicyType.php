@@ -5,7 +5,7 @@ namespace Rat\eBaySDK\Enums;
 /**
  * @see https://developer.ebay.com/api-docs/sell/account/types/api:CustomPolicyTypeEnum
  */
-enum CustomerServiceMetricType: string
+enum CustomPolicyType: string
 {
     /**
      * This enumeration value indicates that the custom policy is a product compliance policy.
