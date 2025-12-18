@@ -40,8 +40,19 @@ export default defineConfig({
                         { text: "FinancesAPI", link: "/reference/api/finances-api" },
                         { text: "InventoryAPI", link: "/reference/api/inventory-api" },
                         { text: "MediaAPI", link: "/reference/api/media-api" },
-                        { text: "StoreAPI", link: "/reference/api/store-api" },
-                        { text: "TraditionalAPI (XML)", link: "/reference/api/traditional-api" },
+                        { text: "StoresAPI", link: "/reference/api/stores-api" },
+                        { 
+                            text: "TraditionalAPI (XML)", 
+                            items: [
+                                { text: "Account", link: "/reference/api/traditional/account" },
+                                { text: "Communication", link: "/reference/api/traditional/communication" },
+                                { text: "Listing", link: "/reference/api/traditional/listing" },
+                                { text: "Metadata", link: "/reference/api/traditional/metadata" },
+                                { text: "Order", link: "/reference/api/traditional/order" },
+                                { text: "Special", link: "/reference/api/traditional/special" },
+                                { text: "Stores", link: "/reference/api/traditional/stores" },
+                            ]
+                        },
                     ],
                 },
                 {

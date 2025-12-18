@@ -1,5 +1,5 @@
 <template>
-    <a :href="`https://developer.ebay.com/api-docs/${$props.path}`" class="VPBadge" title="View Documentation on developer.ebay.com" target="_blank">
+    <a :href="url" class="VPBadge" title="View Documentation on developer.ebay.com" target="_blank">
         <span>eBay Docs</span>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -17,7 +17,16 @@ export interface ComponentProps {
 </script>
 
 <script lang="ts" setup>
-defineProps<ComponentProps>();
+import { computed } from 'vue';
+
+const props = defineProps<ComponentProps>();
+const url = computed<string>(() => {
+    if (props.path.startsWith('http')) {
+        return props.path;
+    } else {
+        return `https://developer.ebay.com/api-docs/${props.path}`;
+    }
+});
 </script>
 
 <style>
