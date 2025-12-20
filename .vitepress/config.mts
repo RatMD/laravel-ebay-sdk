@@ -37,6 +37,13 @@ export default defineConfig({
                     ]
                 },
                 {
+                    text: "Events",
+                    items: [
+                        { text: "Package Events", link: "/reference/events/package" },
+                        { text: "eBay Notifications", link: "/reference/events/ebay" },
+                    ],
+                },
+                {
                     text: "Selling APIs",
                     items: [
                         { text: "AccountAPI", link: "/reference/selling-apis/account-api" },
@@ -74,13 +81,6 @@ export default defineConfig({
                             ],
                             collapsed: true
                         },
-                    ],
-                },
-                {
-                    text: "Events",
-                    items: [
-                        { text: "Package Events", link: "/reference/events/package" },
-                        { text: "eBay Notifications", link: "/reference/events/ebay" },
                     ],
                 },
             ]
