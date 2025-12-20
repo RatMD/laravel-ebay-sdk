@@ -10,6 +10,7 @@ export default defineConfig({
         hostname: 'https://ratmd.github.io/laravel-ebay-sdk',
         lastmodDateOnly: true
     },
+    lastUpdated: true,
     themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
         nav: [
