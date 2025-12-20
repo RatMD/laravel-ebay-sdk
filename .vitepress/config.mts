@@ -71,13 +71,13 @@ export default defineConfig({
                         { 
                             text: "TraditionalAPI (XML)", 
                             items: [
-                                { text: "Account", link: "/reference/api/traditional/account" },
-                                { text: "Communication", link: "/reference/api/traditional/communication" },
-                                { text: "Listing", link: "/reference/api/traditional/listing" },
-                                { text: "Metadata", link: "/reference/api/traditional/metadata" },
-                                { text: "Order", link: "/reference/api/traditional/order" },
-                                { text: "Special", link: "/reference/api/traditional/special" },
-                                { text: "Stores", link: "/reference/api/traditional/stores" },
+                                { text: "Account", link: "/reference/selling-apis/traditional/account" },
+                                { text: "Communication", link: "/reference/selling-apis/traditional/communication" },
+                                { text: "Listing", link: "/reference/selling-apis/traditional/listing" },
+                                { text: "Metadata", link: "/reference/selling-apis/traditional/metadata" },
+                                { text: "Order", link: "/reference/selling-apis/traditional/order" },
+                                { text: "Special", link: "/reference/selling-apis/traditional/special" },
+                                { text: "Stores", link: "/reference/selling-apis/traditional/stores" },
                             ],
                             collapsed: true
                         },
