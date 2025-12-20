@@ -6,6 +6,10 @@ export default defineConfig({
     srcDir: "docs",
     title: "Laravel eBay SDK",
     description: "The RAT Laravel eBay SDK",
+    sitemap: {
+        hostname: 'https://ratmd.github.io/laravel-ebay-sdk',
+        lastmodDateOnly: true
+    },
     themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
         nav: [
@@ -92,6 +96,6 @@ export default defineConfig({
         footer: {
             message: 'This software is not an official eBay product and is not associated with, sponsored by, or endorsed by eBay Inc.',
             copyright: 'Copyright © rat.md, Published under MIT License.'
-        }
+        },
     },
 });
