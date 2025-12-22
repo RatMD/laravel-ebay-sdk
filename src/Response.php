@@ -63,6 +63,24 @@ class Response implements Arrayable
 
     /**
      *
+     * @return void
+     */
+    public function dump()
+    {
+        dump($this->toArray());
+    }
+
+    /**
+     *
+     * @return never
+     */
+    public function dd()
+    {
+        dd($this->toArray());
+    }
+
+    /**
+     *
      * @return ?string
      */
     public function location(): ?string

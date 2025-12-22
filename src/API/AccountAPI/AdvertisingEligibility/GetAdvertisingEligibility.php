@@ -5,6 +5,7 @@ namespace Rat\eBaySDK\API\AccountAPI\AdvertisingEligibility;
 use Rat\eBaySDK\Concerns\CommonMethods;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
+use Rat\eBaySDK\Enums\MarketplaceId;
 
 /**
  * GET /advertising_eligibility
@@ -22,12 +23,12 @@ class GetAdvertisingEligibility implements BaseAPIRequest
 
     /**
      * Create a new instance.
-     * @param string $marketplaceId
+     * @param MarketplaceId $marketplaceId
      * @param ?string $programTypes
      * @return void
      */
     public function __construct(
-        public readonly string $marketplaceId,
+        public readonly MarketplaceId $marketplaceId,
         public readonly ?string $programTypes = null
     ) { }
 
@@ -53,7 +54,7 @@ class GetAdvertisingEligibility implements BaseAPIRequest
     public function headers(): array
     {
         return [
-            'X-EBAY-C-MARKETPLACE-ID' => $this->marketplaceId
+            'X-EBAY-C-MARKETPLACE-ID' => $this->marketplaceId->value
         ];
     }
 

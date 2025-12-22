@@ -2,11 +2,11 @@
 
 namespace Rat\eBaySDK;
 
+use Exception;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
-use Illuminate\Validation\ValidationException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Rat\eBaySDK\Authentication\OAuthAuthentication;
@@ -17,6 +17,7 @@ use Rat\eBaySDK\Enums\HTTPMethod;
 use Rat\eBaySDK\Events\APIRequest;
 use Rat\eBaySDK\Events\APIResponse;
 use Rat\eBaySDK\Exceptions\AuthorizationException;
+use Rat\eBaySDK\Exceptions\DumpException;
 use Rat\eBaySDK\Exceptions\RequestException;
 use Rat\eBaySDK\Support\MultipartBody;
 use Rat\eBaySDK\Support\XMLBody;
@@ -58,6 +59,13 @@ class Client
      * @var array
      */
     private $applicationKeys = [];
+
+    /**
+     *
+     * @internal
+     * @var bool
+     */
+    private $throw = false;
 
     /**
      * Initialize a new instance of the Client class.
@@ -162,6 +170,17 @@ class Client
      */
     protected function before(RequestInterface $request, array $options)
     {
+        if ($this->throw) {
+            throw new DumpException([
+                'method'    => $request->getMethod(),
+                'protocol'  => $request->getProtocolVersion(),
+                'uri'       => $request->getUri(),
+                'headers'   => $request->getHeaders(),
+                'body'      => $request->getBody(),
+                'target'    => $request->getRequestTarget(),
+                'options'   => $options
+            ]);
+        }
         event(new APIRequest($request, $options));
     }
 
@@ -314,6 +333,26 @@ class Client
     /**
      *
      * @param BaseAPIRequest $request
+     * @return array
+     */
+    public function inspect(BaseAPIRequest $request): array
+    {
+        try {
+            $this->throw = true;
+            $this->execute($request);
+            return [];
+        } catch (DumpException $exc) {
+            return $exc->getDetails();
+        } catch (Exception $exc) {
+            throw $exc;
+        } finally {
+            $this->throw = false;
+        }
+    }
+
+    /**
+     *
+     * @param BaseAPIRequest $request
      * @return Response
      */
     public function execute(BaseAPIRequest $request): Response
@@ -346,7 +385,7 @@ class Client
             return Response::createFromResponse($response);
         } catch (GuzzleException $exc) {
             throw new RequestException("eBay Request failed ({$exc->getMessage()}).", previous: $exc);
-        } catch (AuthorizationException|ValidationException $exc) {
+        } catch (Exception $exc) {
             throw $exc;
         } finally {
             if ($closer && $closer instanceof MultipartBody) {

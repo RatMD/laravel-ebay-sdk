@@ -1,8 +1,10 @@
 <?php declare(strict_types=1);
 
 use Illuminate\Support\Arr;
+use Rat\eBaySDK\API\AccountAPI\AdvertisingEligibility\GetAdvertisingEligibility;
 use Rat\eBaySDK\API\AccountAPI\CustomPolicy\CreateCustomPolicy;
 use Rat\eBaySDK\API\AccountAPI\CustomPolicy\GetCustomPolicies;
+use Rat\eBaySDK\API\AccountAPI\CustomPolicy\GetCustomPolicy;
 use Rat\eBaySDK\API\AccountAPI\FulfillmentPolicy\CreateFulfillmentPolicy;
 use Rat\eBaySDK\API\AccountAPI\Program\GetOptedInPrograms;
 use Rat\eBaySDK\API\AccountAPI\Program\OptInToProgram;
@@ -11,6 +13,21 @@ use Rat\eBaySDK\Enums\CategoryType;
 use Rat\eBaySDK\Enums\CustomPolicyType;
 use Rat\eBaySDK\Enums\MarketplaceId;
 use Rat\eBaySDK\Enums\ProgramType;
+
+/**
+ * @covers Rat\eBaySDK\API\AccountAPI\AdvertisingEligibility\GetAdvertisingEligibility
+ */
+it('can retrieve advertising eligibilities using GetAdvertisingEligibility', function ()  {
+    $client = app(Client::class);
+
+    $response = $client->execute(new GetAdvertisingEligibility(
+        MarketplaceId::EBAY_AT
+    ));
+    expect($response->ok())->toBeTrue();
+    expect($response->content())
+        ->toBeArray()
+        ->toHaveKeys(['advertisingEligibility']);
+});
 
 /**
  * @covers Rat\eBaySDK\API\AccountAPI\CustomPolicy\CreateCustomPolicy
@@ -28,7 +45,7 @@ it('can create custom policy using CreateCustomPolicy', function ()  {
     expect($response->content())
         ->toBeArray()
         ->toHaveKeys(['total', 'customPolicies']);
-})->skip(message: '20500');
+});
 
 /**
  * @covers Rat\eBaySDK\API\AccountAPI\CustomPolicy\GetCustomPolicies
