@@ -35,9 +35,7 @@ return [
 >  
 > to match your application’s security and UX requirements.
 
-```php{5,8-9}
-<?php declare(strict_types=1);
-
+```php{3,6-7}
 use Illuminate\Support\Facades\Route;
 use Rat\eBaySDK\Http\Controllers\AuthController;
 use Rat\eBaySDK\Http\Controllers\EventController;
@@ -66,8 +64,6 @@ we at least highly recommend using the provided `NotificationDispatcher`, since 
 necessary XML-parsing and event handling code.
 
 ```php
-<?php declare(strict_types=1);
-
 namespace Rat\eBaySDK\Http\Controllers;
 
 use Illuminate\Http\Request;

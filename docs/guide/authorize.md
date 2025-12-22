@@ -45,9 +45,7 @@ return [
 >  
 > to match your application’s security and UX requirements.
 
-```php{4,11-22}
-<?php declare(strict_types=1);
-
+```php{2,9-20}
 use Illuminate\Support\Facades\Route;
 use Rat\eBaySDK\Http\Controllers\AuthController;
 use Rat\eBaySDK\Http\Controllers\EventController;
@@ -90,8 +88,6 @@ reimplement it based on your application’s architecture and error-handling str
 > - Redirect users appropriately.
 
 ```php
-<?php declare(strict_types=1);
-
 namespace Rat\eBaySDK\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
@@ -103,6 +99,20 @@ use Rat\eBaySDK\Events\OAuthSuccess;
 
 class AuthController extends Controller
 {
+    /**
+     *
+     * @param Client $client
+     * @return void
+     */
+    public function __construct(
+        private readonly Client $client
+    ) {}
+
+    /**
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function authorize(Request $request)
     {
         return redirect()->away(
@@ -110,6 +120,11 @@ class AuthController extends Controller
         );
     }
 
+    /**
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function handleCallback(Request $request)
     {
         $code = $request->query('code', '');
@@ -118,22 +133,28 @@ class AuthController extends Controller
         if ($code === '') {
             event(new OAuthFailure);
             return abort(400, 'Code is missing');
+        } else {
+            $tokens = $this->client->getAuthentication()->exchangeAuthorizationCode(
+                (string) $code,
+                is_string($state) ? $state : null
+            );
+            event(new OAuthSuccess($tokens));
+            return redirect()->to('/');
         }
-
-        $tokens = $this->client->getAuthentication()
-            ->exchangeAuthorizationCode($code, is_string($state) ? $state : null);
-
-        event(new OAuthSuccess($tokens));
-
-        return redirect()->to('/');
     }
 
+    /**
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function rejected(Request $request)
     {
         event(new OAuthFailure);
         return redirect()->to('/');
     }
 }
+
 ```
 
 ## 3. Create and Configure Your eBay Application
