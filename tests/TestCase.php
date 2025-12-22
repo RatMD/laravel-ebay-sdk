@@ -90,9 +90,7 @@ class TestCase extends Orchestra
                         'https://api.ebay.com/oauth/api_scope',
                         'https://api.ebay.com/oauth/api_scope/commerce.feedback',
                         'https://api.ebay.com/oauth/api_scope/commerce.identity.readonly',
-                        'https://api.ebay.com/oauth/api_scope/commerce.message',
                         'https://api.ebay.com/oauth/api_scope/commerce.notification.subscription',
-                        'https://api.ebay.com/oauth/api_scope/commerce.shipping',
                         'https://api.ebay.com/oauth/api_scope/commerce.vero',
                         'https://api.ebay.com/oauth/api_scope/sell.account',
                         'https://api.ebay.com/oauth/api_scope/sell.analytics.readonly',
@@ -104,7 +102,6 @@ class TestCase extends Orchestra
                         'https://api.ebay.com/oauth/api_scope/sell.payment.dispute',
                         'https://api.ebay.com/oauth/api_scope/sell.reputation',
                         'https://api.ebay.com/oauth/api_scope/sell.stores',
-                        'https://api.ebay.com/oauth/scope/sell.edelivery',
                     ],
                     credentialScopes: [
                         'https://api.ebay.com/oauth/api_scope',
