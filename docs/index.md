@@ -13,7 +13,6 @@ hero:
     - theme: alt
       text: API Reference
       link: /reference/overview
-
 features:
   - title: OAuth Flow
     details: Built-in OAuth authorization flow with automatic token handling and refresh support.
@@ -21,6 +20,10 @@ features:
     details: Unified client for both modern REST APIs and legacy traditional eBay APIs.
   - title: Push Notifications
     details: Support for eBay platform notifications with optional webhook validation.
+head:
+  - - meta
+    - name: google-site-verification
+    - content: _u-TbeHJxCNtAj2Cvo2RWxurRijAvmd5LWc6cY76L34
 ---
 
 <div style="max-width:640px;margin-top:2.5rem">
