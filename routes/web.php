@@ -8,15 +8,16 @@ Route::prefix('ebay')->name('ebay-sdk.')->group(function () {
     Route::post('/notify/{token?}', [EventController::class, 'dispatch'])
         ->name('webhook.notify');
 
-    Route::get('/oauth/authorize', [AuthController::class, 'authorize'])
-        ->name('oauth.authorize')
-        ->middleware('web');
+    Route::middleware(config('ebay-sdk.routes.oauth_middleware', ['web', 'auth', 'throttle:30,1']))
+        ->group(function() {
+            Route::get('/oauth/authorize', [AuthController::class, 'authorize'])
+                ->name('oauth.authorize');
 
-    Route::get('/oauth/callback', [AuthController::class, 'handleCallback'])
-        ->name('oauth.callback')
-        ->middleware('web');
+            Route::get('/oauth/callback', [AuthController::class, 'handleCallback'])
+                ->name('oauth.callback');
 
-    Route::get('/oauth/rejected', [AuthController::class, 'rejected'])
-        ->name('oauth.rejected')
-        ->middleware('web');
+            Route::get('/oauth/rejected', [AuthController::class, 'rejected'])
+                ->name('oauth.rejected');
+        }
+    );
 });

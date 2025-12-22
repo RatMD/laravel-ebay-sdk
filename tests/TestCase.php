@@ -84,7 +84,7 @@ class TestCase extends Orchestra
                     options: [
                         'debug'     => env('EBAY_DEBUG'),
                         'caching'   => env('EBAY_CACHING'),
-                        'locale'    => env('EBAY_CACHING'),
+                        'locale'    => env('EBAY_LOCALE'),
                     ],
                     authorizationScopes: [
                         'https://api.ebay.com/oauth/api_scope',

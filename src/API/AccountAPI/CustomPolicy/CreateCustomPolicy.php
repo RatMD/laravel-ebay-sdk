@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Rat\eBaySDK\Concerns\CommonMethods;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;
-use Rat\eBaySDK\Enums\CustomerServiceMetricType;
+use Rat\eBaySDK\Enums\CustomPolicyType;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
@@ -65,7 +65,7 @@ class CreateCustomPolicy implements BaseAPIRequest
             'description'   => ['required', 'min:1', 'max:15000'],
             'label'         => ['required', 'min:1', 'max:65'],
             'name'          => ['required', 'min:1', 'max:65'],
-            'policyType'    => ['required', Rule::enum(CustomerServiceMetricType::class)],
+            'policyType'    => ['required', Rule::enum(CustomPolicyType::class)],
         ])->validate();
     }
 }

@@ -63,6 +63,15 @@ class Response implements Arrayable
 
     /**
      *
+     * @return ?string
+     */
+    public function location(): ?string
+    {
+        return $this->headers['Location'] ?? $this->headers['location'] ?? null;
+    }
+
+    /**
+     *
      * @return bool
      */
     public function ok(): bool
