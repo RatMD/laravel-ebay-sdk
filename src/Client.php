@@ -198,6 +198,7 @@ class Client
             'handler'   => $stack,
             'headers'   => [
                 'Accept'            => 'application/json',
+                'Accept-Charset'    => 'utf-8',
                 'Accept-Language'   => $this->options['locale'],
                 'Authorization'     => "Bearer {$token}",
                 'Content-Language'  => $this->options['locale'],
@@ -240,16 +241,21 @@ class Client
      */
     protected function prepareRequest(BaseAPIRequest $request, array $options): array
     {
-        $body = $request->body();
+        $body = null;
+        if ($request->method() !== HTTPMethod::GET) {
+            $body = $request->body();
 
-        // Set Body
-        if ($body instanceof MultipartBody) {
-            $options['multipart'] = $body->toArray();
-        } else if (is_array($body)) {
-            $options['headers']['Content-Type'] = 'application/json';
-            $options['json'] = $body;
+            // Set Body
+            if ($body instanceof MultipartBody) {
+                $options['multipart'] = $body->toArray();
+            } else if (is_array($body)) {
+                $options['headers']['Content-Type'] = 'application/json';
+                $options['json'] = $body;
+            } else {
+                $options['body'] = $body;
+            }
         } else {
-            $options['body'] = $body;
+            $options['headers']['Content-Type'] = 'application/json';
         }
 
         // Custom Headers
@@ -257,7 +263,7 @@ class Client
             $options['headers'][$key] = $value;
         }
 
-        return [$options, $body instanceof MultipartBody ? $body : null];
+        return [$options, $body && $body instanceof MultipartBody ? $body : null];
     }
 
     /**
@@ -323,7 +329,7 @@ class Client
             // Prepare Request
             if ($request instanceof TraditionalAPIRequest) {
                 $options = $this->prepareTraditionalRequest($request, $options);
-            } else if ($request->method() !== HTTPMethod::GET) {
+            } else {
                 [$options, $closer] = $this->prepareRequest($request, $options);
             }
 

@@ -22,10 +22,12 @@ class GetAdvertisingEligibility implements BaseAPIRequest
 
     /**
      * Create a new instance.
+     * @param string $marketplaceId
      * @param ?string $programTypes
      * @return void
      */
     public function __construct(
+        public readonly string $marketplaceId,
         public readonly ?string $programTypes = null
     ) { }
 
@@ -48,8 +50,18 @@ class GetAdvertisingEligibility implements BaseAPIRequest
     /**
      * @inheritdoc
      */
+    public function headers(): array
+    {
+        return [
+            'X-EBAY-C-MARKETPLACE-ID' => $this->marketplaceId
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function query(): array
     {
-        return ['program_types' => $this->programTypes];
+        return ['marketplace_id' => $this->marketplaceId, 'program_types' => $this->programTypes];
     }
 }

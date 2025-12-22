@@ -1,12 +1,15 @@
 <?php declare(strict_types=1);
 
-use Rat\eBaySDK\API\AccountAPI\RateTable\GetRateTables;
+use Rat\eBaySDK\API\AccountAPI\AdvertisingEligibility\GetAdvertisingEligibility;
+use Rat\eBaySDK\API\AccountAPI\CustomPolicy\GetCustomPolicies;
 use Rat\eBaySDK\Client;
-use Rat\eBaySDK\Enums\CountryCode;
 
-it('can retrieve RateTables', function ()  {
+it('can retrieve policies using GetCustomPolicies', function ()  {
     $client = app(Client::class);
 
-    $response = $client->execute(new GetRateTables(CountryCode::DE));
-    dd($response);
+    $response = $client->execute(new GetCustomPolicies());
+    expect($response->ok())->toBeTrue();
+    expect($response->content())
+        ->toBeArray()
+        ->toHaveKeys(['total', 'customPolicies']);
 });

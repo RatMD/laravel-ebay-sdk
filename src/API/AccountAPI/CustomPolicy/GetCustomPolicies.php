@@ -22,11 +22,11 @@ class GetCustomPolicies implements BaseAPIRequest
 
     /**
      * Create a new instance.
-     * @param string $policyTypes
+     * @param ?string $policyTypes
      * @return void
      */
     public function __construct(
-        public readonly string $policyTypes,
+        public readonly ?string $policyTypes = null,
     ) { }
 
     /**
