@@ -32,6 +32,7 @@ export default defineConfig({
                     text: "Known Issues",
                     items: [
                         { text: "API Errors", link: "/guide/errors" },
+                        { text: "Debugging", link: "/guide/debug" },
                     ]
                 },
             ],

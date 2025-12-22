@@ -20,10 +20,11 @@ This method allows developers to check the seller eligibility status for eBay ad
 ```php
 use Rat\eBaySDK\API\AccountAPI\AdvertisingEligibility\GetAdvertisingEligibility;
 use Rat\eBaySDK\Client;
+use Rat\eBaySDK\Enums\MarketplaceId;
 
 $client = app(Client::class);
 $request = new GetAdvertisingEligibility(
-    marketplaceId: (string) $marketplaceId,
+    marketplaceId: MarketplaceId::EBAY_AT,
     programTypes: (string) $programTypes = null
 );
 $response = $client->execute($request);
@@ -39,11 +40,11 @@ This method creates a new custom policy that specifies the seller's terms for co
 governmental regulations. Each Custom Policy targets a **policyType**. Multiple policies may be 
 created as using the following custom policy types:
 
-- PRODUCT_COMPLIANCE: Product Compliance policies disclose product information as required for regulatory compliance.
+- `PRODUCT_COMPLIANCE`: Product Compliance policies disclose product information as required for regulatory compliance.
 
 > [!NOTE] NOTE: A maximum of 60 Product Compliance policies per seller may be created.
 
-- TAKE_BACK: Takeback policies describe the seller's legal obligation to take back a previously purchased item when the buyer purchases a new one.
+- `TAKE_BACK`: Takeback policies describe the seller's legal obligation to take back a previously purchased item when the buyer purchases a new one.
 
 > [!NOTE] NOTE: A maximum of 18 Takeback policies per seller may be created.
 
@@ -58,6 +59,10 @@ $request = new CreateCustomPolicy(
     payload: (array) $payload
 );
 $response = $client->execute($request);
+
+if ($response->ok()) {
+    $policyUrl = $response->location();
+}
 ```
 
 ### GetCustomPolicies <DocsBadge path="sell/account/resources/custom_policy/methods/getCustomPolicies" />

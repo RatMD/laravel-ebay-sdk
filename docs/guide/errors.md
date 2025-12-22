@@ -29,6 +29,8 @@ Be aware that many requests do not accept a single `$payload` array. Instead, re
 passed as individual constructor parameters, which are then mapped internally to `params()`, 
 `query()`, `body()`, or even `headers()`, depending on eBay’s API requirements.
 
+You can use the [$client->inspect()](/guide/debug) method for debugging purposes.
+
 If you identify an issue within the SDK itself, please report it by opening a GitHub issue or 
 submitting a pull request. As a temporary workaround, you may also extract the affected request into 
 your own project, instantiate it manually, and ensure that the resulting request payload matches the 
