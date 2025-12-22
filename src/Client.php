@@ -138,6 +138,15 @@ class Client
      *
      * @return string
      */
+    public function getEnvironment(): string
+    {
+        return $this->environment;
+    }
+
+    /**
+     *
+     * @return string
+     */
     protected function getBaseUri(): string
     {
         return $this->environment === 'production'

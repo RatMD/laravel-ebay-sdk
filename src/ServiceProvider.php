@@ -3,6 +3,7 @@
 namespace Rat\eBaySDK;
 
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
+use Rat\eBaySDK\Commands\Authorize;
 
 class ServiceProvider extends LaravelServiceProvider
 {
@@ -29,6 +30,12 @@ class ServiceProvider extends LaravelServiceProvider
 
         if (config('ebay-sdk.routes.enabled', true)) {
             $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        }
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                Authorize::class,
+            ]);
         }
     }
 }
