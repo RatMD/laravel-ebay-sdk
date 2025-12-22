@@ -23,7 +23,8 @@ use Rat\eBaySDK\Client;
 
 $client = app(Client::class);
 $request = new GetAdvertisingEligibility(
-    programTypes: (string) $programTypes
+    marketplaceId: (string) $marketplaceId,
+    programTypes: (string) $programTypes = null
 );
 $response = $client->execute($request);
 ```
@@ -72,7 +73,7 @@ use Rat\eBaySDK\Client;
 
 $client = app(Client::class);
 $request = new GetCustomPolicies(
-    policyTypes: (string) $policyTypes
+    policyTypes: (string) $policyTypes = null
 );
 $response = $client->execute($request);
 ```
@@ -557,7 +558,7 @@ use Rat\eBaySDK\Client;
 
 $client = app(Client::class);
 $request = new GetRateTables(
-    programType: CountryCode::AT
+    countryCode: CountryCode::AT ?? null
 );
 $response = $client->execute($request);
 ```

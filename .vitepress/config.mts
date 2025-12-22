@@ -24,8 +24,14 @@ export default defineConfig({
                     text: "Guide",
                     items: [
                         { text: "Getting Started", link: "/guide/start" },
-                        { text: "Authorize (OAuth)", link: "/guide/authorize" },
-                        { text: "Webhook (Notifications)", link: "/guide/webhook" },
+                        { text: "Authorize", link: "/guide/authorize" },
+                        { text: "Notifications", link: "/guide/webhook" },
+                    ]
+                },
+                {
+                    text: "Known Issues",
+                    items: [
+                        { text: "API Errors", link: "/guide/errors" },
                     ]
                 },
             ],
