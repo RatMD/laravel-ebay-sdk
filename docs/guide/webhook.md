@@ -16,52 +16,32 @@ The SDK provides an example webhook route that demonstrates how incoming notific
 handled. However, this route is disabled by default and supposed for demonstration only. You can 
 still enable them via the `ebay-sdk.php` configuration file:
 
-> [!CAUTION]
-> Enabling the package routes in `ebay-sdk.php` will also register the oauth endpoint routes.
-
 ```php
 return [
-    'routes' => [
-        'enabled' => true,
+    'webook' => [
+        'routes' => false,
+        'token' => env('EBAY_WEBHOOK_TOKEN', ''),
+        'async' => false,
+        'queue' => 'default',
     ]
 ];
 ```
 
-> [!CAUTION]
-> The routes shown below are for demonstration only. You should review and adapt:
-> - Route prefixes / URL structure
-> - Middleware / Authentication requirements
-> - Rate limiting / Permission Guards
->  
-> to match your application’s security and UX requirements.
+The single route:
 
-```php{3,6-7}
+```php
 use Illuminate\Support\Facades\Route;
-use Rat\eBaySDK\Http\Controllers\AuthController;
 use Rat\eBaySDK\Http\Controllers\EventController;
 
 Route::prefix('ebay')->name('ebay-sdk.')->group(function () {
     Route::post('/notify/{token?}', [EventController::class, 'dispatch'])
         ->name('webhook.notify');
-
-    Route::middleware(config('ebay-sdk.routes.oauth_middleware', ['web', 'auth', 'throttle:30,1']))
-        ->group(function() {
-            Route::get('/oauth/authorize', [AuthController::class, 'authorize'])
-                ->name('oauth.authorize');
-
-            Route::get('/oauth/callback', [AuthController::class, 'handleCallback'])
-                ->name('oauth.callback');
-
-            Route::get('/oauth/rejected', [AuthController::class, 'rejected'])
-                ->name('oauth.rejected');
-        }
-    );
 });
 ```
 
-The mentioned `EventController` can be used as it is, since it doesn't provide much logic. However, 
-we at least highly recommend using the provided `NotificationDispatcher`, since it provides all 
-necessary XML-parsing and event handling code.
+The `EventController` shown below can be used as-is, since it contains only minimal logic. However, 
+we strongly recommend using the provided `NotificationDispatcher`, as it handles all XML parsing, 
+event dispatching, and optional queue-based processing required for proper webhook integration.
 
 ```php
 namespace Rat\eBaySDK\Http\Controllers;
@@ -93,19 +73,31 @@ class EventController extends Controller
     public function dispatch(Request $request, ?string $token = null): Response
     {
         try {
-            $this->dispatcher->handle(
-                $request->getContent(),
-                $request->headers->all(),
-                $token
-            );
-        } catch (InvalidWebhookTokenException $exc) {
+            $async = (bool) config('ebay-sdk.webhook.async', false);
+
+            if ($async) {
+                $this->dispatcher->handleAsync(
+                    $request->getContent(),
+                    $request->headers->all(),
+                    $token
+                );
+            } else {
+                $this->dispatcher->handle(
+                    $request->getContent(),
+                    $request->headers->all(),
+                    $token
+                );
+            }
+        } catch (InvalidWebhookTokenException) {
             return response('Forbidden', 403);
-        } catch (InvalidNotificationPayloadException $exc) {
+        } catch (InvalidNotificationPayloadException) {
             return response('Invalid Payload', 400);
         }
+
         return response('', 200);
     }
 }
+
 ```
 
 ## 2. Configure Notifications in the eBay Developer Portal

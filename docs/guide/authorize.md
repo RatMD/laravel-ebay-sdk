@@ -15,19 +15,16 @@ OAuth authentication routes. The SDK ships with example routes that demonstrate 
 flow. However, these routes are disabled by default and supposed for demonstration only. You can 
 still enable them via the `ebay-sdk.php` configuration file:
 
-> [!CAUTION]
-> Enabling the package routes in `ebay-sdk.php` will also register the webhook endpoint route.
-
 > [!NOTE]
-> The `routes.oauth_middleware` option allows you to customize the middleware stack applied to the
+> The `routes.middleware` option allows you to customize the middleware stack applied to the
 > OAuth routes. However, we still recommend defining and managing your own routes directly within
 > your application.
 
 ```php
 return [
-    'routes' => [
-        'enabled' => true,
-        'oauth_middleware' => [
+    'oauth' => [
+        'routes' => true,
+        'middleware' => [
             'web',
             'auth',
             'throttle:30,1',
@@ -45,16 +42,12 @@ return [
 >  
 > to match your application’s security and UX requirements.
 
-```php{2,9-20}
+```php
 use Illuminate\Support\Facades\Route;
 use Rat\eBaySDK\Http\Controllers\AuthController;
-use Rat\eBaySDK\Http\Controllers\EventController;
 
 Route::prefix('ebay')->name('ebay-sdk.')->group(function () {
-    Route::post('/notify/{token?}', [EventController::class, 'dispatch'])
-        ->name('webhook.notify');
-
-    Route::middleware(config('ebay-sdk.routes.oauth_middleware', ['web', 'auth', 'throttle:30,1']))
+    Route::middleware(config('ebay-sdk.oauth.middleware', ['web', 'auth', 'throttle:30,1']))
         ->group(function() {
             Route::get('/oauth/authorize', [AuthController::class, 'authorize'])
                 ->name('oauth.authorize');
@@ -67,6 +60,7 @@ Route::prefix('ebay')->name('ebay-sdk.')->group(function () {
         }
     );
 });
+
 ```
 
 ## 2. Setup the OAuth Controller
