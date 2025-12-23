@@ -3,7 +3,7 @@
 namespace Rat\eBaySDK;
 
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
-use Rat\eBaySDK\Commands\Authorize;
+use Rat\eBaySDK\Commands\AuthorizeCommand;
 
 class ServiceProvider extends LaravelServiceProvider
 {
@@ -28,13 +28,17 @@ class ServiceProvider extends LaravelServiceProvider
             __DIR__ . '/../config/ebay-sdk.php' => config_path('ebay-sdk.php'),
         ], 'ebay-sdk-config');
 
-        if (config('ebay-sdk.routes.enabled', true)) {
-            $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        if (config('ebay-sdk.oauth.routes', true)) {
+            $this->loadRoutesFrom(__DIR__.'/../routes/oauth.php');
+        }
+
+        if (config('ebay-sdk.webhook.routes', true)) {
+            $this->loadRoutesFrom(__DIR__.'/../routes/webhook.php');
         }
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                Authorize::class,
+                AuthorizeCommand::class,
             ]);
         }
     }

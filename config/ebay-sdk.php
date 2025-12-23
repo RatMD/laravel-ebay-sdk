@@ -58,43 +58,79 @@ return [
         'warning_level' => 'Low'
     ],
 
-    'routes' => [
+    'oauth' => [
         /*
          |----------------------------------------------------------------------
-         | Enable Package Routes
+         | Enable OAuth Package Routes
          |----------------------------------------------------------------------
          |
-         | Toggle registration of the package's default routes.
+         | Determines whether the package should register its default OAuth
+         | routes. It is recommended to declare your own routes.
          |
          */
-        'enabled' => false,
+        'routes' => false,
 
         /*
          |----------------------------------------------------------------------
-         | Enable additional Middleware
+         | Additional Middleware
          |----------------------------------------------------------------------
          |
-         | Use additional middleware on the native oauth routes.
+         | Extra middleware applied to the package’s built-in OAuth routes.
+         | These will only take effect when OAuth routes are enabled.
          |
          */
-        'oauth_middleware' => [
+        'middleware' => [
             'web',
             'auth',
             'throttle:30,1',
             //'can:request_token',
-        ],
+        ]
+    ],
+
+    'webhook' => [
+        /*
+         |----------------------------------------------------------------------
+         | Enable Webhook Notification Routes
+         |----------------------------------------------------------------------
+         |
+         | Controls whether the package should register its default webhook
+         | endpoint. Disable this if you prefer to define a custom route.
+         |
+         */
+        'routes' => false,
 
         /*
          |----------------------------------------------------------------------
-         | Webhook Token to improve Spoofing
+         | Webhook Token
          |----------------------------------------------------------------------
          |
-         | Shared secret used to validate incoming eBay webhook requests. The
-         | token should be part of the webhook URL and helps prevent
-         | unauthorized or spoofed requests from being accepted by the app.
+         | Shared secret for validating incoming eBay notifications. The token
+         | should be part of the webhook URL and helps prevent spoofed requests.
          |
          */
-        'webhook_token' => env('EBAY_WEBHOOK_TOKEN', ''),
+        'token' => env('EBAY_WEBHOOK_TOKEN', ''),
+
+        /*
+         |----------------------------------------------------------------------
+         | Asynchronous Processing
+         |----------------------------------------------------------------------
+         |
+         | When enabled, incoming notifications are validated and then queued
+         | for background processing instead of being handled synchronously.
+         |
+         */
+        'async' => false,
+
+        /*
+         |----------------------------------------------------------------------
+         | Queue Name
+         |----------------------------------------------------------------------
+         |
+         | Defines which queue should be used when asynchronous processing
+         | is enabled. This allows separation from other job pipelines.
+         |
+         */
+        'queue' => 'default',
     ],
 
     /*

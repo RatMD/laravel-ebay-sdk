@@ -29,16 +29,27 @@ class EventController extends Controller
     public function dispatch(Request $request, ?string $token = null): Response
     {
         try {
-            $this->dispatcher->handle(
-                $request->getContent(),
-                $request->headers->all(),
-                $token
-            );
-        } catch (InvalidWebhookTokenException $exc) {
+            $async = (bool) config('ebay-sdk.webhook.async', false);
+
+            if ($async) {
+                $this->dispatcher->handleAsync(
+                    $request->getContent(),
+                    $request->headers->all(),
+                    $token
+                );
+            } else {
+                $this->dispatcher->handle(
+                    $request->getContent(),
+                    $request->headers->all(),
+                    $token
+                );
+            }
+        } catch (InvalidWebhookTokenException) {
             return response('Forbidden', 403);
-        } catch (InvalidNotificationPayloadException $exc) {
+        } catch (InvalidNotificationPayloadException) {
             return response('Invalid Payload', 400);
         }
+
         return response('', 200);
     }
 }

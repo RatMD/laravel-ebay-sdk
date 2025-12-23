@@ -5,7 +5,7 @@ namespace Rat\eBaySDK\Commands;
 use Illuminate\Console\Command;
 use Rat\eBaySDK\Authentication\OAuthAuthentication;
 
-class Authorize extends Command
+class AuthorizeCommand extends Command
 {
     /**
      * The name and signature of the console command.
