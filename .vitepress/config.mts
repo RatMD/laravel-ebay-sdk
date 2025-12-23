@@ -7,7 +7,7 @@ export default defineConfig({
     title: "Laravel eBay SDK",
     description: "The RAT Laravel eBay SDK",
     sitemap: {
-        hostname: 'https://ratmd.github.io/laravel-ebay-sdk',
+        hostname: 'https://ratmd.github.io/laravel-ebay-sdk/',
         lastmodDateOnly: true
     },
     lastUpdated: true,
