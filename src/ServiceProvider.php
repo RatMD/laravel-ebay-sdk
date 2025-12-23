@@ -28,11 +28,11 @@ class ServiceProvider extends LaravelServiceProvider
             __DIR__ . '/../config/ebay-sdk.php' => config_path('ebay-sdk.php'),
         ], 'ebay-sdk-config');
 
-        if (config('ebay-sdk.oauth.routes', true)) {
+        if (config('ebay-sdk.oauth.routes', false)) {
             $this->loadRoutesFrom(__DIR__.'/../routes/oauth.php');
         }
 
-        if (config('ebay-sdk.webhook.routes', true)) {
+        if (config('ebay-sdk.webhook.routes', false)) {
             $this->loadRoutesFrom(__DIR__.'/../routes/webhook.php');
         }
 
