@@ -4,7 +4,7 @@ use Rat\eBaySDK\API\IdentityAPI\User\GetUser;
 use Rat\eBaySDK\Client;
 
 /**
- * @covers Rat\eBaySDK\API\AccountAPI\AdvertisingEligibility\GetAdvertisingEligibility
+ * @covers Rat\eBaySDK\API\IdentityAPI\User\GetUser
  */
 it('can retrieve user using GetUser ', function ()  {
     $client = app(Client::class);
