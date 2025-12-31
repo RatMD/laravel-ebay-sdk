@@ -3,7 +3,7 @@
 namespace Rat\eBaySDK\Enums;
 
 /**
- * @see https://developer.ebay.com/api-docs/sell/inventory/types/slr:FormatTypeEnum
+ * @see https://developer.ebay.com/devzone/xml/docs/reference/ebay/types/sitecodetype.html
  */
 enum SiteCode: int
 {

@@ -26,8 +26,8 @@ class GetOffers implements BaseAPIRequest
     /**
      * Create a new instance.
      * @param string $sku
-     * @param ?Marketplace $marketplaceId
-     * @param ?FormatType $format
+     * @param null|Marketplace $marketplaceId
+     * @param null|FormatType $format
      * @param int $limit
      * @param int $offset
      * @return void

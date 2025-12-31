@@ -22,7 +22,7 @@ class GetCustomPolicies implements BaseAPIRequest
 
     /**
      * Create a new instance.
-     * @param ?string $policyTypes
+     * @param null|string $policyTypes
      * @return void
      */
     public function __construct(

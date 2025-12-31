@@ -25,7 +25,7 @@ class UploadFile implements BaseAPIRequest
      * Create a new instance.
      * @param string $taskId
      * @param string $filePath
-     * @param ?string $fileName
+     * @param null|string $fileName
      * @return void
      */
     public function __construct(

@@ -22,7 +22,7 @@ class GetTopics implements BaseAPIRequest
 
     /**
      * Create a new instance.
-     * @param ?string $continuationToken
+     * @param null|string $continuationToken
      * @param int $limit
      * @return void
      */

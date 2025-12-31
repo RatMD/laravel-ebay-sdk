@@ -25,7 +25,7 @@ class GetTrafficReport implements BaseAPIRequest
      * @param string $dimension
      * @param string $metric
      * @param string $filter
-     * @param ?string $sort
+     * @param null|string $sort
      * @return void
      */
     public function __construct(

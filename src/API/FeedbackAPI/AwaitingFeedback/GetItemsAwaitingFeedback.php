@@ -22,10 +22,10 @@ class GetItemsAwaitingFeedback implements BaseAPIRequest
 
     /**
      * Create a new instance.
-     * @param ?string $filter
-     * @param ?string $sort
-     * @param ?int $limit
-     * @param ?int $offset
+     * @param null|string $filter
+     * @param null|string $sort
+     * @param null|int $limit
+     * @param null|int $offset
      * @return void
      */
     public function __construct(

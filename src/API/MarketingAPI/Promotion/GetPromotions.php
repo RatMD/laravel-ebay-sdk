@@ -23,10 +23,10 @@ class GetPromotions implements BaseAPIRequest
     /**
      * Create a new instance.
      * @param string $marketplaceId
-     * @param ?string $q
-     * @param ?string $promotionStatus
-     * @param ?string $promotionType
-     * @param ?string $sort
+     * @param null|string $q
+     * @param null|string $promotionStatus
+     * @param null|string $promotionType
+     * @param null|string $sort
      * @param int $limit
      * @param int $offset
      * @return void

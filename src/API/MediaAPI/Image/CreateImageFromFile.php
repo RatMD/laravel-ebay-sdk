@@ -24,7 +24,7 @@ class CreateImageFromFile implements BaseAPIRequest
     /**
      * Create a new instance.
      * @param string $imagePath
-     * @param ?string $fileName
+     * @param null|string $fileName
      * @return void
      */
     public function __construct(

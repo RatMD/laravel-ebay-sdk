@@ -24,9 +24,9 @@ class GetInventoryTasks implements BaseAPIRequest
     /**
      * Create a new instance.
      * @param string $feedType
-     * @param ?string $scheduleId
+     * @param null|string $scheduleId
      * @param int $lookBackDays
-     * @param ?string $dateRange
+     * @param null|string $dateRange
      * @param int $limit
      * @param int $offset
      * @return void

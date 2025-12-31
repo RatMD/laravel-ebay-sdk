@@ -23,9 +23,9 @@ class GetAds implements BaseAPIRequest
     /**
      * Create a new instance.
      * @param string $campaignId
-     * @param ?string $listingIds
-     * @param ?string $adGroupIds
-     * @param ?string $adStatus
+     * @param null|string $listingIds
+     * @param null|string $adGroupIds
+     * @param null|string $adStatus
      * @param int $limit
      * @param int $offset
      * @return void

@@ -25,7 +25,7 @@ class GetCustomerServiceMetricTasks implements BaseAPIRequest
      * Create a new instance.
      * @param string $feedType
      * @param int $lookBackDays
-     * @param ?string $dateRange
+     * @param null|string $dateRange
      * @param int $limit
      * @param int $offset
      * @return void

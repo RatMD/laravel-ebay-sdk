@@ -23,7 +23,7 @@ class SuggestItems implements BaseAPIRequest
     /**
      * Create a new instance.
      * @param string $campaignId
-     * @param ?string $categoryIds
+     * @param null|string $categoryIds
      * @param int $limit
      * @param int $offset
      * @return void

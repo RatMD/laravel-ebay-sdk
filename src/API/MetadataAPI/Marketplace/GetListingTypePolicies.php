@@ -23,7 +23,7 @@ class GetListingTypePolicies implements BaseAPIRequest
     /**
      * Create a new instance.
      * @param string $marketplaceId
-     * @param ?string $filter
+     * @param null|string $filter
      * @return void
      */
     public function __construct(

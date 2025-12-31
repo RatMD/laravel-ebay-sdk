@@ -22,8 +22,8 @@ class GetEmailCampaigns implements BaseAPIRequest
 
     /**
      * Create a new instance.
-     * @param ?string $q
-     * @param ?string $sort
+     * @param null|string $q
+     * @param null|string $sort
      * @param int $limit
      * @param int $offset
      * @return void

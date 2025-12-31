@@ -23,7 +23,7 @@ class GetOrder implements BaseAPIRequest
     /**
      * Create a new instance.
      * @param string $orderId
-     * @param ?string $fieldGroups
+     * @param null|string $fieldGroups
      * @return void
      */
     public function __construct(

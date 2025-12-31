@@ -25,7 +25,7 @@ class UploadEvidenceFile implements BaseAPIRequest
      * Create a new instance.
      * @param string $paymentDisputeId
      * @param string $filePath
-     * @param ?string $fileName
+     * @param null|string $fileName
      * @return void
      */
     public function __construct(

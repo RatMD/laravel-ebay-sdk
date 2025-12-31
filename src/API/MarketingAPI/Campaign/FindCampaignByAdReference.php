@@ -22,9 +22,9 @@ class FindCampaignByAdReference implements BaseAPIRequest
 
     /**
      * Create a new instance.
-     * @param ?string $listingId
-     * @param ?string $inventoryReferenceId
-     * @param ?string $inventoryReferenceType
+     * @param null|string $listingId
+     * @param null|string $inventoryReferenceId
+     * @param null|string $inventoryReferenceType
      * @return void
      */
     public function __construct(

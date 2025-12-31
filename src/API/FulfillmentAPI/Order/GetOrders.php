@@ -22,9 +22,9 @@ class GetOrders implements BaseAPIRequest
 
     /**
      * Create a new instance.
-     * @param ?string $orderIds
-     * @param ?string $fieldGroups
-     * @param ?string $filter
+     * @param null|string $orderIds
+     * @param null|string $fieldGroups
+     * @param null|string $filter
      * @param int $limit
      * @param int $offset
      * @return void

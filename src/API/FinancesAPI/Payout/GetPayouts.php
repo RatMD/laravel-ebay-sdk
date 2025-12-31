@@ -25,8 +25,8 @@ class GetPayouts implements BaseAPIRequest
      * @param string $marketplaceId
      * @param int $limit
      * @param int $offset
-     * @param ?string $filter
-     * @param ?string $sort
+     * @param null|string $filter
+     * @param null|string $sort
      * @return void
      */
     public function __construct(

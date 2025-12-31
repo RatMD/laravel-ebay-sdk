@@ -23,6 +23,7 @@ class GetPayout implements BaseAPIRequest
     /**
      * Create a new instance.
      * @param string $marketplaceId
+     * @param string $payoutId
      * @return void
      */
     public function __construct(

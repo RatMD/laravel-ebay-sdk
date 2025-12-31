@@ -22,8 +22,8 @@ class GetSubscription implements BaseAPIRequest
 
     /**
      * Create a new instance.
-     * @param ?int $limit
-     * @param ?string $continuationToken
+     * @param null|int $limit
+     * @param null|string $continuationToken
      * @return void
      */
     public function __construct(

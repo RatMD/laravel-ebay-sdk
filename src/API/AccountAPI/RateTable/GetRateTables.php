@@ -23,7 +23,7 @@ class GetRateTables implements BaseAPIRequest
 
     /**
      * Create a new instance.
-     * @param ?CountryCode $countryCode
+     * @param null|CountryCode $countryCode
      * @return void
      */
     public function __construct(

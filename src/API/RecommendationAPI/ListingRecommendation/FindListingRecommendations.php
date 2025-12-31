@@ -22,7 +22,7 @@ class FindListingRecommendations implements BaseAPIRequest
 
     /**
      * Create a new instance.
-     * @param ?string $filter
+     * @param null|string $filter
      * @param int $limit
      * @param int $offset
      * @return void

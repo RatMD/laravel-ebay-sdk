@@ -22,14 +22,14 @@ class Search implements BaseAPIRequest
 
     /**
      * Create a new instance.
-     * @param ?string $q
-     * @param ?string $gtin
-     * @param ?string $mpn
-     * @param ?string $categoryIds
-     * @param ?string $aspectFilter
-     * @param ?string $fieldGroups
-     * @param ?int $limit
-     * @param ?int $offset
+     * @param null|string $q
+     * @param null|string $gtin
+     * @param null|string $mpn
+     * @param null|string $categoryIds
+     * @param null|string $aspectFilter
+     * @param null|string $fieldGroups
+     * @param null|int $limit
+     * @param null|int $offset
      * @return void
      */
     public function __construct(

@@ -23,8 +23,8 @@ class GetKeywords implements BaseAPIRequest
     /**
      * Create a new instance.
      * @param string $campaignId
-     * @param ?string $adGroupId
-     * @param ?string $keywordStatus
+     * @param null|string $adGroupId
+     * @param null|string $keywordStatus
      * @param int $limit
      * @param int $offset
      * @return void

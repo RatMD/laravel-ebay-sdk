@@ -22,11 +22,11 @@ class GetPaymentDisputeSummaries implements BaseAPIRequest
 
     /**
      * Create a new instance.
-     * @param ?string $orderId
-     * @param ?string $buyerUsername
-     * @param ?string $openDateFrom
-     * @param ?string $openDateTo
-     * @param ?string $paymentDisputeStatus
+     * @param null|string $orderId
+     * @param null|string $buyerUsername
+     * @param null|string $openDateFrom
+     * @param null|string $openDateTo
+     * @param null|string $paymentDisputeStatus
      * @param int $limit
      * @param int $offset
      * @return void

@@ -23,8 +23,8 @@ class GetNegativeKeywords implements BaseAPIRequest
     /**
      * Create a new instance.
      * @param string $adGroupIds
-     * @param ?string $campaignIds
-     * @param ?string $negativeKeywordStatus
+     * @param null|string $campaignIds
+     * @param null|string $negativeKeywordStatus
      * @param int $limit
      * @param int $offset
      * @return void

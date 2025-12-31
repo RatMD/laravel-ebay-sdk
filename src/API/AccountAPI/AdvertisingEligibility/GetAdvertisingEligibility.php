@@ -24,7 +24,7 @@ class GetAdvertisingEligibility implements BaseAPIRequest
     /**
      * Create a new instance.
      * @param MarketplaceId $marketplaceId
-     * @param ?string $programTypes
+     * @param null|string $programTypes
      * @return void
      */
     public function __construct(

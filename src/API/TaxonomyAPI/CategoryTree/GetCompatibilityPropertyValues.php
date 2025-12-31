@@ -25,7 +25,7 @@ class GetCompatibilityPropertyValues implements BaseAPIRequest
      * @param int $categoryTreeId
      * @param int $categoryId
      * @param string $compatibilityProperty
-     * @param ?string $filter
+     * @param null|string $filter
      * @return void
      */
     public function __construct(

@@ -24,10 +24,10 @@ class GetListingViolations implements BaseAPIRequest
      * Create a new instance.
      * @param string $marketplaceId
      * @param string $complianceType
-     * @param ?string $listingId
-     * @param ?string $filter
-     * @param ?int $limit
-     * @param ?int $offset
+     * @param null|string $listingId
+     * @param null|string $filter
+     * @param null|int $limit
+     * @param null|int $offset
      * @return void
      */
     public function __construct(

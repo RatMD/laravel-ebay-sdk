@@ -8,11 +8,6 @@ namespace Rat\eBaySDK\Enums;
 enum Language: string
 {
     /**
-     * This is a document provided by the manufacturer or a qualified third-party laboratory that confirms the product has been tested and meets the specified criteria.
-     */
-    case CERTIFICATE_OF_ANALYSIS = "CERTIFICATE_OF_ANALYSIS";
-
-    /**
      * The document is in English.
      */
     case ENGLISH = 'ENGLISH';

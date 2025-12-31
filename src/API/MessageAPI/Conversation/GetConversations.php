@@ -23,12 +23,12 @@ class GetConversations implements BaseAPIRequest
     /**
      * Create a new instance.
      * @param string $conversationType
-     * @param ?string $conversationStatus
-     * @param ?string $referenceId
-     * @param ?string $referenceType
-     * @param ?string $startTime
-     * @param ?string $endTime
-     * @param ?string $otherPartyUsername
+     * @param null|string $conversationStatus
+     * @param null|string $referenceId
+     * @param null|string $referenceType
+     * @param null|string $startTime
+     * @param null|string $endTime
+     * @param null|string $otherPartyUsername
      * @param int $limit
      * @param int $offset
      * @return void

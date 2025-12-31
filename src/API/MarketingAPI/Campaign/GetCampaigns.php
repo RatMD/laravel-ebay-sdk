@@ -22,13 +22,13 @@ class GetCampaign implements BaseAPIRequest
 
     /**
      * Create a new instance.
-     * @param ?string $campaignStatus
-     * @param ?string $startDateRange
-     * @param ?string $endDateRange
-     * @param ?string $campaignName
-     * @param ?string $fundingStrategy
-     * @param ?string $channels
-     * @param ?string $campaignTargetingTypes
+     * @param null|string $campaignStatus
+     * @param null|string $startDateRange
+     * @param null|string $endDateRange
+     * @param null|string $campaignName
+     * @param null|string $fundingStrategy
+     * @param null|string $channels
+     * @param null|string $campaignTargetingTypes
      * @param int $limit
      * @param int $offset
      * @return void

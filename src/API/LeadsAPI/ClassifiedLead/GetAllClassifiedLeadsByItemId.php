@@ -23,10 +23,10 @@ class GetAllClassifiedLeadsByItemId implements BaseAPIRequest
     /**
      * Create a new instance.
      * @param string $itemId
-     * @param ?string $startTime
-     * @param ?string $endTime
+     * @param null|string $startTime
+     * @param null|string $endTime
      * @param bool $includeMessages
-     * @param ?string $status
+     * @param null|string $status
      * @return void
      */
     public function __construct(

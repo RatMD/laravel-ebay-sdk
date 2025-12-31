@@ -279,7 +279,9 @@ class Client
 
         // Custom Headers
         foreach ($request->headers() AS $key => $value) {
-            $options['headers'][$key] = $value;
+            if ($value !== null) {
+                $options['headers'][$key] = $value;
+            }
         }
 
         return [$options, $body && $body instanceof MultipartBody ? $body : null];
@@ -324,7 +326,9 @@ class Client
 
         // Custom Headers
         foreach ($request->headers() AS $key => $value) {
-            $options['headers'][$key] = $value;
+            if ($value !== null) {
+                $options['headers'][$key] = $value;
+            }
         }
 
         return $options;

@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace Rat\eBaySDK\API\MarketingAPI\Campaign;
+namespace Rat\eBaySDK\API\OfferAPI\Bidding;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
 
 /**
- * POST /ad_campaign/{campaignId}/update_campaign_budget
- * @see https://developer.ebay.com/api-docs/sell/marketing/resources/campaign/methods/updateCampaignStrategy
+ * GET /bidding/{itemId}
+ * @see https://developer.ebay.com/api-docs/buy/offer/resources/bidding/methods/getBidding
  */
-class UpdateCampaignStrategy implements BaseAPIRequest
+class GetBidding implements BaseAPIRequest
 {
     use CommonMethods;
 
@@ -18,17 +18,17 @@ class UpdateCampaignStrategy implements BaseAPIRequest
      * API Ressource Path
      * @var string
      */
-    public const PATH = '/sell/marketing/v1/ad_campaign/{campaignId}/update_campaign_budget';
+    public const PATH = '/buy/marketing/v1_beta/bidding/{itemId}';
 
     /**
      * Create a new instance.
-     * @param string $campaignId
-     * @param array $payload
+     * @param string $marketplaceId
+     * @param string $itemId
      * @return void
      */
     public function __construct(
-        public readonly string $campaignId,
-        public readonly array $payload,
+        public readonly string $marketplaceId,
+        public readonly string $itemId,
     ) { }
 
     /**
@@ -36,7 +36,7 @@ class UpdateCampaignStrategy implements BaseAPIRequest
      */
     public function method(): HTTPMethod
     {
-        return HTTPMethod::POST;
+        return HTTPMethod::GET;
     }
 
     /**
@@ -52,14 +52,14 @@ class UpdateCampaignStrategy implements BaseAPIRequest
      */
     public function params(): array
     {
-        return ['campaignId' => $this->campaignId];
+        return ['itemId' => $this->itemId];
     }
 
     /**
      * @inheritdoc
      */
-    public function body(): array
+    public function headers(): array
     {
-        return $this->payload;
+        return ['X-EBAY-C-MARKETPLACE-ID' => $this->marketplaceId];
     }
 }
