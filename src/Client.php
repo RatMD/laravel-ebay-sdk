@@ -223,7 +223,7 @@ class Client
                 'Authorization'     => "Bearer {$token}",
                 'Content-Language'  => $this->options['locale'],
             ],
-            'http_errors'   => false    // We throw our own errors
+            'http_errors'   => false
         ]);
     }
 
@@ -285,9 +285,9 @@ class Client
         }
 
         // Custom Headers
-        foreach ($request->headers() AS $key => $value) {
-            if ($value !== null) {
-                $options['headers'][$key] = $value;
+        foreach ($request->headers() AS $key => $val) {
+            if ($val !== null) {
+                $options['headers'][$key] = $val instanceof BackedEnum ? $val->value : $val;
             }
         }
 
@@ -332,9 +332,9 @@ class Client
         );
 
         // Custom Headers
-        foreach ($request->headers() AS $key => $value) {
-            if ($value !== null) {
-                $options['headers'][$key] = $value;
+        foreach ($request->headers() AS $key => $val) {
+            if ($val !== null) {
+                $options['headers'][$key] = $val instanceof BackedEnum ? $val->value : $val;
             }
         }
 
@@ -344,13 +344,14 @@ class Client
     /**
      *
      * @param BaseAPIRequest $request
+     * @param bool $validate
      * @return array
      */
-    public function inspect(BaseAPIRequest $request): array
+    public function inspect(BaseAPIRequest $request, bool $validate = true): array
     {
         try {
             $this->throw = true;
-            $this->execute($request);
+            $this->execute($request, $validate);
             return [];
         } catch (DumpException $exc) {
             return $exc->getDetails();
@@ -364,9 +365,10 @@ class Client
     /**
      *
      * @param BaseAPIRequest $request
+     * @param bool $validate
      * @return Response
      */
-    public function execute(BaseAPIRequest $request): Response
+    public function execute(BaseAPIRequest $request, bool $validate = true): Response
     {
         $closer = null;
         try {
@@ -374,7 +376,9 @@ class Client
             $options = ['headers' => []];
 
             // Validate Request
-            $request->validate();
+            if ($validate) {
+                $request->validate();
+            }
 
             // Prepare Request
             if ($request instanceof TraditionalAPIRequest) {
