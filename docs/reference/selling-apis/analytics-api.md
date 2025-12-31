@@ -113,12 +113,14 @@ For more information on the interpreting the response payload of this method, se
 
 ```php
 use Rat\eBaySDK\API\AnalyticsAPI\SellerStandardsProfile\GetSellerStandardsProfile;
+use Rat\eBaySDK\Enums\CycleType;
+use Rat\eBaySDK\Enums\Program;
 use Rat\eBaySDK\Client;
 
 $client = app(Client::class);
 $request = new GetSellerStandardsProfile(
-    program: (string) $program,
-    cycle: (string) $cycle,
+    program: Program::PROGRAM_DE,
+    cycle: CycleType::CURRENT,
 );
 $response = $client->execute($request);
 ```
@@ -139,13 +141,19 @@ For more information, see [Traffic report details](https://developer.ebay.com/ap
 
 ```php
 use Rat\eBaySDK\API\AnalyticsAPI\TrafficReport\GetTrafficReport;
+use Rat\eBaySDK\Enums\TrafficReportDimension;
+use Rat\eBaySDK\Enums\TrafficReportMetric;
 use Rat\eBaySDK\Client;
+use Rat\eBaySDK\Support\FilterQuery;
 
 $client = app(Client::class);
 $request = new GetTrafficReport(
-    dimension: (string) $dimension,
-    metric: (string) $metric,
-    filter: (string) $filter,
+    dimension: TrafficReportDimension::LISTING,
+    metric: [TrafficReportMetric::TRANSACTION],
+    filter: new FilterQuery([
+        'marketplace_ids'   => '{EBAY_DE}',
+        'date_range'        => '[20250101..20250131]'
+    ]),
     sort: (string) $sort = null,
 );
 $response = $client->execute($request);
