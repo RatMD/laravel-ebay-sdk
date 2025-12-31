@@ -3,6 +3,7 @@
 namespace Rat\eBaySDK\Support;
 
 use BackedEnum;
+use Rat\eBaySDK\Contracts\RawQueryPart;
 
 class QueryString
 {
@@ -45,7 +46,7 @@ class QueryString
         $walk = function ($value, string $key) use (&$pairs, $encode) {
             $encodedKey = $encode($key);
 
-            if ($value instanceof FilterQuery) {
+            if ($value instanceof RawQueryPart) {
                 $pairs[] = $encodedKey . '=' . (string) $value;
                 return;
             }

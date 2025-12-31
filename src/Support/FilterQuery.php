@@ -2,7 +2,9 @@
 
 namespace Rat\eBaySDK\Support;
 
-class FilterQuery
+use Rat\eBaySDK\Contracts\RawQueryPart;
+
+class FilterQuery implements RawQueryPart
 {
     /**
      *
@@ -14,8 +16,7 @@ class FilterQuery
     ) { }
 
     /**
-     *
-     * @return string
+     * @inheritdoc
      */
     public function __toString(): string
     {
