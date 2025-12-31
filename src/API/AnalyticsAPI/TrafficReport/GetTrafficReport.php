@@ -5,8 +5,12 @@ namespace Rat\eBaySDK\API\AnalyticsAPI\TrafficReport;
 use Rat\eBaySDK\Concerns\CommonMethods;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
+use Rat\eBaySDK\Enums\TrafficReportDimension;
+use Rat\eBaySDK\Enums\TrafficReportMetric;
+use Rat\eBaySDK\Support\FilterQuery;
+use Rat\eBaySDK\Support\QueryString;
 
-/**
+/**Data
  * GET /traffic_report
  * @see https://developer.ebay.com/api-docs/sell/analytics/resources/traffic_report/methods/getTrafficReport
  */
@@ -22,16 +26,16 @@ class GetTrafficReport implements BaseAPIRequest
 
     /**
      * Create a new instance.
-     * @param string $dimension
-     * @param string $metric
-     * @param string $filter
+     * @param string|TrafficReportDimension $dimension
+     * @param string|TrafficReportMetric|TrafficReportMetric[]|string[] $metric
+     * @param string|FilterQuery $filter
      * @param null|string $sort
      * @return void
      */
     public function __construct(
-        public readonly string $dimension,
-        public readonly string $metric,
-        public readonly string $filter,
+        public readonly string|TrafficReportDimension $dimension,
+        public readonly string|TrafficReportMetric|array $metric,
+        public readonly string|FilterQuery $filter,
         public readonly ?string $sort = null,
     ) { }
 
@@ -57,10 +61,10 @@ class GetTrafficReport implements BaseAPIRequest
     public function query(): array
     {
         return [
-            'dimension' => $this->dimension,
-            'metric' => $this->metric,
-            'filter' => $this->filter,
-            'sort' => $this->sort
+            'dimension' => QueryString::formatData($this->dimension),
+            'metric'    => QueryString::formatData($this->metric),
+            'filter'    => $this->filter,
+            'sort'      => $this->sort
         ];
     }
 }

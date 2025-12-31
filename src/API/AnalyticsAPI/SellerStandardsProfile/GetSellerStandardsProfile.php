@@ -4,7 +4,9 @@ namespace Rat\eBaySDK\API\AnalyticsAPI\SellerStandardsProfile;
 
 use Rat\eBaySDK\Concerns\CommonMethods;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;
+use Rat\eBaySDK\Enums\CycleType;
 use Rat\eBaySDK\Enums\HTTPMethod;
+use Rat\eBaySDK\Enums\Program;
 
 /**
  * GET /seller_standards_profile/{program}/{cycle}
@@ -22,13 +24,13 @@ class GetSellerStandardsProfile implements BaseAPIRequest
 
     /**
      * Create a new instance.
-     * @param string $program
-     * @param string $cycle
+     * @param Program $program
+     * @param CycleType $cycle
      * @return void
      */
     public function __construct(
-        public readonly string $program,
-        public readonly string $cycle,
+        public readonly Program $program,
+        public readonly CycleType $cycle,
     ) { }
 
     /**

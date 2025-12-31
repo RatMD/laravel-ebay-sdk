@@ -21,6 +21,7 @@ use Rat\eBaySDK\Exceptions\AuthorizationException;
 use Rat\eBaySDK\Exceptions\DumpException;
 use Rat\eBaySDK\Exceptions\RequestException;
 use Rat\eBaySDK\Support\MultipartBody;
+use Rat\eBaySDK\Support\QueryString;
 use Rat\eBaySDK\Support\XMLBody;
 
 class Client
@@ -248,12 +249,9 @@ class Client
         }
 
         // Add Query
-        $query = array_filter(array_map(
-            fn ($val) => $val instanceof BackedEnum ? $val->value : $val,
-            $request->query()
-        ), fn (mixed $val) => $val !== null);
+        $query = $request->query();
         if (!empty($query)) {
-            $path .= '?' . http_build_query($query);
+            $path .= '?' . QueryString::build($query);
         }
 
         return $path;
