@@ -1,7 +1,7 @@
 ---
 outline: deep
 ---
-# Notification API <DocsBadge path="sell/notification/overview.html" />
+# Notification API <Badge type="warning" style="margin-left:0.75rem;">v1.6.5</Badge> <DocsBadge path="sell/notification/overview.html" />
 
 The eBay Notification API enables management of the entire end-to-end eBay notification experience 
 by allowing users to: 

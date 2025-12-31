@@ -1,7 +1,7 @@
 ---
 outline: deep
 ---
-# Taxonomy API <DocsBadge path="sell/taxonomy/overview.html" />
+# Taxonomy API <Badge type="warning" style="margin-left:0.75rem;">v1.1.1</Badge> <DocsBadge path="sell/taxonomy/overview.html" />
 
 The Taxonomy API enables you to assist both sellers and buyers:
 

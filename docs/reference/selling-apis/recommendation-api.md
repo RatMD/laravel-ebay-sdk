@@ -1,7 +1,7 @@
 ---
 outline: deep
 ---
-# Recommendation API <DocsBadge path="sell/recommendation/static/overview.html" />
+# Recommendation API <Badge type="warning" style="margin-left:0.75rem;">v1.1.0</Badge> <DocsBadge path="sell/recommendation/static/overview.html" />
 
 The Recommendation API returns information that sellers can use to configure Promoted Listings ad 
 campaigns.

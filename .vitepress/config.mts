@@ -30,10 +30,16 @@ export default defineConfig({
                     ]
                 },
                 {
+                    text: "Commands",
+                    items: [
+                        { text: "ebay:authorize", link: "/guide/commands/authorize" },
+                    ]
+                },
+                {
                     text: "Known Issues",
                     items: [
-                        { text: "API Errors", link: "/guide/errors" },
-                        { text: "Debugging", link: "/guide/debug" },
+                        { text: "API Errors", link: "/guide/issues/errors" },
+                        { text: "Debugging", link: "/guide/issues/debug" },
                     ]
                 },
             ],
@@ -42,42 +48,100 @@ export default defineConfig({
                     text: "Reference",
                     items: [
                         { text: "Overview", link: "/reference/overview" },
+                        {
+                            text: "Events",
+                            items: [
+                                { text: "Core Events", link: "/reference/events/core" },
+                                { text: "eBay Notifications", link: "/reference/events/ebay" },
+                            ],
+                        },
+                        {
+                            text: "Enums",
+                            items: [
+                                { text: "CategoryType", link: "/reference/enums/category-type" },
+                                { text: "CountryCode", link: "/reference/enums/country-code" },
+                                { text: "CustomerServiceMetricType", link: "/reference/enums/customer-service-metric-type" },
+                                { text: "CustomPolicyType", link: "/reference/enums/custom-policy-type" },
+                                { text: "DisputeState", link: "/reference/enums/dispute-state" },
+                                { text: "DocumentType", link: "/reference/enums/document-type" },
+                                { text: "EvaluationType", link: "/reference/enums/evaluation-type" },
+                                { text: "FeedbackType", link: "/reference/enums/feedback-type" },
+                                { text: "FormatType", link: "/reference/enums/format-type" },
+                                { text: "HTTPMethod", link: "/reference/enums/http-method" },
+                                { text: "Language", link: "/reference/enums/language" },
+                                { text: "ListingFormat", link: "/reference/enums/listing-format" },
+                                { text: "Marketplace", link: "/reference/enums/marketplace" },
+                                { text: "MarketplaceId", link: "/reference/enums/marketplace-id" },
+                                { text: "PaymentsProgramType", link: "/reference/enums/payments-program-type" },
+                                { text: "ProgramType", link: "/reference/enums/program-type" },
+                                { text: "ReportType", link: "/reference/enums/report-type" },
+                                { text: "SigningKeyCipher", link: "/reference/enums/signing-key-cipher" },
+                                { text: "SiteCode", link: "/reference/enums/site-code" },
+                            ],
+                            collapsed: true
+                        },
                     ]
                 },
                 {
-                    text: "Events",
+                    text: "APIs",
                     items: [
-                        { text: "Package Events", link: "/reference/events/package" },
-                        { text: "eBay Notifications", link: "/reference/events/ebay" },
-                    ],
-                },
-                {
-                    text: "Selling APIs",
-                    items: [
-                        { text: "AccountAPI", link: "/reference/selling-apis/account-api" },
-                        { text: "AccountAPI v2", link: "/reference/selling-apis/account-api-v2" },
-                        { text: "AnalyticsAPI", link: "/reference/selling-apis/analytics-api" },
-                        { text: "CatalogAPI", link: "/reference/selling-apis/catalog-api" },
-                        { text: "ComplianceAPI", link: "/reference/selling-apis/compliance-api" },
-                        { text: "FeedAPI", link: "/reference/selling-apis/feed-api" },
-                        { text: "FeedbackAPI", link: "/reference/selling-apis/feedback-api" },
-                        { text: "FinancesAPI", link: "/reference/selling-apis/finances-api" },
-                        { text: "FulfillmentAPI", link: "/reference/selling-apis/fulfillment-api" },
-                        { text: "IdentityAPI", link: "/reference/selling-apis/identity-api" },
-                        { text: "InventoryAPI", link: "/reference/selling-apis/inventory-api" },
-                        { text: "LeadsAPI", link: "/reference/selling-apis/leads-api" },
-                        { text: "MarketingAPI", link: "/reference/selling-apis/marketing-api" },
-                        { text: "MediaAPI", link: "/reference/selling-apis/media-api" },
-                        { text: "MessageAPI", link: "/reference/selling-apis/message-api" },
-                        { text: "MetadataAPI", link: "/reference/selling-apis/metadata-api" },
-                        { text: "NegotiationAPI", link: "/reference/selling-apis/negotiation-api" },
-                        { text: "NotificationAPI", link: "/reference/selling-apis/notification-api" },
-                        { text: "RecommendationAPI", link: "/reference/selling-apis/recommendation-api" },
-                        { text: "StoresAPI", link: "/reference/selling-apis/stores-api" },
-                        { text: "TaxonomyAPI", link: "/reference/selling-apis/taxonomy-api" },
-                        { text: "TranslationAPI", link: "/reference/selling-apis/translation-api" },
-                        { 
-                            text: "TraditionalAPI (XML)", 
+                        {
+                            text: "Buying APIs",
+                            items: [
+                                { text: "BrowseAPI", link: "/reference/buying-apis/browse-api" },
+                                { text: "CatalogAPI", link: "/reference/buying-apis/catalog-api" },
+                                { text: "DealAPI", link: "/reference/buying-apis/deal-api" },
+                                { text: "FeedAPI", link: "/reference/buying-apis/feed-api" },
+                                { text: "FeedBetaAPI", link: "/reference/buying-apis/feed-beta-api" },
+                                { text: "IdentityAPI", link: "/reference/buying-apis/identity-api" },
+                                { text: "MarketingAPI", link: "/reference/buying-apis/marketing-api" },
+                                { text: "MarketingBetaAPI", link: "/reference/buying-apis/marketing-beta-api" },
+                                { text: "OfferAPI", link: "/reference/buying-apis/offer-api" },
+                                { text: "OrderAPI", link: "/reference/buying-apis/order-api" },
+                                { text: "TaxonomyAPI", link: "/reference/buying-apis/taxonomy-api" },
+                                { text: "TranslationAPI", link: "/reference/buying-apis/translation-api" },
+                            ],
+                            collapsed: true
+                        },
+                        {
+                            text: "Developer APIs",
+                            items: [
+                                { text: "AnalyticsAPI", link: "/reference/developer-apis/analytics-api" },
+                                { text: "ClientRegistrationAPI", link: "/reference/developer-apis/client-registration-api" },
+                                { text: "KeyManagementAPI", link: "/reference/developer-apis/key-management-api" },
+                            ],
+                            collapsed: true
+                        },
+                        {
+                            text: "Selling APIs",
+                            items: [
+                                { text: "AccountAPI", link: "/reference/selling-apis/account-api" },
+                                { text: "AccountAPI v2", link: "/reference/selling-apis/account-api-v2" },
+                                { text: "AnalyticsAPI", link: "/reference/selling-apis/analytics-api" },
+                                { text: "CatalogAPI", link: "/reference/selling-apis/catalog-api" },
+                                { text: "ComplianceAPI", link: "/reference/selling-apis/compliance-api" },
+                                { text: "FeedAPI", link: "/reference/selling-apis/feed-api" },
+                                { text: "FeedbackAPI", link: "/reference/selling-apis/feedback-api" },
+                                { text: "FinancesAPI", link: "/reference/selling-apis/finances-api" },
+                                { text: "FulfillmentAPI", link: "/reference/selling-apis/fulfillment-api" },
+                                { text: "IdentityAPI", link: "/reference/selling-apis/identity-api" },
+                                { text: "InventoryAPI", link: "/reference/selling-apis/inventory-api" },
+                                { text: "LeadsAPI", link: "/reference/selling-apis/leads-api" },
+                                { text: "MarketingAPI", link: "/reference/selling-apis/marketing-api" },
+                                { text: "MediaAPI", link: "/reference/selling-apis/media-api" },
+                                { text: "MessageAPI", link: "/reference/selling-apis/message-api" },
+                                { text: "MetadataAPI", link: "/reference/selling-apis/metadata-api" },
+                                { text: "NegotiationAPI", link: "/reference/selling-apis/negotiation-api" },
+                                { text: "NotificationAPI", link: "/reference/selling-apis/notification-api" },
+                                { text: "RecommendationAPI", link: "/reference/selling-apis/recommendation-api" },
+                                { text: "StoresAPI", link: "/reference/selling-apis/stores-api" },
+                                { text: "TaxonomyAPI", link: "/reference/selling-apis/taxonomy-api" },
+                                { text: "TranslationAPI", link: "/reference/selling-apis/translation-api" },
+                            ],
+                            collapsed: true
+                        },
+                        {
+                            text: "Traditional APIs",
                             items: [
                                 { text: "Account", link: "/reference/selling-apis/traditional/account" },
                                 { text: "Communication", link: "/reference/selling-apis/traditional/communication" },

@@ -1,7 +1,7 @@
 ---
 outline: deep
 ---
-# Media API <DocsBadge path="commerce/media/overview.html" />
+# Media API <Badge type="warning" style="margin-left:0.75rem;">v1_beta.4.1</Badge> <DocsBadge path="commerce/media/overview.html" />
 
 The Media API allows users to create, upload, and fetch videos. Users can also create, upload, and 
 fetch documents to attach to their listings. See Business use cases for specifics.

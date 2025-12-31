@@ -1,7 +1,7 @@
 ---
 outline: deep
 ---
-# Package Events
+# Core Package Events
 
 The SDK exposes several events that allow you to hook into request execution, OAuth flows, and 
 incoming eBay notifications.

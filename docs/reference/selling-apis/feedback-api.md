@@ -1,7 +1,7 @@
 ---
 outline: deep
 ---
-# Feedback API <DocsBadge path="commerce/feedback/overview.html" />
+# Feedback API <Badge type="warning" style="margin-left:0.75rem;">v1.0.0</Badge> <DocsBadge path="commerce/feedback/overview.html" />
 
 The Feedback API includes resources for retrieving items awaiting feedback, retrieving and 
 submitting feedback entries, providing feedback rating summaries, and responding to feedback. 

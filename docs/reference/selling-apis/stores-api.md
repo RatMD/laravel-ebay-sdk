@@ -1,7 +1,7 @@
 ---
 outline: deep
 ---
-# Stores API <DocsBadge path="sell/stores/overview.html" />
+# Stores API <Badge type="warning" style="margin-left:0.75rem;">v1.0.0</Badge> <DocsBadge path="sell/stores/overview.html" />
 
 The Stores API is used to provide stores related resources for third-party developers to integrate. 
 The Stores API has the following entities:

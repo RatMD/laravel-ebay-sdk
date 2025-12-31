@@ -1,7 +1,7 @@
 ---
 outline: deep
 ---
-# Account API <DocsBadge path="sell/account/overview.html" />
+# Account API <Badge type="warning" style="margin-left:0.75rem;">v1.9.3</Badge> <DocsBadge path="sell/account/overview.html" />
 
 The Account API v1 is used by sellers to:
 

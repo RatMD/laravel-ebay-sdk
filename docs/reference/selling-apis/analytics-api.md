@@ -1,7 +1,7 @@
 ---
 outline: deep
 ---
-# Analytics API <DocsBadge path="sell/analytics/static/overview.html" />
+# Analytics API <Badge type="warning" style="margin-left:0.75rem;">v1.3.2</Badge> <DocsBadge path="sell/analytics/static/overview.html" />
 
 The Analytics API provides information about an individual seller’s business through different 
 report and data gathering resources:

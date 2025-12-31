@@ -1,7 +1,7 @@
 ---
 outline: deep
 ---
-# Message API <DocsBadge path="commerce/message/overview.html" />
+# Message API <Badge type="warning" style="margin-left:0.75rem;">v1.0.0</Badge> <DocsBadge path="commerce/message/overview.html" />
 
 The eBay Message API allows users to send messages, retrieve conversations, and modify the status of 
 conversations.

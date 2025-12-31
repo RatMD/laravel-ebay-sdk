@@ -1,7 +1,7 @@
 ---
 outline: deep
 ---
-# Inventory API <DocsBadge path="sell/inventory/static/overview.html" />
+# Inventory API <Badge type="warning" style="margin-left:0.75rem;">v1.18.4</Badge> <DocsBadge path="sell/inventory/static/overview.html" />
 
 The Inventory API is used to create and manage inventory item records, and then convert these 
 inventory items into product offers on eBay marketplaces. The Inventory API has the following 

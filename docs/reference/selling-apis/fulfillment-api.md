@@ -1,7 +1,7 @@
 ---
 outline: deep
 ---
-# Fulfillment API <DocsBadge path="sell/fulfillment/static/overview.html" />
+# Fulfillment API <Badge type="warning" style="margin-left:0.75rem;">v1.20.7</Badge> <DocsBadge path="sell/fulfillment/static/overview.html" />
 
 The outcome of a buyer's eBay checkout process is an order. This API enables sellers to manage the 
 completion of an order in accordance with the payment method and timing specified at checkout. The 

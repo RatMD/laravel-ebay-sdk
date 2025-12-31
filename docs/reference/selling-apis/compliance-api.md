@@ -1,7 +1,7 @@
 ---
 outline: deep
 ---
-# Compliance API <DocsBadge path="sell/compliance/static/overview.html" />
+# Compliance API <Badge type="warning" style="margin-left:0.75rem;">v1.4.4</Badge> <DocsBadge path="sell/compliance/static/overview.html" />
 
 The Compliance API helps sellers keep their listings in compliance with eBay’s policies. Use this 
 API to identify for a given seller all listings that have violations. A listing violation can cause 

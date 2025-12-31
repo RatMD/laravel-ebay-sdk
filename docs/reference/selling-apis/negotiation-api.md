@@ -1,7 +1,7 @@
 ---
 outline: deep
 ---
-# Negotiation API <DocsBadge path="sell/negotiation/static/overview.html" />
+# Negotiation API <Badge type="warning" style="margin-left:0.75rem;">v1.1.2</Badge> <DocsBadge path="sell/negotiation/static/overview.html" />
 
 The Negotiation API gives sellers the ability to engage in sales negotiations with buyers.
 

@@ -1,7 +1,7 @@
 ---
 outline: deep
 ---
-# Account API v2 <DocsBadge path="sell/account/v2/static/overview.html" />
+# Account API v2 <Badge type="warning" style="margin-left:0.75rem;">v2.1.0</Badge> <DocsBadge path="sell/account/v2/static/overview.html" />
 
 The Account API v2 provides sellers with advanced methods for managing their shipping rate tables. 
 Using these methods, sellers can:

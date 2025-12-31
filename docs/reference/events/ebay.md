@@ -1,7 +1,7 @@
 ---
 outline: deep
 ---
-# eBay Events <DocsBadge path="https://developer.ebay.com/devzone/xml/docs/reference/ebay/types/NotificationEventTypeCodeType.html" />
+# eBay Notification Events <DocsBadge path="https://developer.ebay.com/devzone/xml/docs/reference/ebay/types/NotificationEventTypeCodeType.html" />
 
 The SDK exposes eBay push notifications as Laravel events, provided the webhook is configured 
 correctly as described [here](/guide/webhook).

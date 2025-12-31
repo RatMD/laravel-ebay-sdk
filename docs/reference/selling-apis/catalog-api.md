@@ -1,7 +1,7 @@
 ---
 outline: deep
 ---
-# Catalog API <DocsBadge path="sell/catalog/overview.html" />
+# Catalog API <Badge type="warning" style="margin-left:0.75rem;">v1_beta.5.3</Badge> <DocsBadge path="sell/catalog/overview.html" />
 
 The Catalog API allows users to search for and locate an eBay catalog product that is a direct match 
 for the product that they wish to sell. Listing against an eBay catalog product helps insure that 

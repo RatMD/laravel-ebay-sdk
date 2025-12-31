@@ -1,7 +1,7 @@
 ---
 outline: deep
 ---
-# Metadata API <DocsBadge path="sell/metadata/static/overview.html" />
+# Metadata API <Badge type="warning" style="margin-left:0.75rem;">v1.12.0</Badge> <DocsBadge path="sell/metadata/static/overview.html" />
 
 The Metadata API lets you retrieve metadata on eBay category policies, information on sales tax 
 jurisdictions, and available hazardous material related label information.

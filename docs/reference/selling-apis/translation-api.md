@@ -1,7 +1,7 @@
 ---
 outline: deep
 ---
-# Translation API <DocsBadge path="sell/translation/static/overview.html" />
+# Translation API <Badge type="warning" style="margin-left:0.75rem;">v1_beta.1.6</Badge> <DocsBadge path="sell/translation/static/overview.html" />
 
 The Translation API provides machine translation to help bring inventory to new markets. The 
 Translation API translates common commerce content, such as the title of an item to help present 
