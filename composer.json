@@ -1,7 +1,7 @@
 {
     "name": "rat.md/laravel-ebay-sdk",
     "version": "0.1.0",
-    "description": "A (Work-In-Progress) Laravel SDK for integrating with eBay APIs, including OAuth authentication, notifications, events, and typed API clients.",
+    "description": "A Laravel eBay SDK for integrating with all eBay APIs, featuring OAuth authentication, webhook notifications, event handling, and practical utilities for common workflows.",
     "keywords": [
         "laravel",
         "ebay",
@@ -9,7 +9,7 @@
         "sdk",
         "http-client"
     ],
-    "homepage": "https://rat.md/laravel-ebay-sdk",
+    "homepage": "https://ebay-sdk.rat.md",
     "license": "MIT",
     "authors": [
         {

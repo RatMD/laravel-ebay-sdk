@@ -1,17 +1,17 @@
-Laravel eBay SDK
-================
+eBay SDK for Laravel
+====================
 
 > [!CAUTION]
 > This is an **experimental** eBay SDK under active development. Production use is discouraged.  
 > Breaking changes may occur at any time, including minor and patch releases.
 
-A work-in-progress Laravel SDK for integrating with eBay APIs. It provides OAuth authentication, 
-webhook handling, event-based notifications, and typed clients for both Modern and Traditional 
-(XML/SOAP) eBay APIs.
+A Laravel SDK for integrating with eBay APIs, featuring OAuth authentication, webhook notifications, 
+event handling, and practical utilities for common workflows. The SDK supports both Modern REST APIs 
+and Traditional (XML/SOAP) eBay APIs and is designed to evolve alongside eBay’s platform.
 
-- [Documentation Page](https://ratmd.github.io/laravel-ebay-sdk)
-- [How to authorize with eBay](http://localhost:5173/laravel-ebay-sdk/guide/authorize.html)
-- [How to Listening for eBay Notifications](http://localhost:5173/laravel-ebay-sdk/guide/webhook.html)
+- [Documentation Page](https://ebay-sdk.rat.md)
+  - [Authorize with eBay](https://ebay-sdk.rat.md//guide/authorize.html)
+  - [Receive eBay Notifications](https://ebay-sdk.rat.md/guide/webhook.html)
 
 ## Features
 
