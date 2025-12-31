@@ -10,7 +10,7 @@ event handling, and practical utilities for common workflows. The SDK supports b
 and Traditional (XML/SOAP) eBay APIs and is designed to evolve alongside eBay’s platform.
 
 - [Documentation Page](https://ebay-sdk.rat.md)
-  - [Authorize with eBay](https://ebay-sdk.rat.md//guide/authorize.html)
+  - [Authorize with eBay](https://ebay-sdk.rat.md/guide/authorize.html)
   - [Receive eBay Notifications](https://ebay-sdk.rat.md/guide/webhook.html)
 
 ## Features
