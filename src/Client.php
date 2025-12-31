@@ -2,6 +2,7 @@
 
 namespace Rat\eBaySDK;
 
+use BackedEnum;
 use Exception;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
@@ -236,7 +237,10 @@ class Client
         $path = $request->path();
 
         // Replace path parameters
-        $params = $request->params();
+        $params = array_map(
+            fn ($val) => $val instanceof BackedEnum ? $val->value : $val,
+            $request->params()
+        );
         if (!empty($params)) {
             $keys = array_map(fn ($item) => '{'. $item . '}', array_keys($params));
             $values = array_values($params);
@@ -244,7 +248,10 @@ class Client
         }
 
         // Add Query
-        $query = array_filter($request->query(), fn (mixed $item) => $item !== null);
+        $query = array_filter(array_map(
+            fn ($val) => $val instanceof BackedEnum ? $val->value : $val,
+            $request->query()
+        ), fn (mixed $val) => $val !== null);
         if (!empty($query)) {
             $path .= '?' . http_build_query($query);
         }
