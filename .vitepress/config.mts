@@ -2,12 +2,12 @@ import { defineConfig } from "vitepress";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-    base: '/laravel-ebay-sdk/',
+    base: '/',
     srcDir: "docs",
     title: "Laravel eBay SDK",
     description: "The RAT Laravel eBay SDK",
     sitemap: {
-        hostname: 'https://ratmd.github.io/laravel-ebay-sdk/',
+        hostname: 'https://ebay-sdk.rat.md/',
         lastmodDateOnly: true
     },
     lastUpdated: true,
