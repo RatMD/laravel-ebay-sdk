@@ -11,6 +11,35 @@ export default defineConfig({
         lastmodDateOnly: true
     },
     lastUpdated: true,
+    head: [
+        [
+            'link',
+            {
+                rel: 'alternate',
+                type: 'application/atom+xml',
+                title: 'eBay API Release Notes (Atom)',
+                href: 'https://ebay-api-monitor.rat.md/feed/feed.atom.xml',
+            }
+        ],
+        [
+            'link',
+            {
+                rel: 'alternate',
+                type: 'application/feed+json',
+                title: 'eBay API Release Notes (JSON)',
+                href: 'https://ebay-api-monitor.rat.md/feed/feed.json',
+            }
+        ],
+        [
+            'link',
+            {
+                rel: 'alternate',
+                type: 'application/rss+xml',
+                title: 'eBay API Release Notes (RSS)',
+                href: 'https://ebay-api-monitor.rat.md/feed/feed.rss.xml',
+            }
+        ],
+    ],
     themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
         nav: [
@@ -164,6 +193,7 @@ export default defineConfig({
 
         socialLinks: [
             { icon: "github", link: "https://github.com/RatMD/laravel-ebay-sdk" },
+            { icon: "rss", link: "https://ebay-api-monitor.rat.md/feed/feed.atom.xml" },
         ],
 
         search: {
