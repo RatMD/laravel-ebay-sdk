@@ -50,7 +50,7 @@ export default {
                 url: item.changelog_url
             },
             content: item.release_notes.map(
-                note => `## ${note.version}\n\n${note.content}`
+                note => `## ${note.version}\n\n${note.content_markdown}`
             ).join('\n\n')
         }));
     }
