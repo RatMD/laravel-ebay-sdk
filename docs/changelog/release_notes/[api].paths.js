@@ -7,21 +7,7 @@ export default {
      */
     async items() {
         const env = loadEnv('', process.cwd(), "");
-        const data = await new Promise(async res => {
-            let response;
-            try {
-                response = await fetch(`${env.API_MONITOR_URL}/api/sources`);
-            } catch (err) {
-                console.error(`Failed fetching ${env.API_MONITOR_URL}/api/sources`);
-                throw err;
-            }
-            try {
-                const result = await response.json();
-                res(result);
-            } catch (err) {
-                throw err;
-            }
-        });
+        const data = await (await fetch(`${env.API_MONITOR_URL}/api/sources`)).json();
         
         const items = new Map;
         data.result.items.forEach(item => {
@@ -55,21 +41,7 @@ export default {
      */
     async paths() {
         const env = loadEnv('', process.cwd(), "");
-        const data = await new Promise(async res => {
-            let response;
-            try {
-                response = await fetch(`${env.API_MONITOR_URL}/api/release_notes`);
-            } catch (err) {
-                console.error(`Failed fetching ${env.API_MONITOR_URL}/api/release_notes`);
-                throw err;
-            }
-            try {
-                const result = await response.json();
-                res(result);
-            } catch (err) {
-                throw err;
-            }
-        });
+        const data = await (await fetch(`${env.API_MONITOR_URL}/api/release_notes`)).json();
 
         return data.result.items.map(item => ({
             params: {
