@@ -1,4 +1,5 @@
 import { defineConfig } from "vitepress";
+import API from "../docs/changelog/release_notes/[api].paths";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -11,6 +12,11 @@ export default defineConfig({
         lastmodDateOnly: true
     },
     lastUpdated: true,
+    transformPageData(pageData) {
+        if (pageData?.params?.title) {
+            pageData.title = `${pageData.params.title}`;
+        }
+    },
     head: [
         [
             'link',
@@ -41,10 +47,10 @@ export default defineConfig({
         ],
     ],
     themeConfig: {
-        // https://vitepress.dev/reference/default-theme-config
         nav: [
             { text: "Guide", link: "/guide/start", activeMatch: '/guide' },
             { text: "Reference", link: "/reference/overview", activeMatch: '/reference' },
+            { text: "Changelog", link: "/changelog/overview", activeMatch: '/changelog' },
         ],
 
         sidebar: {
@@ -188,6 +194,19 @@ export default defineConfig({
                         },
                     ],
                 },
+            ],
+            '/changelog': [
+                {
+                    text: "Changelog",
+                    items: [
+                        { text: "Overview", link: "/changelog/overview" },
+                        { text: "Release Feeds", link: "/changelog/feeds" },
+                    ]
+                },
+                {
+                    text: "Release Notes",
+                    items: await API.items()
+                }
             ]
         },
 

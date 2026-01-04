@@ -13,6 +13,9 @@ hero:
     - theme: alt
       text: API Reference
       link: /reference/overview
+    - theme: alt
+      text: eBay Release Feeds
+      link: /changelog/feeds
 features:
   - title: OAuth Flow
     details: Built-in OAuth authorization flow with automatic token handling and refresh support.
