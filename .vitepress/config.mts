@@ -19,6 +19,14 @@ export default defineConfig({
     },
     head: [
         [
+            'script',
+            {
+                defer: 'defer',
+                src: 'https://analytics.pytes.net/script.js',
+                'data-website-id': '4919e1a6-ff21-4f34-b878-014aa91fad01'
+            }
+        ],
+        [
             'link',
             {
                 rel: 'alternate',
