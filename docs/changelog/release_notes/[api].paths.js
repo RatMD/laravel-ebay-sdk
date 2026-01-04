@@ -10,7 +10,7 @@ export default {
         const data = await new Promise(async res => {
             let response;
             try {
-                response = await fetch(`Failed fetching ${env.API_MONITOR_URL}/api/sources`);
+                response = await fetch(`${env.API_MONITOR_URL}/api/sources`);
             } catch (err) {
                 console.error(`Failed fetching ${env.API_MONITOR_URL}/api/sources`);
                 throw err;
@@ -58,7 +58,7 @@ export default {
         const data = await new Promise(async res => {
             let response;
             try {
-                response = await fetch(`Failed fetching ${env.API_MONITOR_URL}/api/release_notes`);
+                response = await fetch(`${env.API_MONITOR_URL}/api/release_notes`);
             } catch (err) {
                 console.error(`Failed fetching ${env.API_MONITOR_URL}/api/release_notes`);
                 throw err;
