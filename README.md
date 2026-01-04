@@ -1,5 +1,14 @@
-eBay SDK for Laravel
-====================
+<p align="center">
+    <a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a>
+</p>
+
+<p align="center">
+    <a href="https://laravel.com" target="_blank">Laravel</a> is an accessible and powerful <a href="http://php.net" target="_blank">PHP</a> web application framework with an expressive and elegant syntax.
+</p>
+
+---
+
+# eBay SDK for Laravel
 
 > [!CAUTION]
 > This is an **experimental** eBay SDK under active development. Production use is discouraged.  
