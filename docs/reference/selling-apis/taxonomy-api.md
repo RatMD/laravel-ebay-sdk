@@ -16,6 +16,11 @@ The Taxonomy API enables you to assist both sellers and buyers:
 
 ## CategoryTree
 
+> [!TIP]
+> In many methods, you must pass the `categoryTreeId` parameter. This value is returned by the 
+> [getDefaultCategoryTreeId](#getdefaultcategorytreeid) call in the `categoryTreeId` response field 
+> and depends on the marketplace you are targeting.
+
 ### FetchItemAspects <DocsBadge path="sell/taxonomy/resources/category_tree/methods/fetchItemAspects" />
 
 <ResourcePath method="GET">/category_tree/{categoryTreeId}/fetch_item_aspects</ResourcePath>
@@ -47,9 +52,7 @@ $response = $client->execute($request);
 <ResourcePath method="GET">/category_tree/{categoryTreeId}/get_category_subtree</ResourcePath>
 
 This call retrieves the details of all nodes of the category tree hierarchy (the subtree) below a 
-specified category of a category tree. You identify the tree using the `categoryTreeId` parameter, 
-which was returned by the [getDefaultCategoryTreeId](#getdefaultcategorytreeid) call in the 
-`categoryTreeId` field.
+specified category of a category tree.
 
 > [!NOTE]
 > This method can return a very large payload, so gzip compression is supported. To enable gzip 
@@ -78,9 +81,6 @@ node is a localized name for that category (based on the [configured locale](/gu
 and details about each of the category's ancestor nodes, extending from its immediate parent up to 
 the root of the category tree.
 
-You identify the tree using the `categoryTreeId` parameter, which was returned by the 
-[getDefaultCategoryTreeId](#getdefaultcategorytreeid) call in the `categoryTreeId` field.
-
 > [!CAUTION]
 > This call is not supported in the Sandbox environment. It will return a response payload in which 
 > the **categoryName** fields contain random or boilerplate text regardless of the query submitted.
@@ -105,9 +105,8 @@ $response = $client->execute($request);
 <ResourcePath method="GET">/category_tree/{categoryTreeId}</ResourcePath>
 
 This method retrieves the complete category tree that is identified by the `categoryTreeId` 
-parameter. The value of `categoryTreeId` was returned by the [getDefaultCategoryTreeId](#getdefaultcategorytreeid) 
-method in the `categoryTreeId` field. The response contains details of all nodes of the specified 
-eBay category tree, as well as the eBay marketplaces that use this category tree.
+parameter. The response contains details of all nodes of the specified eBay category tree, as well 
+as the eBay marketplaces that use this category tree.
 
 > [!NOTE]
 > This method can return a very large payload, so gzip compression is supported. To enable gzip 
