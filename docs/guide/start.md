@@ -5,8 +5,9 @@ outline: deep
 # Getting Started
 
 > [!CAUTION]
-> This is an experimental eBay SDK under active development. Production use is discouraged.
-> Breaking changes may occur at any time, including minor and patch releases.
+> This is an **experimental** eBay SDK in an early alpha stage. Not all APIs have been fully tested 
+> or can be tested due to user, marketplace, country restrictions, or sandbox limitations.
+> While the SDK should be usable, breaking changes may occur at any time, including minor releases.
 
 A work-in-progress Laravel SDK for integrating with eBay APIs. It provides OAuth authentication, 
 webhook handling, event-based notifications, and typed clients for both Modern and Traditional 

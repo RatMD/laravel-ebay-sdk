@@ -1,5 +1,10 @@
 # Release Notes Overview
 
+> [!CAUTION]
+> This is an **experimental** eBay SDK in an early alpha stage. Not all APIs have been fully tested 
+> or can be tested due to user, marketplace, country restrictions, or sandbox limitations.
+> While the SDK should be usable, breaking changes may occur at any time, including minor releases.
+
 This section provides an overview of release notes for all eBay APIs documented on this site. Here 
 you can browse recent changes, updates, and announcements across the entire eBay API platform in one 
 place.
