@@ -24,11 +24,13 @@ class GetCategorySubtree implements BaseAPIRequest
      * Create a new instance.
      * @param int $categoryTreeId
      * @param int $categoryId
+     * @param bool $gzip
      * @return void
      */
     public function __construct(
         public readonly int $categoryTreeId,
         public readonly int $categoryId,
+        public readonly bool $gzip = false,
     ) { }
 
     /**
@@ -65,5 +67,17 @@ class GetCategorySubtree implements BaseAPIRequest
         return [
             'category_id'   => $this->categoryId,
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function headers(): array
+    {
+        if ($this->gzip) {
+            return ['Accept-Encoding' => 'gzip'];
+        } else {
+            return [];
+        }
     }
 }

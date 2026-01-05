@@ -5,6 +5,7 @@ namespace Rat\eBaySDK\API\CatalogAPI\ProductSummary;
 use Rat\eBaySDK\Concerns\CommonMethods;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
+use Rat\eBaySDK\Support\FilterQuery;
 
 /**
  * GET /product_summary/search
@@ -26,21 +27,21 @@ class Search implements BaseAPIRequest
      * @param null|string $gtin
      * @param null|string $mpn
      * @param null|string $categoryIds
-     * @param null|string $aspectFilter
+     * @param null|string|FilterQuery $aspectFilter
      * @param null|string $fieldGroups
      * @param null|int $limit
      * @param null|int $offset
      * @return void
      */
     public function __construct(
-        public readonly ?string $q = null,
-        public readonly ?string $gtin = null,
-        public readonly ?string $mpn = null,
-        public readonly ?string $categoryIds = null,
-        public readonly ?string $aspectFilter = null,
-        public readonly ?string $fieldGroups = null,
-        public readonly ?int $limit = 50,
-        public readonly ?int $offset = 0,
+        public readonly null|string $q = null,
+        public readonly null|string $gtin = null,
+        public readonly null|string $mpn = null,
+        public readonly null|string $categoryIds = null,
+        public readonly null|string|FilterQuery $aspectFilter = null,
+        public readonly null|string $fieldGroups = null,
+        public readonly null|int $limit = 50,
+        public readonly null|int $offset = 0,
     ) { }
 
     /**

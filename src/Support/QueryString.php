@@ -3,30 +3,47 @@
 namespace Rat\eBaySDK\Support;
 
 use BackedEnum;
+use Stringable;
 use Rat\eBaySDK\Contracts\RawQueryPart;
 
 class QueryString
 {
     /**
      * Format query data value.
-     * @param string|array|BackedEnum $value
+     * @param mixed $value
      * @param string $separator
      * @return string
      */
-    public static function formatData(string|array|BackedEnum $value, string $separator = ','): string
+    public static function formatData(mixed $value, string $separator = ','): string
     {
+        if ($value instanceof Stringable) {
+            return (string) $value->value;
+        }
+
         if ($value instanceof BackedEnum) {
             return (string) $value->value;
+        }
+
+        if (is_bool($value)) {
+            return $value ? 'true' : 'false';
+        }
+
+        if (is_numeric($value)) {
+            return (string) $value;
         }
 
         if (is_string($value)) {
             return $value;
         }
 
-        return implode($separator, array_map(
-            fn ($item) => static::formatData($item),
-            $value
-        ));
+        if (is_array($value)) {
+            return implode($separator, array_map(
+                fn ($item) => static::formatData($item),
+                $value
+            ));
+        }
+
+        return (string) $value;
     }
 
     /**

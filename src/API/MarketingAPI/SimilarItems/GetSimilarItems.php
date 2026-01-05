@@ -5,6 +5,7 @@ namespace Rat\eBaySDK\API\MarketingAPI\SimilarItems;
 use Rat\eBaySDK\Concerns\CommonMethods;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
+use Rat\eBaySDK\Support\FilterQuery;
 
 /**
  * GET /similar_items
@@ -26,7 +27,7 @@ class GetSimilarItems implements BaseAPIRequest
      * @param string $itemId
      * @param null|string $excludedCategoryIds
      * @param null|string $buyingOption
-     * @param null|string $filter
+     * @param null|string|FilterQuery $filter
      * @param null|int $maxResults
      * @param null|string $endUserCtx
      * @return void
@@ -34,11 +35,11 @@ class GetSimilarItems implements BaseAPIRequest
     public function __construct(
         public readonly string $marketplaceId,
         public readonly string $itemId,
-        public readonly ?string $excludedCategoryIds = null,
-        public readonly ?string $buyingOption = null,
-        public readonly ?string $filter = null,
-        public readonly ?int $maxResults = 20,
-        public readonly ?string $endUserCtx = null,
+        public readonly null|string $excludedCategoryIds = null,
+        public readonly null|string $buyingOption = null,
+        public readonly null|string|FilterQuery $filter = null,
+        public readonly null|int $maxResults = 20,
+        public readonly null|string $endUserCtx = null,
     ) { }
 
     /**

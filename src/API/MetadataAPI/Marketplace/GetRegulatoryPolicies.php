@@ -5,6 +5,7 @@ namespace Rat\eBaySDK\API\MetadataAPI\Marketplace;
 use Rat\eBaySDK\Concerns\CommonMethods;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
+use Rat\eBaySDK\Support\FilterQuery;
 
 /**
  * GET /marketplace/{marketplaceId}/get_regulatory_policies
@@ -23,12 +24,12 @@ class GetRegulatoryPolicies implements BaseAPIRequest
     /**
      * Create a new instance.
      * @param string $marketplaceId
-     * @param null|string $filter
+     * @param null|string|FilterQuery $filter
      * @return void
      */
     public function __construct(
         public readonly string $marketplaceId,
-        public readonly ?string $filter = null,
+        public readonly null|string|FilterQuery $filter = null,
     ) { }
 
     /**

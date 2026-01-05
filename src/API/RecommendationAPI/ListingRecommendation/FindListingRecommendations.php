@@ -5,6 +5,7 @@ namespace Rat\eBaySDK\API\RecommendationAPI\ListingRecommendation;
 use Rat\eBaySDK\Concerns\CommonMethods;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
+use Rat\eBaySDK\Support\FilterQuery;
 
 /**
  * GET /find
@@ -22,13 +23,13 @@ class FindListingRecommendations implements BaseAPIRequest
 
     /**
      * Create a new instance.
-     * @param null|string $filter
+     * @param null|string|FilterQuery $filter
      * @param int $limit
      * @param int $offset
      * @return void
      */
     public function __construct(
-        public readonly ?string $filter = null,
+        public readonly null|string|FilterQuery $filter = null,
         public readonly int $limit = 10,
         public readonly int $offset = 0,
     ) { }

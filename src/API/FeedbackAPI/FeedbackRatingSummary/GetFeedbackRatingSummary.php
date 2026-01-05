@@ -5,6 +5,7 @@ namespace Rat\eBaySDK\API\FeedbackAPI\FeedbackRatingSummary;
 use Rat\eBaySDK\Concerns\CommonMethods;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
+use Rat\eBaySDK\Support\FilterQuery;
 
 /**
  * GET /feedback_rating_summary
@@ -23,12 +24,12 @@ class GetFeedbackRatingSummary implements BaseAPIRequest
     /**
      * Create a new instance.
      * @param string $userId
-     * @param string $filter
+     * @param string|FilterQuery $filter
      * @return void
      */
     public function __construct(
         public readonly string $userId,
-        public readonly string $filter,
+        public readonly string|FilterQuery $filter,
     ) { }
 
     /**

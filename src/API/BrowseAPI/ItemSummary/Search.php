@@ -5,6 +5,7 @@ namespace Rat\eBaySDK\API\BrowseAPI\ItemSummary;
 use Rat\eBaySDK\Concerns\CommonMethods;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
+use Rat\eBaySDK\Support\FilterQuery;
 
 /**
  * GET /item_summary/search
@@ -30,9 +31,9 @@ class Search implements BaseAPIRequest
      * @param null|string $categoryIds
      * @param null|string $autoCorrect
      * @param null|string $fieldGroups
-     * @param null|string $aspectFilter
-     * @param null|string $compatibilityFilter
-     * @param null|string $filter
+     * @param null|string|FilterQuery $aspectFilter
+     * @param null|string|FilterQuery $compatibilityFilter
+     * @param null|string|FilterQuery $filter
      * @param null|string $sort
      * @param null|int $limit
      * @param null|int $offset
@@ -41,20 +42,20 @@ class Search implements BaseAPIRequest
      */
     public function __construct(
         public readonly string $marketplaceId,
-        public readonly ?string $q = null,
-        public readonly ?string $gtin = null,
-        public readonly ?string $charityIds = null,
-        public readonly ?string $epid = null,
-        public readonly ?string $categoryIds = null,
-        public readonly ?string $autoCorrect = null,
-        public readonly ?string $fieldGroups = null,
-        public readonly ?string $aspectFilter = null,
-        public readonly ?string $compatibilityFilter = null,
-        public readonly ?string $filter = null,
-        public readonly ?string $sort = null,
-        public readonly ?int $limit = 50,
-        public readonly ?int $offset = 0,
-        public readonly ?string $endUserCtx = null,
+        public readonly null|string $q = null,
+        public readonly null|string $gtin = null,
+        public readonly null|string $charityIds = null,
+        public readonly null|string $epid = null,
+        public readonly null|string $categoryIds = null,
+        public readonly null|string $autoCorrect = null,
+        public readonly null|string $fieldGroups = null,
+        public readonly null|string|FilterQuery $aspectFilter = null,
+        public readonly null|string|FilterQuery $compatibilityFilter = null,
+        public readonly null|string|FilterQuery $filter = null,
+        public readonly null|string $sort = null,
+        public readonly null|int $limit = 50,
+        public readonly null|int $offset = 0,
+        public readonly null|string $endUserCtx = null,
     ) { }
 
     /**

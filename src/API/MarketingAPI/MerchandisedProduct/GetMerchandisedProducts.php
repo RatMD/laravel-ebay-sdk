@@ -5,6 +5,7 @@ namespace Rat\eBaySDK\API\MarketingAPI\MerchandisedProduct;
 use Rat\eBaySDK\Concerns\CommonMethods;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
+use Rat\eBaySDK\Support\FilterQuery;
 
 /**
  * GET /merchandised_product
@@ -24,15 +25,15 @@ class GetMerchandisedProducts implements BaseAPIRequest
      * Create a new instance.
      * @param string $metricName
      * @param string $categoryId
-     * @param null|string $aspectFilter
+     * @param null|string|FilterQuery $aspectFilter
      * @param null|int $limit
      * @return void
      */
     public function __construct(
         public readonly string $metricName,
         public readonly string $categoryId,
-        public readonly ?string $aspectFilter = null,
-        public readonly ?int $limit = 8,
+        public readonly null|string|FilterQuery $aspectFilter = null,
+        public readonly null|int $limit = 8,
     ) { }
 
     /**

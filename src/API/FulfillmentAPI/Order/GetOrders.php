@@ -5,6 +5,7 @@ namespace Rat\eBaySDK\API\FulfillmentAPI\Order;
 use Rat\eBaySDK\Concerns\CommonMethods;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
+use Rat\eBaySDK\Support\FilterQuery;
 
 /**
  * GET /order
@@ -24,15 +25,15 @@ class GetOrders implements BaseAPIRequest
      * Create a new instance.
      * @param null|string $orderIds
      * @param null|string $fieldGroups
-     * @param null|string $filter
+     * @param null|string|FilterQuery $filter
      * @param int $limit
      * @param int $offset
      * @return void
      */
     public function __construct(
-        public readonly ?string $orderIds = null,
-        public readonly ?string $fieldGroups = null,
-        public readonly ?string $filter = null,
+        public readonly null|string $orderIds = null,
+        public readonly null|string $fieldGroups = null,
+        public readonly null|string|FilterQuery $filter = null,
         public readonly int $limit = 50,
         public readonly int $offset = 0,
     ) { }

@@ -5,6 +5,7 @@ namespace Rat\eBaySDK\API\ComplianceAPI\ListingViolation;
 use Rat\eBaySDK\Concerns\CommonMethods;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
+use Rat\eBaySDK\Support\FilterQuery;
 
 /**
  * GET /listing_violation
@@ -25,7 +26,7 @@ class GetListingViolations implements BaseAPIRequest
      * @param string $marketplaceId
      * @param string $complianceType
      * @param null|string $listingId
-     * @param null|string $filter
+     * @param null|string|FilterQuery $filter
      * @param null|int $limit
      * @param null|int $offset
      * @return void
@@ -33,10 +34,10 @@ class GetListingViolations implements BaseAPIRequest
     public function __construct(
         public readonly string $marketplaceId,
         public readonly string $complianceType,
-        public readonly ?string $listingId = null,
-        public readonly ?string $filter = null,
-        public readonly ?int $limit = 100,
-        public readonly ?int $offset = 0,
+        public readonly null|string $listingId = null,
+        public readonly null|string|FilterQuery $filter = null,
+        public readonly null|int $limit = 100,
+        public readonly null|int $offset = 0,
     ) { }
 
     /**

@@ -23,10 +23,12 @@ class GetCategoryTree implements BaseAPIRequest
     /**
      * Create a new instance.
      * @param int $categoryTreeId
+     * @param bool $gzip
      * @return void
      */
     public function __construct(
         public readonly int $categoryTreeId,
+        public readonly bool $gzip = false,
     ) { }
 
     /**
@@ -53,5 +55,17 @@ class GetCategoryTree implements BaseAPIRequest
         return [
             'categoryTreeId'    => $this->categoryTreeId,
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function headers(): array
+    {
+        if ($this->gzip) {
+            return ['Accept-Encoding' => 'gzip'];
+        } else {
+            return [];
+        }
     }
 }

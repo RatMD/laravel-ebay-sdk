@@ -5,6 +5,7 @@ namespace Rat\eBaySDK\API\FeedbackAPI\AwaitingFeedback;
 use Rat\eBaySDK\Concerns\CommonMethods;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
+use Rat\eBaySDK\Support\FilterQuery;
 
 /**
  * GET /awaiting_feedback
@@ -22,17 +23,17 @@ class GetItemsAwaitingFeedback implements BaseAPIRequest
 
     /**
      * Create a new instance.
-     * @param null|string $filter
+     * @param null|string|FilterQuery $filter
      * @param null|string $sort
      * @param null|int $limit
      * @param null|int $offset
      * @return void
      */
     public function __construct(
-        public readonly ?string $filter = null,
-        public readonly ?string $sort = null,
-        public readonly ?int $limit = 25,
-        public readonly ?int $offset = 0,
+        public readonly null|string|FilterQuery $filter = null,
+        public readonly null|string $sort = null,
+        public readonly null|int $limit = 25,
+        public readonly null|int $offset = 0,
     ) { }
 
     /**

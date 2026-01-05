@@ -6,6 +6,7 @@ use Rat\eBaySDK\Concerns\CommonMethods;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\FeedbackType;
 use Rat\eBaySDK\Enums\HTTPMethod;
+use Rat\eBaySDK\Support\FilterQuery;
 
 /**
  * GET /feedback
@@ -29,7 +30,7 @@ class GetFeedback implements BaseAPIRequest
      * @param null|string $listingId
      * @param null|string $transactionId
      * @param null|string $orderLineItemId
-     * @param null|string $filter
+     * @param null|string|FilterQuery $filter
      * @param null|string $sort
      * @param null|int $limit
      * @param null|int $offset
@@ -38,14 +39,14 @@ class GetFeedback implements BaseAPIRequest
     public function __construct(
         public readonly FeedbackType $feedbackType,
         public readonly string $userId,
-        public readonly ?string $feedbackId = null,
-        public readonly ?string $listingId = null,
-        public readonly ?string $transactionId = null,
-        public readonly ?string $orderLineItemId = null,
-        public readonly ?string $filter = null,
-        public readonly ?string $sort = null,
-        public readonly ?int $limit = 25,
-        public readonly ?int $offset = 0,
+        public readonly null|string $feedbackId = null,
+        public readonly null|string $listingId = null,
+        public readonly null|string $transactionId = null,
+        public readonly null|string $orderLineItemId = null,
+        public readonly null|string|FilterQuery $filter = null,
+        public readonly null|string $sort = null,
+        public readonly null|int $limit = 25,
+        public readonly null|int $offset = 0,
     ) { }
 
     /**

@@ -5,6 +5,7 @@ namespace Rat\eBaySDK\API\TaxonomyAPI\CategoryTree;
 use Rat\eBaySDK\Concerns\CommonMethods;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
+use Rat\eBaySDK\Support\FilterQuery;
 
 /**
  * GET /category_tree/{categoryTreeId}/get_compatibility_property_values
@@ -25,14 +26,14 @@ class GetCompatibilityPropertyValues implements BaseAPIRequest
      * @param int $categoryTreeId
      * @param int $categoryId
      * @param string $compatibilityProperty
-     * @param null|string $filter
+     * @param null|string|FilterQuery $filter
      * @return void
      */
     public function __construct(
         public readonly int $categoryTreeId,
         public readonly int $categoryId,
         public readonly string $compatibilityProperty,
-        public readonly ?string $filter = null,
+        public readonly null|string|FilterQuery $filter = null,
     ) { }
 
     /**
