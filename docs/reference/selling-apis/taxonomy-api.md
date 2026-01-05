@@ -6,14 +6,13 @@ outline: deep
 The Taxonomy API enables you to assist both sellers and buyers:
 
 - It helps sellers to determine the best eBay category under which to offer each inventory item for 
-sale in a selected eBay marketplace. It helps sellers to select the categories of items to include 
-in a campaign or promotion. It also provides information about the aspects to include when defining 
-an inventory item in a given category. For more information, see the Selling Integration Guide.
+  sale in a selected eBay marketplace. It helps sellers to select the categories of items to include 
+  in a campaign or promotion. It also provides information about the aspects to include when 
+  defining an inventory item in a given category. For more information, see the 
+  [Selling Integration Guide](https://developer.ebay.com/api-docs/sell/static/selling-ig-landing.html).
 - It helps buyers to determine the appropriate categories in which to browse or search for the items 
-they're looking to purchase in a particular eBay marketplace. For more information, see the Buying 
-Integration Guide.
-
-For more information about using RESTful APIs, see Using eBay Restful APIs.
+  they're looking to purchase in a particular eBay marketplace. For more information, see the 
+  [Buying Integration Guide](https://developer.ebay.com/api-docs/buy/static/buying-ig-landing.html).
 
 ## CategoryTree
 
@@ -22,14 +21,14 @@ For more information about using RESTful APIs, see Using eBay Restful APIs.
 <ResourcePath method="GET">/category_tree/{categoryTreeId}/fetch_item_aspects</ResourcePath>
 
 This method returns a complete list of aspects for all of the leaf categories that belong to an eBay 
-marketplace. The eBay marketplace is specified through the category_tree_id URI parameter.
+marketplace. The eBay marketplace is specified through the `categoryTreeId` parameter.
 
 > [!NOTE]
 > A successful call returns a payload as a gzipped JSON file sent as a binary file using the 
-> content-type:application/octet-stream in the response. This file may be large (over 100 MB, 
-> compressed). Extract the JSON file from the compressed file with a utility that handles .gz or 
-> .gzip. The open source Taxonomy SDK can be used to compare the aspect metadata that is returned in 
-> this response. The Taxonomy SDK uses this call to surface changes (new, modified, and removed 
+> `content-type:application/octet-stream` in the response. This file may be large (over 100 MB, 
+> compressed). Extract the JSON file from the compressed file with a utility that handles `.gz` or 
+> `.gzip`. The open source Taxonomy SDK can be used to compare the aspect metadata that is returned 
+> in this response. The Taxonomy SDK uses this call to surface changes (new, modified, and removed 
 > entities) between an updated version of a bulk downloaded file relative to a previous version.
 
 ```php
@@ -48,8 +47,13 @@ $response = $client->execute($request);
 <ResourcePath method="GET">/category_tree/{categoryTreeId}/get_category_subtree</ResourcePath>
 
 This call retrieves the details of all nodes of the category tree hierarchy (the subtree) below a 
-specified category of a category tree. You identify the tree using the category_tree_id parameter, 
-which was returned by the getDefaultCategoryTreeId call in the categoryTreeId field.
+specified category of a category tree. You identify the tree using the `categoryTreeId` parameter, 
+which was returned by the [getDefaultCategoryTreeId](#getdefaultcategorytreeid) call in the 
+`categoryTreeId` field.
+
+> [!NOTE]
+> This method can return a very large payload, so gzip compression is supported. To enable gzip 
+> compression, set the third parameter `gzip` to `true`.
 
 ```php
 use Rat\eBaySDK\API\TaxonomyAPI\CategoryTree\GetCategorySubtree;
@@ -59,6 +63,7 @@ $client = app(Client::class);
 $request = new GetCategorySubtree(
     categoryTreeId: (int) $categoryTreeId,
     categoryId: (int) $categoryId,
+    gzip: (bool) $gzip = false,
 );
 $response = $client->execute($request);
 ```
@@ -68,17 +73,20 @@ $response = $client->execute($request);
 <ResourcePath method="GET">/category_tree/{categoryTreeId}/get_category_suggestions</ResourcePath>
 
 This call returns an array of category tree leaf nodes in the specified category tree that are 
-considered by eBay to most closely correspond to the query string q. Returned with each suggested 
-node is a localized name for that category (based on the Accept-Language header specified for the 
-call), and details about each of the category's ancestor nodes, extending from its immediate parent 
-up to the root of the category tree.
+considered by eBay to most closely correspond to the query string `q`. Returned with each suggested 
+node is a localized name for that category (based on the [configured locale](/guide/configuration.html#client-authentication-options)), 
+and details about each of the category's ancestor nodes, extending from its immediate parent up to 
+the root of the category tree.
 
-You identify the tree using the category_tree_id parameter, which was returned by the 
-getDefaultCategoryTreeId call in the categoryTreeId field.
+You identify the tree using the `categoryTreeId` parameter, which was returned by the 
+[getDefaultCategoryTreeId](#getdefaultcategorytreeid) call in the `categoryTreeId` field.
 
-> [!NOTE]
+> [!CAUTION]
 > This call is not supported in the Sandbox environment. It will return a response payload in which 
-> the categoryName fields contain random or boilerplate text regardless of the query submitted.
+> the **categoryName** fields contain random or boilerplate text regardless of the query submitted.
+>   
+> Edit: The note above is taken from the official eBay documentation. However, despite this warning, 
+> the call appears to work in the Sandbox environment, at least for the provided test case.
 
 ```php
 use Rat\eBaySDK\API\TaxonomyAPI\CategoryTree\GetCategorySuggestions;
@@ -96,10 +104,14 @@ $response = $client->execute($request);
 
 <ResourcePath method="GET">/category_tree/{categoryTreeId}</ResourcePath>
 
-This method retrieves the complete category tree that is identified by the category_tree_id 
-parameter. The value of category_tree_id was returned by the getDefaultCategoryTreeId method in the 
-categoryTreeId field. The response contains details of all nodes of the specified eBay category 
-tree, as well as the eBay marketplaces that use this category tree.
+This method retrieves the complete category tree that is identified by the `categoryTreeId` 
+parameter. The value of `categoryTreeId` was returned by the [getDefaultCategoryTreeId](#getdefaultcategorytreeid) 
+method in the `categoryTreeId` field. The response contains details of all nodes of the specified 
+eBay category tree, as well as the eBay marketplaces that use this category tree.
+
+> [!NOTE]
+> This method can return a very large payload, so gzip compression is supported. To enable gzip 
+> compression, set the second parameter `gzip` to `true`.
 
 ```php
 use Rat\eBaySDK\API\TaxonomyAPI\CategoryTree\GetCategoryTree;
@@ -108,6 +120,7 @@ use Rat\eBaySDK\Client;
 $client = app(Client::class);
 $request = new GetCategoryTree(
     categoryTreeId: (int) $categoryTreeId,
+    gzip: (bool) $gzip = false,
 );
 $response = $client->execute($request);
 ```
@@ -120,10 +133,6 @@ This call retrieves the compatible vehicle aspects that are used to define a mot
 compatible with a motor vehicle part or accessory. The values that are retrieved here might include 
 motor vehicle aspects such as 'Make', 'Model', 'Year', 'Engine', and 'Trim', and each of these 
 aspects are localized for the eBay marketplace.
-
-The category_tree_id value is passed in as a path parameter, and this value identifies the eBay 
-category tree. The category_id value is passed in as a query parameter, as this parameter is also 
-required. The specified category must be a category that supports parts compatibility.
 
 At this time, this operation only supports parts and accessories listings for cars, trucks, and 
 motorcycles (not boats, power sports, or any other vehicle types). Only the following eBay 
@@ -156,27 +165,28 @@ $response = $client->execute($request);
 
 This call retrieves applicable compatible vehicle property values based on the specified eBay 
 marketplace, specified eBay category, and filters used in the request. Compatible vehicle properties 
-are returned in the compatibilityProperties.name field of a getCompatibilityProperties response.
+are returned in the `compatibilityProperties.name` field of a `getCompatibilityProperties` response.
 
 One compatible vehicle property applicable to the specified eBay marketplace and eBay category is 
-specified through the required compatibility_property filter. Then, the user has the option of 
+specified through the required `compatibility_property` filter. Then, the user has the option of 
 further restricting the compatible vehicle property values that are returned in the response by 
-specifying one or more compatible vehicle property name/value pairs through the filter query 
+specifying one or more compatible vehicle property name/value pairs through the `filter` query 
 parameter.
-
-See the documentation in URI parameters section for more information on using the 
-compatibility_property and filter query parameters together to customize the data that is retrieved.
 
 ```php
 use Rat\eBaySDK\API\TaxonomyAPI\CategoryTree\GetCompatibilityPropertyValues;
 use Rat\eBaySDK\Client;
+use Rat\eBaySDK\Support\FilterQuery;
 
 $client = app(Client::class);
 $request = new GetCompatibilityPropertyValues(
     categoryTreeId: (int) $categoryTreeId,
     categoryId: (int) $categoryId,
     compatibilityProperty: (string) $compatibilityProperty,
-    filter: (string) $filter = null,
+    filter: new FilterQuery([
+        'Year' => '2022',
+        'Make' => 'Audi'
+    ]),
 );
 $response = $client->execute($request);
 ```
@@ -190,6 +200,8 @@ be the default for that marketplace. This call retrieves a reference to the defa
 associated with the specified eBay marketplace ID. The response includes only the tree's unique 
 identifier and version, which you can use to retrieve more details about the tree, its structure, 
 and its individual category nodes.
+
+For a list of supported marketplace IDs, see [Marketplaces with Default Category Trees](https://developer.ebay.com/api-docs/commerce/taxonomy/static/supportedmarketplaces.html).
 
 ```php
 use Rat\eBaySDK\API\TaxonomyAPI\CategoryTree\GetDefaultCategoryTreeId;
@@ -237,7 +249,7 @@ items in the specified leaf category. Each aspect identifies an item attribute (
 for which the seller will be required or encouraged to provide a value (or variation values) when 
 offering an item in that category on eBay.
 
-For each aspect, getItemAspectsForCategory provides complete metadata, including:
+For each aspect, `getItemAspectsForCategory` provides complete metadata, including:
 
 - The aspect's data type, format, and entry mode
 - Whether the aspect is required in listings
