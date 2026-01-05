@@ -15,7 +15,7 @@ language search queries from the buyer and translates them for the target market
 <ResourcePath method="POST">/translate</ResourcePath>
 
 This method translates listing title and listing description text from one language into another.
-For a full list of supported language translations, see the [table](https://developer.ebay.com/develop/guides-v2/other-apis/other-apis-guide#supported-languages).
+For a full list of supported language translations, see the [TranslationLanguage Enum](/reference/enums/translation-language).
 
 
 ```php
@@ -28,3 +28,32 @@ $request = new Translate(
 );
 $response = $client->execute($request);
 ```
+
+::: details Example Request Payload
+```php
+use Rat\eBaySDK\Enums\TranslationContext;
+use Rat\eBaySDK\Enums\TranslationLanguage;
+
+$payload = [
+    'from' => TranslationLanguage::EN,
+    'text' => ['Hello World'],
+    'to' => TranslationLanguage::DE,
+    'translationContext' => TranslationContext::ITEM_TITLE,
+];
+```
+:::
+
+::: details Example Response Body
+```php
+$response = [
+    'from' => 'en',
+    'to' => 'de',
+    'translations' => [
+        [
+            'originalText' => 'Hello World',
+            'translatedText' => 'Hallo Welt'
+        ]
+    ]
+];
+```
+:::

@@ -124,6 +124,8 @@ export default defineConfig({
                                 { text: "SiteCode", link: "/reference/enums/site-code" },
                                 { text: "TrafficReportDimension", link: "/reference/enums/traffic-report-dimension" },
                                 { text: "TrafficReportMetric", link: "/reference/enums/traffic-report-metric" },
+                                { text: "TranslationContext", link: "/reference/enums/translation-context" },
+                                { text: "TranslationLanguage", link: "/reference/enums/translation-language" },
                             ],
                             collapsed: true
                         },
