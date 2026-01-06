@@ -7,17 +7,17 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Rat\eBaySDK\Exceptions\InvalidNotificationPayloadException;
 use Rat\eBaySDK\Exceptions\InvalidWebhookTokenException;
-use Rat\eBaySDK\Support\NotificationDispatcher;
+use Rat\eBaySDK\Services\NotificationDispatcherService;
 
 class EventController extends Controller
 {
     /**
      *
-     * @param NotificationDispatcher $dispatcher
+     * @param NotificationDispatcherService $dispatcher
      * @return void
      */
     public function __construct(
-        private readonly NotificationDispatcher $dispatcher
+        private readonly NotificationDispatcherService $dispatcher
     ) {}
 
     /**

@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Rat\eBaySDK\Support\NotificationDispatcher;
+use Rat\eBaySDK\Services\NotificationDispatcherService;
 
 class DispatchNotificationJob implements ShouldQueue
 {
@@ -31,10 +31,10 @@ class DispatchNotificationJob implements ShouldQueue
 
     /**
      *
-     * @param NotificationDispatcher $dispatcher
+     * @param NotificationDispatcherService $dispatcher
      * @return void
      */
-    public function handle(NotificationDispatcher $dispatcher): void
+    public function handle(NotificationDispatcherService $dispatcher): void
     {
         $dispatcher->handle($this->content, $this->headers, $this->token);
     }

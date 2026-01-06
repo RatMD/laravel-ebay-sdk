@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Rat\eBaySDK\Support;
+namespace Rat\eBaySDK\Services;
 
 use Illuminate\Support\Facades\Log;
 use Rat\eBaySDK\Exceptions\InvalidNotificationPayloadException;
@@ -9,8 +9,25 @@ use Rat\eBaySDK\Jobs\DispatchNotificationJob;
 use Rat\eBaySDK\Notifications\GenericNotification;
 use Rat\eBaySDK\Notifications\UnknownNotification;
 
-class NotificationDispatcher
+class NotificationDispatcherService
 {
+    /**
+     *
+     * @return NotificationDispatcherService
+     */
+    static public function make(): self
+    {
+        /** @var self $self */
+        $self = app(self::class);
+        return $self;
+    }
+
+    /**
+     * Create a new instance.
+     */
+    public function __construct()
+    { }
+
     /**
      *
      * @param string $content
