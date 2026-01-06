@@ -40,8 +40,9 @@ Route::prefix('ebay')->name('ebay-sdk.')->group(function () {
 ```
 
 The `EventController` shown below can be used as-is, since it contains only minimal logic. However, 
-we strongly recommend using the provided `NotificationDispatcher`, as it handles all XML parsing, 
-event dispatching, and optional queue-based processing required for proper webhook integration.
+we strongly recommend using the provided `NotificationDispatcherService`, as it handles all XML
+parsing, event dispatching, and optional queue-based processing required for proper webhook 
+integration.
 
 ```php
 namespace Rat\eBaySDK\Http\Controllers;
@@ -51,17 +52,17 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Rat\eBaySDK\Exceptions\InvalidNotificationPayloadException;
 use Rat\eBaySDK\Exceptions\InvalidWebhookTokenException;
-use Rat\eBaySDK\Support\NotificationDispatcher;
+use Rat\eBaySDK\Services\NotificationDispatcherService;
 
 class EventController extends Controller
 {
     /**
      *
-     * @param NotificationDispatcher $dispatcher
+     * @param NotificationDispatcherService $dispatcher
      * @return void
      */
     public function __construct(
-        private readonly NotificationDispatcher $dispatcher
+        private readonly NotificationDispatcherService $dispatcher
     ) {}
 
     /**
@@ -97,7 +98,6 @@ class EventController extends Controller
         return response('', 200);
     }
 }
-
 ```
 
 ## 2. Configure Notifications in the eBay Developer Portal

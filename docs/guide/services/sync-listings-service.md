@@ -1,6 +1,7 @@
 ---
 outline: deep
 ---
+
 # Sync Listings using SyncListingsService
 
 The `SyncListingsService` workflow provides a robust, resumable, rate-limited synchronization for 

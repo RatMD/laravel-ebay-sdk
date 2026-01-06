@@ -81,6 +81,7 @@ export default defineConfig({
                 {
                     text: "Services",
                     items: [
+                        { text: "NotificationDispatcherService", link: "/guide/services/notification-dispatcher-service" },
                         { text: "SyncListingsService", link: "/guide/services/sync-listings-service" },
                     ]
                 },
