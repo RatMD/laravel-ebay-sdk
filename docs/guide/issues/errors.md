@@ -69,7 +69,7 @@ use Rat\eBaySDK\Enums\ProgramType;
  * Ensures that the SELLING_POLICY_MANAGEMENT program is enabled.
  * @return bool
  */
-function ensureSellingPolicyManagementProgram(): bool
+function ensure_selling_policy_management_program(): bool
 {
     $client = app(Client::class);
 
