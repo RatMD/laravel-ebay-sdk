@@ -119,7 +119,7 @@ Sets the end date of the sync range.
 ->to(now())
 ```
 
-### `to(string|DateTimeInterface $date)`
+### `limit(int $limit)`
 
 Number of listings / items per page. Supports values between 1 and 200 (as per eBay limitations).
 
@@ -131,6 +131,7 @@ Number of listings / items per page. Supports values between 1 and 200 (as per e
 
 Time window size for each sync chunk. Must be compatible with `DateTimeImmutable::modify()` (See 
 [Supported Date and time formats](https://www.php.net/manual/en/datetime.formats.php) on php.net).
+Supports a maximum interval of 120 days (as per eBay limitations).
 
 ```php
 ->interval('+119 days 23 hours 59 minutes 59 seconds')
