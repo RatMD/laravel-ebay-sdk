@@ -79,6 +79,12 @@ export default defineConfig({
                     ]
                 },
                 {
+                    text: "Services",
+                    items: [
+                        { text: "SyncListingsService", link: "/guide/services/sync-listings-service" },
+                    ]
+                },
+                {
                     text: "Known Issues",
                     items: [
                         { text: "API Errors", link: "/guide/issues/errors" },
