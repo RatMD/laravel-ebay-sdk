@@ -1,4 +1,4 @@
-import { defineConfig } from "vitepress";
+import { defineConfig, HeadConfig } from "vitepress";
 import API from "../docs/changelog/release_notes/[api].paths";
 
 // https://vitepress.dev/reference/site-config
@@ -12,6 +12,13 @@ export default defineConfig({
         lastmodDateOnly: true
     },
     lastUpdated: true,
+    transformHead(ctx) {
+        const origin = ctx.siteConfig.sitemap?.hostname ?? 'https://example.com';
+        let path = ctx.page.replace(/\.md$/, '').replace(/\/index$/, '/');
+        path = (path !== 'index' && path !== '/') ? `${path}.html` : '';
+        const canonical = origin.replace(/\/$/, '') + '/' + path.replace(/^\//, '')
+        return [['link', { rel: 'canonical', href: canonical } as any]] as HeadConfig[];
+    },
     transformPageData(pageData) {
         if (pageData?.params?.title) {
             pageData.title = `${pageData.params.title}`;
