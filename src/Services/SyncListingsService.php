@@ -193,7 +193,7 @@ class SyncListingsService
 
         // First Call
         if ($checkpoint['calls'] === 0) {
-            $handler->onPrepare();
+            $handler->onPrepare($cacheKey);
         }
 
         // Execute Request
@@ -272,7 +272,7 @@ class SyncListingsService
             )->onQueue($queue);
         } else {
             if ($checkpoint['calls'] === 0) {
-                $handler->onFinish();
+                $handler->onFinish($cacheKey);
             }
             Cache::forget($cacheKey);
         }

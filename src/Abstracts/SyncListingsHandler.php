@@ -9,18 +9,20 @@ abstract class SyncListingsHandler
 {
     /**
      * Called once before the first API request of the entire sync process.
+     * @param string $cacheKey
      * @return void
      */
-    public function onPrepare(): void
+    public function onPrepare(string $cacheKey): void
     {
         //
     }
 
     /**
      * Called once after the sync process has fully completed.
+     * @param string $cacheKey
      * @return void
      */
-    public function onFinish(): void
+    public function onFinish(string $cacheKey): void
     {
         //
     }
