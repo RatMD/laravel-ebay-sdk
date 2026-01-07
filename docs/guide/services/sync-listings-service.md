@@ -165,13 +165,12 @@ use Rat\eBaySDK\Response;
 
 class MySyncListingsHandler extends SyncListingsHandler
 {
-    public function onPrepare(): void
+    public function onPrepare(string $cacheKey): void
     {
         // Prepare (called once before entire sync process)
     }
 
-    public function onFinish(GetSellerList $request, Response $response): void
-    {
+    public function onFinish(string $cacheKey): void
         // Finish, Clean up (called once after entire sync process)
     }
 
@@ -198,11 +197,11 @@ class MySyncListingsHandler extends SyncListingsHandler
 }
 ```
 
-### onPrepare()
+### onPrepare(string $cacheKey)
 
 Called once before the first API request of the entire sync process.
 
-### onFinish()
+### onFinish(string $cacheKey)
 
 Called once after the sync process has fully completed.
 
