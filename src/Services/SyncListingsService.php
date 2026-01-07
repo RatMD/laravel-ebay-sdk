@@ -49,7 +49,7 @@ class SyncListingsService
 
     /**
      * Make a new instance.
-     * @return SyncListingsHandler
+     * @return self
      */
     static public function make(): self
     {
