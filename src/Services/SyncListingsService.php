@@ -163,7 +163,6 @@ class SyncListingsService
             interval: $this->interval,
             handler: $this->handler,
             cacheKey: 'ebay-sdk:sync-offers:' . md5($from . ':' . $to . ':' . $this->handler),
-            queue: $queue
         )->onQueue($queue);
         return $this;
     }
@@ -174,7 +173,7 @@ class SyncListingsService
      * @param null|string $queue
      * @return self
      */
-    public function run(string $cacheKey, ?string $queue): self
+    public function run(string $cacheKey, ?string $queue = null): self
     {
         $checkpoint = Cache::get($cacheKey, [
             'page'      => 1,
@@ -182,7 +181,7 @@ class SyncListingsService
         ]);
 
         // Get Time-Window
-        $windowFrom = is_String($checkpoint['window'])
+        $windowFrom = is_string($checkpoint['window'])
             ? new DateTimeImmutable($checkpoint['window'])
             : $this->from;
         $windowTo = $windowFrom->modify($this->interval);
@@ -204,7 +203,6 @@ class SyncListingsService
                     interval: $this->interval,
                     handler: $this->handler,
                     cacheKey: $cacheKey,
-                    queue: $queue
                 )->onQueue($queue)->delay($seconds + 5);
                 return $this;
             }
@@ -263,7 +261,6 @@ class SyncListingsService
                 interval: $this->interval,
                 handler: $this->handler,
                 cacheKey: $cacheKey,
-                queue: $queue
             )->onQueue($queue);
         } else {
             Cache::forget($cacheKey);

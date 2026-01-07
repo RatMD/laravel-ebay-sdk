@@ -24,6 +24,7 @@ class SyncListingsJob implements ShouldQueue, ShouldBeUniqueUntilProcessing
      * @param int $limit
      * @param string $interval
      * @param string $handler
+     * @param string $cacheKey
      * @return void
      */
     public function __construct(
@@ -33,7 +34,6 @@ class SyncListingsJob implements ShouldQueue, ShouldBeUniqueUntilProcessing
         private readonly string $interval,
         private readonly string $handler,
         private readonly string $cacheKey,
-        private readonly ?string $queue = null,
     )
     { }
 
