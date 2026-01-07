@@ -9,7 +9,6 @@ enum ListingFormat: string
 {
     /**
      * This enumeration value indicates an AUCTION buying option.
-
      */
     case AUCTION = "AUCTION";
 
