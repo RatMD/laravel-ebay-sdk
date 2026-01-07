@@ -9,8 +9,10 @@ use InvalidArgumentException;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\RateLimiter;
+use Rat\eBaySDK\Abstracts\SyncListingsHandler;
 use Rat\eBaySDK\API\TraditionalAPI\Listing\GetSellerList;
 use Rat\eBaySDK\Client;
+use Rat\eBaySDK\Context\SyncListingsContext;
 use Rat\eBaySDK\Jobs\SyncListingsJob;
 
 class SyncListingsService
@@ -190,15 +192,33 @@ class SyncListingsService
 
         /** @var SyncListingsHandler $handler */
         $handler = app($this->handler);
-
-        // First Call
-        if ($checkpoint['calls'] === 0) {
-            $handler->onPrepare($cacheKey);
-        }
-
-        // Execute Request
         $page = $checkpoint['page'];
         $total = 1;
+
+        // Create Payload + Context
+        $payload = [
+            'StartTimeFrom' => $windowFrom->format('Y-m-d\TH:i:s.v\Z'),
+            'StartTimeTo'   => $windowTo->format('Y-m-d\TH:i:s.v\Z'),
+            'Pagination' => [
+                'EntriesPerPage' => $this->limit,
+                'PageNumber' => $page,
+            ],
+        ];
+        $context = new SyncListingsContext(
+            from: $this->from->format('Y-m-d\TH:i:s.v\Z'),
+            to: $this->to->format('Y-m-d\TH:i:s.v\Z'),
+            limit: $this->limit,
+            interval: $this->interval,
+            handler: $this->handler,
+            cacheKey: $cacheKey,
+            queue: $queue,
+            payload: $payload
+        );
+
+        // Execute Request
+        if ($checkpoint['calls'] === 0) {
+            $handler->onPrepare($context);
+        }
         do {
             if (RateLimiter::tooManyAttempts($cacheKey . ':limiter', 30)) {
                 $seconds = RateLimiter::availableIn($cacheKey . ':limiter');
@@ -215,19 +235,10 @@ class SyncListingsService
             RateLimiter::increment($cacheKey . ':limiter');
 
             // Build Request
-            $request = new GetSellerList([
-                'StartTimeFrom' => $windowFrom->format('Y-m-d\TH:i:s.v\Z'),
-                'StartTimeTo'   => $windowTo->format('Y-m-d\TH:i:s.v\Z'),
-                'Pagination' => [
-                    'EntriesPerPage' => $this->limit,
-                    'PageNumber' => $page,
-                ],
-            ]);
-
-            $request = $handler->onBefore($request);
-            $response = $this->client->execute($request);
+            $payload = $handler->onBefore($payload, $context);
+            $response = $this->client->execute($request = new GetSellerList($payload));
             $content = $response->content();
-            $handler->onAfter($request, $response);
+            $handler->onAfter($request, $response, $context);
 
             // Parse Request
             $total = (int) ($content['PaginationResult']['TotalNumberOfPages'] ?? 1);
@@ -240,9 +251,9 @@ class SyncListingsService
             }
 
             // Execute Handler
-            $handler->onChunk($items);
+            $handler->onChunk($items, $context);
             foreach ($items AS $item) {
-                $handler->onItem($item);
+                $handler->onItem($item, $context);
             }
 
             // Checkpoint
@@ -272,9 +283,10 @@ class SyncListingsService
             )->onQueue($queue);
         } else {
             if ($checkpoint['calls'] === 0) {
-                $handler->onFinish($cacheKey);
+                $handler->onFinish($context);
             }
             Cache::forget($cacheKey);
+            RateLimiter::clear($cacheKey . ':limiter');
         }
         return $this;
     }
