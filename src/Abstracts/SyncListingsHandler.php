@@ -8,7 +8,25 @@ use Rat\eBaySDK\Response;
 abstract class SyncListingsHandler
 {
     /**
-     *
+     * Called once before the first API request of the entire sync process.
+     * @return void
+     */
+    public function onPrepare(): void
+    {
+        //
+    }
+
+    /**
+     * Called once after the sync process has fully completed.
+     * @return void
+     */
+    public function onFinish(): void
+    {
+        //
+    }
+
+    /**
+     * Called before each GetSellerList API request is executed.
      * @param GetSellerList $request
      * @return GetSellerList
      */
@@ -18,7 +36,7 @@ abstract class SyncListingsHandler
     }
 
     /**
-     *
+     * Called after each GetSellerList API request has completed.
      * @param GetSellerList $request
      * @param Response $response
      * @return void
@@ -29,7 +47,7 @@ abstract class SyncListingsHandler
     }
 
     /**
-     *
+     * Called once per page with all items of that page.
      * @param array $chunk
      * @return void
      */
@@ -39,7 +57,7 @@ abstract class SyncListingsHandler
     }
 
     /**
-     *
+     * Called for each individual listing item.
      * @param array $item
      * @return void
      */

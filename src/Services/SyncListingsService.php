@@ -168,7 +168,7 @@ class SyncListingsService
     }
 
     /**
-     *
+     * Execute API call and dispatch next one, if needed.
      * @param string $cacheKey
      * @param null|string $queue
      * @return self
@@ -178,6 +178,7 @@ class SyncListingsService
         $checkpoint = Cache::get($cacheKey, [
             'page'      => 1,
             'window'    => null,
+            'calls'     => 0,
         ]);
 
         // Get Time-Window
@@ -189,6 +190,11 @@ class SyncListingsService
 
         /** @var SyncListingsHandler $handler */
         $handler = app($this->handler);
+
+        // First Call
+        if ($checkpoint['calls'] === 0) {
+            $handler->onPrepare();
+        }
 
         // Execute Request
         $page = $checkpoint['page'];
@@ -242,7 +248,8 @@ class SyncListingsService
             // Checkpoint
             Cache::put($cacheKey, [
                 'page'      => ++$page,
-                'window'    => $windowFrom->format('Y-m-d\TH:i:s.v\Z')
+                'window'    => $windowFrom->format('Y-m-d\TH:i:s.v\Z'),
+                'calls'     => ++$checkpoint['calls'],
             ], now()->addMinutes(120));
         } while ($page <= $total);
 
@@ -251,7 +258,8 @@ class SyncListingsService
         if ($nextWindowFrom <= $this->to) {
             Cache::put($cacheKey, [
                 'page'      => 1,
-                'window'    => $nextWindowFrom->format('Y-m-d\TH:i:s.v\Z')
+                'window'    => $nextWindowFrom->format('Y-m-d\TH:i:s.v\Z'),
+                'calls'     => ++$checkpoint['calls'],
             ], now()->addMinutes(120));
 
             SyncListingsJob::dispatch(
@@ -263,6 +271,9 @@ class SyncListingsService
                 cacheKey: $cacheKey,
             )->onQueue($queue);
         } else {
+            if ($checkpoint['calls'] === 0) {
+                $handler->onFinish();
+            }
             Cache::forget($cacheKey);
         }
         return $this;
