@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Rat\eBaySDK\Contracts;
+namespace Rat\eBaySDK\Abstracts;
 
 use Rat\eBaySDK\API\TraditionalAPI\Listing\GetSellerList;
 use Rat\eBaySDK\Response;
