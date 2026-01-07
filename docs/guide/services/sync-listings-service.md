@@ -160,63 +160,63 @@ of the sync lifecycle.
 
 ```php
 use Rat\eBaySDK\Contracts\SyncListingsHandler;
-use Rat\eBaySDK\API\TraditionalAPI\Listing\GetSellerList;
+use Rat\eBaySDK\Context\SyncListingsContext;
 use Rat\eBaySDK\Response;
 
 class MySyncListingsHandler extends SyncListingsHandler
 {
-    public function onPrepare(string $cacheKey): void
+    public function onPrepare(SyncListingsContext $context): void
     {
         // Prepare (called once before entire sync process)
     }
 
-    public function onFinish(string $cacheKey): void
+    public function onFinish(SyncListingsContext $context): void
         // Finish, Clean up (called once after entire sync process)
     }
 
-    public function onBefore(GetSellerList $request): GetSellerList
+    public function onBefore(array $payload, SyncListingsContext $context): array
     {
         // Modify request (e.g. output selectors, detail level)
-        return $request;
+        return $payload;
     }
 
-    public function onAfter(GetSellerList $request, Response $response): void
+    public function onAfter(GetSellerList $request, Response $response, SyncListingsContext $context): void
     {
         // Logging, metrics, diagnostics
     }
 
-    public function onChunk(array $chunk): void
+    public function onChunk(array $chunk, SyncListingsContext $context): void
     {
         // Bulk processing (recommended for database writes)
     }
 
-    public function onItem(array $item): void
+    public function onItem(array $item, SyncListingsContext $context): void
     {
         // Per-item processing (optional)
     }
 }
 ```
 
-### onPrepare(string $cacheKey)
+### onPrepare(SyncListingsContext $context)
 
 Called once before the first API request of the entire sync process.
 
-### onFinish(string $cacheKey)
+### onFinish(SyncListingsContext $context)
 
 Called once after the sync process has fully completed.
 
-### onBefore(GetSellerList $request)
+### onBefore(array $payload, SyncListingsContext $context)
 
 Called before the API request is executed, must return the desired `GetSellerList` request instance.
 
-### onAfter(GetSellerList $request, Response $response)
+### onAfter(GetSellerList $request, Response $response, SyncListingsContext $context)
 
 Called after the API request returns.
 
-### onChunk(array $chunk)
+### onChunk(array $chunk, SyncListingsContext $context)
 
 Called once per page with all items of that page.
 
-### onItem(array $item)
+### onItem(array $item, SyncListingsContext $context)
 
 Called for each individual listing.
