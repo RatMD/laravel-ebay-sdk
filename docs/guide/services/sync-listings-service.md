@@ -165,6 +165,16 @@ use Rat\eBaySDK\Response;
 
 class MySyncListingsHandler extends SyncListingsHandler
 {
+    public function onPrepare(): void
+    {
+        // Prepare (called once before entire sync process)
+    }
+
+    public function onFinish(GetSellerList $request, Response $response): void
+    {
+        // Finish, Clean up (called once after entire sync process)
+    }
+
     public function onBefore(GetSellerList $request): GetSellerList
     {
         // Modify request (e.g. output selectors, detail level)
@@ -188,6 +198,14 @@ class MySyncListingsHandler extends SyncListingsHandler
 }
 ```
 
+### onPrepare()
+
+Called once before the first API request of the entire sync process.
+
+### onFinish()
+
+Called once after the sync process has fully completed.
+
 ### onBefore(GetSellerList $request)
 
 Called before the API request is executed, must return the desired `GetSellerList` request instance.
@@ -203,4 +221,3 @@ Called once per page with all items of that page.
 ### onItem(array $item)
 
 Called for each individual listing.
-
