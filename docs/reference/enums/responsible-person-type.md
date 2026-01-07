@@ -1,4 +1,4 @@
-# ResponsiblePersonType Enum <DocsBadge path="sell/inventory/types/slr:ShippingServiceTypeEnum" />
+# ResponsiblePersonType Enum <DocsBadge path="sell/inventory/types/slr:ResponsiblePersonTypeEnum" />
 
 This enumeration type is used to indicate the type of EU Responsible Person associated with a 
 listing.
