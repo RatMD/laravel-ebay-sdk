@@ -40,7 +40,7 @@ and Traditional (XML/SOAP) eBay APIs and is designed to evolve alongside eBay’
 > [!TIP]
 > We strongly recommend a task-scheduling enabled and queue-based Laravel setup to handle
 > performance-intensive processes and, most importantly, to process eBay webhook notifications
-> in a compliant and reliable manner (See [Configuration](/guide/configuration#webhook-configuration)).
+> in a compliant and reliable manner (See [Configuration](https://ebay-sdk.rat.md/guide/configuration#webhook-configuration)).
 
 ## Installation
 
