@@ -10,6 +10,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Rat\eBaySDK\Authentication\Environment;
 use Rat\eBaySDK\Authentication\OAuthAuthentication;
 use Rat\eBaySDK\Contracts\Authentication;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;
@@ -28,39 +29,15 @@ class Client
 {
     /**
      *
-     * @var string
+     * @var Environment
      */
-    public const API_PRODUCTION_URL = 'https://api.ebay.com';
-
-    /**
-     *
-     * @var string
-     */
-    public const API_SANDBOX_URL = 'https://api.sandbox.ebay.com';
+    private $environment;
 
     /**
      *
      * @var Authentication
      */
-    protected $auth;
-
-    /**
-     *
-     * @var string
-     */
-    protected $environment;
-
-    /**
-     *
-     * @var array
-     */
-    protected $options = [];
-
-    /**
-     * Application Keyset for the traditional API.
-     * @var array
-     */
-    private $applicationKeys = [];
+    private $auth;
 
     /**
      *
@@ -71,22 +48,16 @@ class Client
 
     /**
      * Initialize a new instance of the Client class.
-     * @param ?string $environment
-     * @param array $options
+     * @param ?Environment $environment
+     * @param ?Authentication $Authentication
      * @return void
      */
     public function __construct(
+        ?Environment $environment = null,
         ?Authentication $auth = null,
-        ?string $environment = null,
-        array $options = []
     ) {
-        $this->auth = $auth ?? new OAuthAuthentication(environment: $environment, options: $options);
-        $this->environment = $environment ?? config('ebay-sdk.credentials.environment', null);
-        $this->options = [
-            'debug'     => $options['debug'] ?? config('ebay-sdk.options.debug', false),
-            'caching'   => $options['caching'] ?? config('ebay-sdk.options.caching', true),
-            'locale'    => $options['locale'] ?? config('ebay-sdk.options.locale', 'de-DE')
-        ];
+        $this->environment = $environment ?? new Environment;
+        $this->auth = $auth ?? new OAuthAuthentication($this->environment);
     }
 
     /**
@@ -110,32 +81,6 @@ class Client
     }
 
     /**
-     * Set Refresh Token.
-     * @param string $appId
-     * @param string $devId
-     * @param string $certId
-     * @return self
-     */
-    public function setTraditionalApplicationKeys(string $appId, string $devId, string $certId): self
-    {
-        $this->applicationKeys = [
-            'app_id'    => $appId,
-            'dev_id'    => $devId,
-            'cert_id'   => $certId,
-        ];
-        return $this;
-    }
-
-    /**
-     * Get Refresh Token
-     * @return array
-     */
-    public function getTraditionalApplicationKeys(): array
-    {
-        return $this->applicationKeys;
-    }
-
-    /**
      *
      * @return Authentication
      */
@@ -150,18 +95,7 @@ class Client
      */
     public function getEnvironment(): string
     {
-        return $this->environment;
-    }
-
-    /**
-     *
-     * @return string
-     */
-    protected function getBaseUri(): string
-    {
-        return $this->environment === 'production'
-            ? self::API_PRODUCTION_URL
-            : self::API_SANDBOX_URL;
+        return $this->environment->environment;
     }
 
     /**
@@ -215,14 +149,14 @@ class Client
             ),
         ));
         return new GuzzleClient([
-            'base_uri'  => $baseUri ?? $this->getBaseUri(),
+            'base_uri'  => $baseUri ?? $this->environment->getBaseUrl(),
             'handler'   => $stack,
             'headers'   => [
                 'Accept'            => 'application/json',
                 'Accept-Charset'    => 'utf-8',
-                'Accept-Language'   => $this->options['locale'],
+                'Accept-Language'   => $this->environment->locale,
                 'Authorization'     => "Bearer {$token}",
-                'Content-Language'  => $this->options['locale'],
+                'Content-Language'  => $this->environment->locale,
             ],
             'http_errors'   => false
         ]);
@@ -300,12 +234,6 @@ class Client
      */
     protected function prepareTraditionalRequest(TraditionalAPIRequest $request, array $options): array
     {
-        if (empty($applicationKeys = $this->applicationKeys)) {
-            throw new AuthorizationException(
-                'No traditional application keys has been set. Call setTraditionalApplicationKeys() before using a TraditionalAPI request.'
-            );
-        }
-
         $body = $request->body();
         if (!($body instanceof XMLBody)) {
             throw new AuthorizationException(
@@ -313,21 +241,19 @@ class Client
             );
         }
 
-        $level = $request->compatibilityLevel ?? config('ebay-sdk.traditional_compatibility_level', '1395');
-        $siteId = $request->siteId ?? config('ebay-sdk.traditional_site_id', 0);
-
         // Set required options
-        $options['headers']['X-EBAY-API-COMPATIBILITY-LEVEL'] = $level;
-        $options['headers']['X-EBAY-API-APP-NAME'] = $applicationKeys['app_id'];
-        $options['headers']['X-EBAY-API-DEV-NAME'] = $applicationKeys['dev_id'];
-        $options['headers']['X-EBAY-API-CERT-NAME'] = $applicationKeys['cert_id'];
+        $options['headers']['X-EBAY-API-COMPATIBILITY-LEVEL'] = empty($request->compatibilityLevel)
+            ? $this->environment->compatibilityLevel
+            : $request->compatibilityLevel;
+        $options['headers']['X-EBAY-API-APP-NAME'] = $this->environment->clientId;
+        $options['headers']['X-EBAY-API-DEV-NAME'] = $this->environment->devId;
+        $options['headers']['X-EBAY-API-CERT-NAME'] = $this->environment->clientSecret;
         $options['headers']['X-EBAY-API-CALL-NAME'] = $request->callName();
-        $options['headers']['X-EBAY-API-SITEID'] = $siteId;
+        $options['headers']['X-EBAY-API-SITEID'] = is_null($request->siteId)
+            ? $this->environment->siteId
+            : $request->siteId;
         $options['headers']['Content-Type'] = 'text/xml; charset=utf-8';
-        $options['body'] = $body->render(
-            $request,
-            $this->auth->getAccessToken(),
-        );
+        $options['body'] = $body->render($request, $this->auth->getAccessToken());
 
         // Custom Headers
         foreach ($request->headers() AS $key => $val) {
@@ -388,7 +314,7 @@ class Client
             // Execute Request
             $client = $this->getClient(
                 $request->requiresCredentialsToken(),
-                $request->base($this->environment)
+                $request->base($this->environment->environment)
             );
             $response = $client->request(
                 $request->method()->value,

@@ -9,6 +9,7 @@ return [
      | - client_id: Your eBay App's Client ID (App ID).
      | - client_secret: Your eBay App's Client Secret (Cert ID).
      | - redirect_uri: Your eBay App's Redirect URI or RuName.
+     | - dev_id: Your eBay App's Dev ID (for Traditional API usage only).
      | - environment: The desired environment 'sandbox' or 'production'.
      |
      */
@@ -16,6 +17,7 @@ return [
         'client_id' => env('EBAY_CLIENT_ID', null),
         'client_secret' => env('EBAY_CLIENT_SECRET', null),
         'redirect_uri' => env('EBAY_REDIRECT_URI', null),
+        'dev_id' => env('EBAY_DEV_ID', null),
         'environment' => env('EBAY_API_ENVIRONMENT', 'sandbox'),
     ],
 
@@ -43,18 +45,18 @@ return [
      | Default configuration for eBay Traditional (XML/SOAP) API calls. These
      | values are used unless explicitly overridden per request.
      |
-     | - compatibility_level: API schema version used for requests/responses
-     | - error_language: Language/locale for error messages returned by eBay
-     | - error_handling: Strategy for handling partial failures
-     | - site_id: The desired eBay marketplace ID
-     | - warning_level: Controls verbosity of warning messages in API responses
+     | - compatibility_level: API schema version used for requests/responses.
+     | - error_language: Language/locale for error messages returned by eBay.
+     | - error_handling: Strategy for handling partial failures.
+     | - site_id: The desired eBay marketplace ID.
+     | - warning_level: Controls verbosity of warning messages in API responses.
      |
      */
     'traditional' => [
-        'compatibility_level' => '1395',
+        'compatibility_level' => env('EBAY_COMPATIBILITY_LEVEL', '1395'),
         'error_language' => str_replace('-', '_', env('EBAY_LOCALE', 'en_US')),
         'error_handling' => 'BestEffort',
-        'site_id' => 0,
+        'site_id' => env('EBAY_SITE_ID', 0),
         'warning_level' => 'Low'
     ],
 

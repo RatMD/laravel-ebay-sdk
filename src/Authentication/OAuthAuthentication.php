@@ -5,24 +5,11 @@ namespace Rat\eBaySDK\Authentication;
 use GuzzleHttp\Client as GuzzleClient;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
-use Rat\eBaySDK\Client;
 use Rat\eBaySDK\Contracts\Authentication;
 use Rat\eBaySDK\Exceptions\AuthorizationException;
 
 class OAuthAuthentication implements Authentication
 {
-    /**
-     *
-     * @var string
-     */
-    public const AUTH_PRODUCTION_URL = 'https://auth.ebay.com/oauth2/authorize';
-
-    /**
-     *
-     * @var string
-     */
-    public const AUTH_SANDBOX_URL = 'https://auth.sandbox.ebay.com/oauth2/authorize';
-
     /**
      *
      * @var string
@@ -43,45 +30,9 @@ class OAuthAuthentication implements Authentication
 
     /**
      *
-     * @var string
+     * @var Environment
      */
-    protected $clientId;
-
-    /**
-     *
-     * @var string
-     */
-    protected $clientSecret;
-
-    /**
-     *
-     * @var string
-     */
-    protected $redirectUri;
-
-    /**
-     *
-     * @var string
-     */
-    protected $environment;
-
-    /**
-     *
-     * @var array
-     */
-    protected $authorizationScopes = [];
-
-    /**
-     *
-     * @var array
-     */
-    protected $credentialScopes = [];
-
-    /**
-     *
-     * @var array
-     */
-    protected $options = [];
+    private Environment $environment;
 
     /**
      *
@@ -91,35 +42,13 @@ class OAuthAuthentication implements Authentication
 
     /**
      *
-     * @param ?string $clientId
-     * @param ?string $clientSecret
-     * @param ?string $redirectUri
-     * @param ?string $environment
-     * @param array $authorizationScopes
-     * @param array $credentialScopes
-     * @param array $options
+     * @param ?Environment $environment
      * @return void
      */
     public function __construct(
-        ?string $clientId = null,
-        ?string $clientSecret = null,
-        ?string $redirectUri = null,
-        ?string $environment = null,
-        array $authorizationScopes = [],
-        array $credentialScopes = [],
-        array $options = []
+        ?Environment $environment = null
     ) {
-        $this->clientId = $clientId ?? config('ebay-sdk.credentials.client_id', null);
-        $this->clientSecret = $clientSecret ?? config('ebay-sdk.credentials.client_secret', null);
-        $this->redirectUri = $redirectUri ?? config('ebay-sdk.credentials.redirect_uri', null);
-        $this->environment = $environment ?? config('ebay-sdk.credentials.environment', null);
-        $this->authorizationScopes = $authorizationScopes ?: config('ebay-sdk.authorization_scopes', []);
-        $this->credentialScopes = $credentialScopes ?: config('ebay-sdk.credential_scopes', []);
-        $this->options = [
-            'debug'     => $options['debug'] ?? config('ebay-sdk.options.debug', false),
-            'caching'   => $options['caching'] ?? config('ebay-sdk.options.caching', true),
-            'locale'    => $options['locale'] ?? config('ebay-sdk.options.locale', 'de-DE')
-        ];
+        $this->environment = $environment ?? new Environment;
     }
 
     /**
@@ -128,14 +57,8 @@ class OAuthAuthentication implements Authentication
      */
     protected function getAccessTokenCacheKey(): string
     {
-        $data = implode(':', [
-            $this->clientId,
-            hash('sha256', (string) $this->refreshToken),
-            implode(' ', $this->authorizationScopes),
-            $this->environment,
-        ]);
-        $hash = hash('sha256', $data);
-        return self::ACCESS_TOKEN_CACHE_KEY . ':' . $hash;
+        $pepper = hash('sha256', (string) $this->refreshToken);
+        return self::ACCESS_TOKEN_CACHE_KEY . ':' . $this->environment->getHashValue($pepper);
     }
 
     /**
@@ -144,13 +67,7 @@ class OAuthAuthentication implements Authentication
      */
     protected function getClientCredentialsCacheKey(): string
     {
-        $data = implode(':', [
-            $this->clientId,
-            implode(' ', $this->credentialScopes),
-            $this->environment,
-        ]);
-        $hash = hash('sha256', $data);
-        return self::CLIENT_CREDENTIALS_CACHE_KEY . ':' . $hash;
+        return self::CLIENT_CREDENTIALS_CACHE_KEY . ':' . $this->environment->getHashValue(useCredentials: true);
     }
 
     /**
@@ -159,23 +76,8 @@ class OAuthAuthentication implements Authentication
      */
     protected function getStateSessionKey(): string
     {
-        $data = implode(':', [
-            $this->clientId,
-            $this->redirectUri,
-            implode(' ', $this->authorizationScopes),
-            $this->environment,
-        ]);
-        $hash = hash('sha256', $data);
-        return self::STATE_SESSION_KEY . ':' . $hash;
-    }
-
-    /**
-     *
-     * @return string
-     */
-    protected function getBasicAuthorization(): string
-    {
-        return 'Basic ' . base64_encode($this->clientId . ':' . $this->clientSecret);
+        $pepper = $this->environment->redirectUri;
+        return self::STATE_SESSION_KEY . ':' . $this->environment->getHashValue($pepper);
     }
 
     /**
@@ -204,12 +106,10 @@ class OAuthAuthentication implements Authentication
      */
     public function getClient(): GuzzleClient
     {
-        $uri = $this->environment == 'production'
-            ? Client::API_PRODUCTION_URL
-            : Client::API_SANDBOX_URL;
+        $uri = $this->environment->getBaseUrl();
         return new GuzzleClient([
-            'base_uri'  => $uri,
-            'http_errors'   => false    // We throw our own errors
+            'base_uri'      => $uri,
+            'http_errors'   => false
         ]);
     }
 
@@ -224,7 +124,7 @@ class OAuthAuthentication implements Authentication
                 'No refresh token has been set. Call setRefreshToken() or exchangeAuthorizationCode() before requesting a user access token.'
             );
         }
-        if ($this->options['caching'] && Cache::has($this->getAccessTokenCacheKey())) {
+        if ($this->environment->caching && Cache::has($this->getAccessTokenCacheKey())) {
             return Cache::get($this->getAccessTokenCacheKey());
         }
 
@@ -233,12 +133,12 @@ class OAuthAuthentication implements Authentication
         $response = $client->post('/identity/v1/oauth2/token', [
             'headers' => [
                 'Content-Type'  => 'application/x-www-form-urlencoded',
-                'Authorization' => $this->getBasicAuthorization()
+                'Authorization' => $this->environment->getBasicAuthorization()
             ],
             'form_params' => [
                 'grant_type'    => 'refresh_token',
                 'refresh_token' => $this->getRefreshToken(),
-                'scope'         => implode(' ', $this->authorizationScopes),
+                'scope'         => implode(' ', $this->environment->authorizationScopes),
             ],
         ]);
 
@@ -247,7 +147,7 @@ class OAuthAuthentication implements Authentication
         if ($response->getStatusCode() !== 200) {
             throw new AuthorizationException(
                 "Failed to refresh the user access token. The token endpoint returned a non-200 response.",
-                $this->options['debug'] ? $content : null,
+                $this->environment->debug ? $content : null,
                 $response->getStatusCode(),
             );
         }
@@ -256,13 +156,13 @@ class OAuthAuthentication implements Authentication
         if(empty($token = $data['access_token'])) {
             throw new AuthorizationException(
                 "Failed to refresh the user access token. The token response did not contain an access_token.",
-                $this->options['debug'] ? $content : null,
+                $this->environment->debug ? $content : null,
                 $response->getStatusCode(),
             );
         }
 
         // Cache & Return
-        if ($this->options['caching'] && !empty($data['expires_in'])) {
+        if ($this->environment->caching && !empty($data['expires_in'])) {
             $until = now()->addSeconds($data['expires_in'] - 120);
             Cache::put($this->getAccessTokenCacheKey(), $token, $until);
         }
@@ -275,7 +175,7 @@ class OAuthAuthentication implements Authentication
      */
     public function getClientCredentialsToken(): string
     {
-        if ($this->options['caching'] && Cache::has($this->getClientCredentialsCacheKey())) {
+        if ($this->environment->caching && Cache::has($this->getClientCredentialsCacheKey())) {
             return Cache::get($this->getClientCredentialsCacheKey());
         }
 
@@ -284,11 +184,11 @@ class OAuthAuthentication implements Authentication
         $response = $client->post('/identity/v1/oauth2/token', [
             'headers' => [
                 'Content-Type'  => 'application/x-www-form-urlencoded',
-                'Authorization' => $this->getBasicAuthorization()
+                'Authorization' => $this->environment->getBasicAuthorization()
             ],
             'form_params' => [
                 'grant_type'    => 'client_credentials',
-                'scope'         => implode(' ', $this->credentialScopes),
+                'scope'         => implode(' ', $this->environment->credentialScopes),
             ],
         ]);
 
@@ -297,7 +197,7 @@ class OAuthAuthentication implements Authentication
         if ($response->getStatusCode() !== 200) {
             throw new AuthorizationException(
                 "Failed to obtain an application client credentials token. The token endpoint returned a non-200 response.",
-                $this->options['debug'] ? $content : null,
+                $this->environment->debug ? $content : null,
                 $response->getStatusCode(),
             );
         }
@@ -306,13 +206,13 @@ class OAuthAuthentication implements Authentication
         if(empty($token = $data['access_token'])) {
             throw new AuthorizationException(
                 "Failed to obtain an application client credentials token. The token response did not contain an access_token.",
-                $this->options['debug'] ? $content : null,
+                $this->environment->debug ? $content : null,
                 $response->getStatusCode(),
             );
         }
 
         // Cache & Return
-        if ($this->options['caching'] && !empty($data['expires_in'])) {
+        if ($this->environment->caching && !empty($data['expires_in'])) {
             $until = now()->addSeconds($data['expires_in'] - 120);
             Cache::put($this->getClientCredentialsCacheKey(), $token, $until);
         }
@@ -335,10 +235,7 @@ class OAuthAuthentication implements Authentication
         array $scopes,
         array $options = []
     ): string {
-        $url = $environment === 'production'
-            ? self::AUTH_PRODUCTION_URL
-            : self::AUTH_SANDBOX_URL;
-
+        $url = $this->environment->getAuthUrl($environment);
         $query = [
             'client_id'     => $clientId,
             'response_type' => 'code',
@@ -373,12 +270,12 @@ class OAuthAuthentication implements Authentication
         }
 
         return $this->buildAuthorizationUrl(
-            $this->environment,
-            $this->clientId,
-            $this->redirectUri,
-            $this->authorizationScopes,
+            $this->environment->environment,
+            $this->environment->clientId,
+            $this->environment->redirectUri,
+            $this->environment->authorizationScopes,
             [
-                'locale'    => $this->options['locale'],
+                'locale'    => $this->environment->locale,
                 'state'     => $state,
                 'prompt'    => false,
             ]
@@ -409,11 +306,11 @@ class OAuthAuthentication implements Authentication
         $response = $client->post('/identity/v1/oauth2/token', [
             'headers' => [
                 'Content-Type' => 'application/x-www-form-urlencoded',
-                'Authorization' => $this->getBasicAuthorization()
+                'Authorization' => $this->environment->getBasicAuthorization()
             ],
             'form_params' => [
                 'grant_type'    => 'authorization_code',
-                'redirect_uri'  => $this->redirectUri,
+                'redirect_uri'  => $this->environment->redirectUri,
                 'code'          => $code
             ],
         ]);
@@ -423,7 +320,7 @@ class OAuthAuthentication implements Authentication
         if ($response->getStatusCode() !== 200) {
             throw new AuthorizationException(
                 "Failed to exchange the authorization code for tokens. The token endpoint returned a non-200 response.",
-                $this->options['debug'] ? $content : null,
+                $this->environment->debug ? $content : null,
                 $response->getStatusCode(),
             );
         }
@@ -432,14 +329,14 @@ class OAuthAuthentication implements Authentication
         if(empty($data['access_token'])) {
             throw new AuthorizationException(
                 "Failed to exchange the authorization code for tokens. The token response did not contain an access_token.",
-                $this->options['debug'] ? $content : null,
+                $this->environment->debug ? $content : null,
                 $response->getStatusCode(),
             );
         }
         if(empty($data['refresh_token'])) {
             throw new AuthorizationException(
                 "Failed to exchange the authorization code for tokens. The token response did not contain a refresh_token.",
-                $this->options['debug'] ? $content : null,
+                $this->environment->debug ? $content : null,
                 $response->getStatusCode(),
             );
         }
