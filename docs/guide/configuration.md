@@ -26,16 +26,18 @@ match the settings in the eBay Developer Portal, regarding the used Target envir
     'client_id'     => env('EBAY_CLIENT_ID', null),
     'client_secret' => env('EBAY_CLIENT_SECRET', null),
     'redirect_uri'  => env('EBAY_REDIRECT_URI', null),
+    'dev_id'        => env('EBAY_DEV_ID', null),
     'environment'   => env('EBAY_API_ENVIRONMENT', 'sandbox'),
 ],
 ```
 
-| Key             | Value                                             | 
-| --------------- | ------------------------------------------------- |
-| `client_id`     | Your eBay App’s **Client ID** (App ID)            |
-| `client_secret` | Your App’s **Client Secret** (Cert ID)            |
-| `redirect_uri`  | Your configured Redirect URI or **RuName**        |
-| `environment`   | Target API environment: `sandbox` or `production` |
+| Key             | Value                                                        | 
+| --------------- | ------------------------------------------------------------ |
+| `client_id`     | Your eBay App’s **Client ID** (App ID)                       |
+| `client_secret` | Your eBay App’s **Client Secret** (Cert ID)                  |
+| `redirect_uri`  | Your configured Redirect URI or **RuName**                   |
+| `dev_id`        | Your eBay App’s **Dev ID** (used for traditional calls only) |
+| `environment`   | Target API environment: `sandbox` or `production`            |
 
 ## Client / Authentication Options
 
@@ -57,15 +59,17 @@ These options control request behavior, token caching, debugging, and localizati
 
 ## Traditional API (XML/SOAP) Settings
 
-These settings apply only to eBay’s older “Traditional” APIs (XML/SOAP).
+These settings are only relevant for eBay’s legacy “Traditional” APIs (XML/SOAP). They define the 
+default request parameters and headers used for Trading API calls. All values can be overridden on a 
+per-request basis using the corresponding `set<Name>()` methods on the individual request classes.
 
 ```php
 'traditional' => [
-    'compatibility_level' => '1395',
-    'error_language'      => str_replace('-', '_', env('EBAY_LOCALE', 'en_US')),
-    'error_handling'      => 'BestEffort',
-    'site_id'             => 0,
-    'warning_level'       => 'Low',
+    'compatibility_level'   => env('EBAY_COMPATIBILITY_LEVEL', '1395'),
+    'error_language'        => str_replace('-', '_', env('EBAY_LOCALE', 'en_US')),
+    'error_handling'        => 'BestEffort',
+    'site_id'               => env('EBAY_SITE_ID', 0),
+    'warning_level'         => 'Low'
 ],
 ```
 

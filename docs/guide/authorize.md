@@ -172,12 +172,15 @@ This includes:
 - OAuth scopes
 - Optional client and traditional API settings
 
+More details about the configuration can be found on the [Configuration documentation page](/guide/configuration).
+
 ```php
 return [
     'credentials' => [
         'client_id' => env('EBAY_CLIENT_ID', null),
         'client_secret' => env('EBAY_CLIENT_SECRET', null),
         'redirect_uri' => env('EBAY_REDIRECT_URI', null),
+        'dev_id' => env('EBAY_DEV_ID', null),
         'environment' => env('EBAY_API_ENVIRONMENT', 'sandbox'),
     ],
     'options' => [
@@ -186,10 +189,10 @@ return [
         'locale' => env('EBAY_LOCALE', 'en-US'),
     ],
     'traditional' => [
-        'compatibility_level' => '1395',
+        'compatibility_level' => env('EBAY_COMPATIBILITY_LEVEL', '1395'),
         'error_language' => str_replace('-', '_', env('EBAY_LOCALE', 'en_US')),
         'error_handling' => 'BestEffort',
-        'site_id' => 0,
+        'site_id' => env('EBAY_SITE_ID', 0),
         'warning_level' => 'Low'
     ],
     'authorization_scopes' => [
@@ -262,6 +265,8 @@ a single-user usage is to extend the Laravel service container binding for the C
 allows you to inject runtime-specific authentication data without modifying package configuration 
 files.
 
+Visit the Getting Started page below the [Usage section](/guide/start#basic-usage) for more details.
+
 ```php
 namespace App\Providers;
 
@@ -280,11 +285,6 @@ class AppServiceProvider extends ServiceProvider
             $token = Setting::getOption('ebay_refresh_token');
             if (!empty($token)) {
                 $client->setRefreshToken($token);
-                $client->setTraditionalApplicationKeys(
-                    'appId',
-                    'devId',
-                    'certId',
-                );
             }
             return $client;
         });

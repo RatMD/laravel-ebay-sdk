@@ -122,10 +122,13 @@ To protect your webhook endpoint from unauthorized requests, the SDK supports an
 token. This webhook token can be set as shared secret in your environment file or your `ebay-sdk.php` 
 configuration file respectively:
 
-```php
+```php{4}
 return [
-    'routes' => [
-        'webhook_token' => env('EBAY_WEBHOOK_TOKEN', ''),
+    'webook' => [
+        'routes' => false,
+        'token' => env('EBAY_WEBHOOK_TOKEN', ''),
+        'async' => false,
+        'queue' => 'default',
     ]
 ];
 ```
