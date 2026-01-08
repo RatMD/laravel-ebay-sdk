@@ -20,8 +20,8 @@ event handling, and practical utilities for common workflows. The SDK supports b
 and Traditional (XML/SOAP) eBay APIs and is designed to evolve alongside eBay’s platform.
 
 - [Documentation Page](https://ebay-sdk.rat.md)
-  - [Authorize with eBay](https://ebay-sdk.rat.md/guide/authorize.html)
-  - [Receive eBay Notifications](https://ebay-sdk.rat.md/guide/webhook.html)
+- [Authorize with eBay](https://ebay-sdk.rat.md/guide/authorize.html)
+- [Receive eBay Notifications](https://ebay-sdk.rat.md/guide/webhook.html)
 
 ## Features
 
@@ -35,7 +35,12 @@ and Traditional (XML/SOAP) eBay APIs and is designed to evolve alongside eBay’
 ## Requirements
 
 - PHP ≥ 8.2
-- Laravel ≥ 11
+- Laravel ≥ 11 | ≥ 12
+
+> [!TIP]
+> We strongly recommend a task-scheduling enabled and queue-based Laravel setup to handle
+> performance-intensive processes and, most importantly, to process eBay webhook notifications
+> in a compliant and reliable manner (See [Configuration](/guide/configuration#webhook-configuration)).
 
 ## Installation
 
@@ -51,9 +56,9 @@ Publish the configuration file with:
 php artisan vendor:publish --tag="ebay-sdk-config"
 ```
 
-## Usage
+## Basic Usage
 
-[Visit the Documentation Page for more details](https://ratmd.github.io/laravel-ebay-sdk)
+[Visit the Documentation Page for more details](https://ebay-sdk.rat.md/guide/start.html#basic-usage)
 
 ```php
 use Rat\eBaySDK\API\InventoryAPI\InventoryItem\GetInventoryItem;
@@ -72,7 +77,10 @@ $response = $client->execute(new GetInventoryItem('MyCustomSKU'));
 
 ## Changelog
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+We provide an aggregated list of eBay API changes on our [documentation page](https://ebay-sdk.rat.md/changelog/overview.html)
+as well as via [RSS feeds](https://ebay-sdk.rat.md/changelog/feeds.html).
+
+For changes specific to this Laravel package, please refer to the [CHANGELOG](CHANGELOG.md).
 
 ## License
 Published under MIT License \
