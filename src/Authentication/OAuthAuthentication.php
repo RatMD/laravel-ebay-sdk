@@ -6,6 +6,7 @@ use GuzzleHttp\Client as GuzzleClient;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Rat\eBaySDK\Contracts\Authentication;
+use Rat\eBaySDK\Environment;
 use Rat\eBaySDK\Exceptions\AuthorizationException;
 
 class OAuthAuthentication implements Authentication

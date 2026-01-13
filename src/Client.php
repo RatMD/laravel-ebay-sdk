@@ -10,7 +10,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Rat\eBaySDK\Authentication\Environment;
+use Rat\eBaySDK\Environment;
 use Rat\eBaySDK\Authentication\OAuthAuthentication;
 use Rat\eBaySDK\Contracts\Authentication;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;
