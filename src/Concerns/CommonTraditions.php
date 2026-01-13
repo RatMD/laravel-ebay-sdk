@@ -116,7 +116,7 @@ trait CommonTraditions
     /**
      * @inheritdoc
      */
-    public function sideId(): int
+    public function siteId(): int
     {
         return $this->siteId ?? config('ebay-sdk.traditional.site_id');
     }

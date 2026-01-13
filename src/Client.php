@@ -242,16 +242,16 @@ class Client
         }
 
         // Set required options
-        $options['headers']['X-EBAY-API-COMPATIBILITY-LEVEL'] = empty($request->compatibilityLevel)
+        $options['headers']['X-EBAY-API-COMPATIBILITY-LEVEL'] = empty($request->compatibilityLevel())
             ? $this->environment->compatibilityLevel
-            : $request->compatibilityLevel;
+            : $request->compatibilityLevel();
         $options['headers']['X-EBAY-API-APP-NAME'] = $this->environment->clientId;
         $options['headers']['X-EBAY-API-DEV-NAME'] = $this->environment->devId;
         $options['headers']['X-EBAY-API-CERT-NAME'] = $this->environment->clientSecret;
         $options['headers']['X-EBAY-API-CALL-NAME'] = $request->callName();
-        $options['headers']['X-EBAY-API-SITEID'] = is_null($request->siteId)
+        $options['headers']['X-EBAY-API-SITEID'] = is_null($request->siteId())
             ? $this->environment->siteId
-            : $request->siteId;
+            : $request->siteId();
         $options['headers']['Content-Type'] = 'text/xml; charset=utf-8';
         $options['body'] = $body->render($request, $this->auth->getAccessToken());
 

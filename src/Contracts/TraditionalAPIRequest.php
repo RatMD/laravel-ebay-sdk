@@ -68,7 +68,7 @@ interface TraditionalAPIRequest extends BaseAPIRequest
      *
      * @return int
      */
-    public function sideId(): int;
+    public function siteId(): int;
 
     /**
      *
