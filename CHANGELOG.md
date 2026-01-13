@@ -1,6 +1,9 @@
 rat.md/laravel-ebay-sdk / Changelog
 ===================================
 
+## Version 0.1.8 (Alpha)
+- Fix: Wrong baseUrl used on `FulfillmentAPI\Order\*` APIs.
+
 ## Version 0.1.7 (Alpha)
 - Fix: page number never increase on `SyncListingsService` payload.
 

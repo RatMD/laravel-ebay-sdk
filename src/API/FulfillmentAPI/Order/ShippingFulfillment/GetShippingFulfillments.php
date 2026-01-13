@@ -29,17 +29,6 @@ class GetShippingFulfillments implements BaseAPIRequest
         public readonly string $orderId,
     ) { }
 
-    /**
-     * @inheritdoc
-     */
-    public function base(string $environment): ?string
-    {
-        if ($environment === 'production') {
-            return 'https://apiz.ebay.com';
-        } else {
-            return 'https://apiz.sandbox.ebay.com';
-        }
-    }
 
     /**
      * @inheritdoc

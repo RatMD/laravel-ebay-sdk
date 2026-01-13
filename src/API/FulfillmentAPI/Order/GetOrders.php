@@ -41,18 +41,6 @@ class GetOrders implements BaseAPIRequest
     /**
      * @inheritdoc
      */
-    public function base(string $environment): ?string
-    {
-        if ($environment === 'production') {
-            return 'https://apiz.ebay.com';
-        } else {
-            return 'https://apiz.sandbox.ebay.com';
-        }
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function method(): HTTPMethod
     {
         return HTTPMethod::GET;
