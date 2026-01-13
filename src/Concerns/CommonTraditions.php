@@ -2,6 +2,7 @@
 
 namespace Rat\eBaySDK\Concerns;
 
+use BackedEnum;
 use Rat\eBaySDK\Enums\HTTPMethod;
 use Rat\eBaySDK\Enums\SiteCode;
 
@@ -109,7 +110,7 @@ trait CommonTraditions
      */
     public function setSiteId(int|SiteCode $value): static
     {
-        $this->siteId = (int) $value;
+        $this->siteId = (int) ($value instanceof BackedEnum ? $value->value : $value);
         return $this;
     }
 
@@ -118,7 +119,7 @@ trait CommonTraditions
      */
     public function siteId(): int
     {
-        return $this->siteId ?? config('ebay-sdk.traditional.site_id');
+        return (int) $this->siteId ?? config('ebay-sdk.traditional.site_id');
     }
 
     /**
