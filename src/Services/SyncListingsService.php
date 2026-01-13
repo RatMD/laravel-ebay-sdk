@@ -224,14 +224,6 @@ class SyncListingsService
         $total = 1;
 
         // Create Payload + Context
-        $payload = [
-            'StartTimeFrom' => $windowFrom->format('Y-m-d\TH:i:s.v\Z'),
-            'StartTimeTo'   => $windowTo->format('Y-m-d\TH:i:s.v\Z'),
-            'Pagination' => [
-                'EntriesPerPage' => $this->limit,
-                'PageNumber' => $page,
-            ],
-        ];
         $context = new SyncListingsContext(
             from: $this->from->format('Y-m-d\TH:i:s.v\Z'),
             to: $this->to->format('Y-m-d\TH:i:s.v\Z'),
@@ -240,7 +232,7 @@ class SyncListingsService
             handler: $this->handler,
             cacheKey: $cacheKey,
             queue: $queue ?? 'default',
-            payload: $payload
+            payload: []
         );
 
         // Execute Request
@@ -269,6 +261,14 @@ class SyncListingsService
             RateLimiter::increment($cacheKey . ':limiter');
 
             // Execute Request
+            $payload = [
+                'StartTimeFrom' => $windowFrom->format('Y-m-d\TH:i:s.v\Z'),
+                'StartTimeTo'   => $windowTo->format('Y-m-d\TH:i:s.v\Z'),
+                'Pagination' => [
+                    'EntriesPerPage' => $this->limit,
+                    'PageNumber' => $page,
+                ],
+            ];
             $payload = $handler->onBefore($payload, $context);
             $response = $this->client->execute($request = new GetSellerList($payload));
             $content = $response->content();
@@ -304,7 +304,7 @@ class SyncListingsService
             Cache::put($cacheKey, [
                 'page'      => 1,
                 'window'    => $nextWindowFrom->format('Y-m-d\TH:i:s.v\Z'),
-                'calls'     => ++$checkpoint['calls'],
+                'calls'     => $checkpoint['calls'],
             ], now()->addMinutes(120));
 
             SyncListingsJob::dispatch(

@@ -1,6 +1,9 @@
 rat.md/laravel-ebay-sdk / Changelog
 ===================================
 
+## Version 0.1.7 (Alpha)
+- Fix: page number never increase on `SyncListingsService` payload.
+
 ## Version 0.1.6 (Alpha)
 - Add: New `timeout(int $seconds, bool $failOnTimeout)` method to control the timeout handling on the passed job.
 - Add: New `onFailed(?Throwable $exception, SyncListingsContext $context)` method on `SyncListingsHandler`.
@@ -11,7 +14,7 @@ rat.md/laravel-ebay-sdk / Changelog
 - Fix: Ensure `int` typing on `TraditionalAPIRequest::siteId`.
 
 ## Version 0.1.4 (Alpha)
-- Fix: Type `sideId()` on `TraditionalAPIRequest` method name.
+- Fix: Typo `sideId()` on `TraditionalAPIRequest` method name.
 - Fix: Access to protected properties on `TraditionalAPIRequest`.
 
 ## Version 0.1.3 (Alpha)
