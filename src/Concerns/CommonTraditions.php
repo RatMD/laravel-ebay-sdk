@@ -119,7 +119,7 @@ trait CommonTraditions
      */
     public function siteId(): int
     {
-        return (int) $this->siteId ?? config('ebay-sdk.traditional.site_id');
+        return (int) ($this->siteId ?? config('ebay-sdk.traditional.site_id'));
     }
 
     /**
