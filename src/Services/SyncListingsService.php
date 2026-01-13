@@ -14,6 +14,7 @@ use Rat\eBaySDK\API\TraditionalAPI\Listing\GetSellerList;
 use Rat\eBaySDK\Client;
 use Rat\eBaySDK\Context\SyncListingsContext;
 use Rat\eBaySDK\Jobs\SyncListingsJob;
+use Throwable;
 
 class SyncListingsService
 {
@@ -46,6 +47,18 @@ class SyncListingsService
      * @var string
      */
     private ?string $handler = null;
+
+    /**
+     *
+     * @var int
+     */
+    private int $timeout = 180;
+
+    /**
+     *
+     * @var bool
+     */
+    private bool $failOnTimeout = true;
 
     /**
      * Make a new instance.
@@ -84,6 +97,19 @@ class SyncListingsService
             : Carbon::instance($date)->setTimezone('UTC');
 
         return DateTimeImmutable::createFromMutable($c->toDateTime());
+    }
+
+    /**
+     *
+     * @param int $seconds
+     * @param bool $failOnTimeout
+     * @return self
+     */
+    public function timeout(int $seconds, bool $failOnTimeout = false): self
+    {
+        $this->timeout = $seconds;
+        $this->failOnTimeout = $failOnTimeout;
+        return $this;
     }
 
     /**
@@ -165,6 +191,8 @@ class SyncListingsService
             interval: $this->interval,
             handler: $this->handler,
             cacheKey: 'ebay-sdk:sync-offers:' . md5($from . ':' . $to . ':' . $this->handler),
+            timeout: $this->timeout,
+            failOnTimeout: $this->failOnTimeout,
         )->onQueue($queue);
         return $this;
     }
@@ -217,7 +245,11 @@ class SyncListingsService
 
         // Execute Request
         if ($checkpoint['calls'] === 0) {
-            $handler->onPrepare($context);
+            try {
+                $handler->onPrepare($context);
+            } catch (Throwable $exception) {
+                report($exception);
+            }
         }
         do {
             if (RateLimiter::tooManyAttempts($cacheKey . ':limiter', 30)) {
@@ -229,12 +261,14 @@ class SyncListingsService
                     interval: $this->interval,
                     handler: $this->handler,
                     cacheKey: $cacheKey,
+                    timeout: $this->timeout,
+                    failOnTimeout: $this->failOnTimeout,
                 )->onQueue($queue)->delay($seconds + 5);
                 return $this;
             }
             RateLimiter::increment($cacheKey . ':limiter');
 
-            // Build Request
+            // Execute Request
             $payload = $handler->onBefore($payload, $context);
             $response = $this->client->execute($request = new GetSellerList($payload));
             $content = $response->content();
@@ -280,13 +314,18 @@ class SyncListingsService
                 interval: $this->interval,
                 handler: $this->handler,
                 cacheKey: $cacheKey,
+                timeout: $this->timeout,
+                failOnTimeout: $this->failOnTimeout,
             )->onQueue($queue);
         } else {
-            if ($checkpoint['calls'] === 0) {
+            try {
                 $handler->onFinish($context);
+            } catch (Throwable $exception) {
+                report($exception);
+            } finally {
+                Cache::forget($cacheKey);
+                RateLimiter::clear($cacheKey . ':limiter');
             }
-            Cache::forget($cacheKey);
-            RateLimiter::clear($cacheKey . ':limiter');
         }
         return $this;
     }

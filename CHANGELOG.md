@@ -1,6 +1,12 @@
 rat.md/laravel-ebay-sdk / Changelog
 ===================================
 
+## Version 0.1.6 (Alpha)
+- Add: New `timeout(int $seconds, bool $failOnTimeout)` method to control the timeout handling on the passed job.
+- Add: New `onFailed(?Throwable $exception, SyncListingsContext $context)` method on `SyncListingsHandler`.
+- Update: `try {} catch {}` wrapper around primary `SyncListingsHandler` callbacks.
+- Fix: `onFinish` callback on `SyncListingsHandler` has never been called.
+
 ## Version 0.1.5 (Alpha)
 - Fix: Ensure `int` typing on `TraditionalAPIRequest::siteId`.
 

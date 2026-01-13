@@ -5,6 +5,7 @@ namespace Rat\eBaySDK\Abstracts;
 use Rat\eBaySDK\API\TraditionalAPI\Listing\GetSellerList;
 use Rat\eBaySDK\Context\SyncListingsContext;
 use Rat\eBaySDK\Response;
+use Throwable;
 
 abstract class SyncListingsHandler
 {
@@ -14,6 +15,17 @@ abstract class SyncListingsHandler
      * @return void
      */
     public function onPrepare(SyncListingsContext $context): void
+    {
+        //
+    }
+
+    /**
+     * Called once after the job failed.
+     * @param null|Throwable $exception
+     * @param SyncListingsContext $context
+     * @return void
+     */
+    public function onFailed(?Throwable $exception, SyncListingsContext $context): void
     {
         //
     }

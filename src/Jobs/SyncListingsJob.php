@@ -8,7 +8,12 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\RateLimiter;
+use Rat\eBaySDK\Abstracts\SyncListingsHandler;
+use Rat\eBaySDK\Context\SyncListingsContext;
 use Rat\eBaySDK\Services\SyncListingsService;
+use Throwable;
 
 class SyncListingsJob implements ShouldQueue, ShouldBeUniqueUntilProcessing
 {
@@ -25,6 +30,8 @@ class SyncListingsJob implements ShouldQueue, ShouldBeUniqueUntilProcessing
      * @param string $interval
      * @param string $handler
      * @param string $cacheKey
+     * @param int $timeout
+     * @param bool $failOnTimeout
      * @return void
      */
     public function __construct(
@@ -34,6 +41,8 @@ class SyncListingsJob implements ShouldQueue, ShouldBeUniqueUntilProcessing
         private readonly string $interval,
         private readonly string $handler,
         private readonly string $cacheKey,
+        public int $timeout = 180,
+        public bool $failOnTimeout = true,
     )
     { }
 
@@ -58,6 +67,37 @@ class SyncListingsJob implements ShouldQueue, ShouldBeUniqueUntilProcessing
             ->limit($this->limit)
             ->interval($this->interval)
             ->handler($this->handler)
+            ->timeout($this->timeout, $this->failOnTimeout)
             ->run($this->cacheKey, $this->queue);
+    }
+
+    /**
+     * Handle a job failure.
+     * @param null|Throwable $exception
+     * @return void
+     */
+    public function failed(?Throwable $exception): void
+    {
+        $context = new SyncListingsContext(
+            from: $this->from,
+            to: $this->to,
+            limit: $this->limit,
+            interval: $this->interval,
+            handler: $this->handler,
+            cacheKey: $this->cacheKey,
+            queue: $this->queue ?? 'default',
+            payload: []
+        );
+
+        try {
+            /** @var SyncListingsHandler $handler */
+            $handler = app($this->handler);
+            $handler->onFailed($exception, $context);
+        } catch (\Exception $exception) {
+            report($exception);
+        } finally {
+            Cache::forget($this->cacheKey);
+            RateLimiter::clear($this->cacheKey . ':limiter');
+        }
     }
 }
