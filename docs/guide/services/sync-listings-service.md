@@ -29,15 +29,13 @@ multiple jobs and must not be run synchronously.
 
 At least one queue worker must be running (using the following local example):
 
-```php
-php artisan queue:work --queue=ebay-sync
+```sh
+php artisan queue:work
 ```
 
 For more information visit Laravel's [Queue documentation page](https://laravel.com/docs/12.x/queues).
 
-## Usage
-
-### Dispatching a Sync
+## Basic Usage
 
 ```php
 use Rat\eBaySDK\Services\SyncListingsService;
@@ -48,43 +46,15 @@ SyncListingsService::make()
     ->to(now())
     ->limit(200)
     ->interval('+119 days 23 hours 59 minutes 59 seconds')
+    ->timeout(180, true)
     ->handler(MySyncListingsHandler::class)
     ->dispatch();
-
-```
-
-### Writing a Handler
-
-```php
-use Rat\eBaySDK\Abstracts\SyncListingsHandler;
-
-class MySyncListingsHandler extends SyncListingsHandler
-{
-    /**
-     *
-     * @param array $item
-     * @return void
-     */
-    public function onChunk(array $chunk): void
-    {
-        // Handle the whole items chunk
-    }
-
-    /**
-     *
-     * @param array $item
-     * @return void
-     */
-    public function onItem(array $item): void
-    {
-        // Handle each single listing item
-    }
-}
 ```
 
 ### Scheduling
 
-The following example syncs listings weekly at 02:00 AM.
+The following example syncs listings weekly at 02:00 AM, the `name()` method is required when using 
+`withoutOverlapping()`.
 
 ```php
 use Illuminate\Console\Scheduling\Schedule;
@@ -98,10 +68,18 @@ $schedule->call(function () {
         ->dispatch('ebay-sync');
 })
 ->weeklyAt('02:00')
+->name('ebay:sync-listings')
 ->withoutOverlapping();
 ```
 
-## Configuration
+You can test your schedule task using the following command, checkout Laravels 
+[Task Scheduling docs](https://laravel.com/docs/12.x/scheduling) for more details.
+
+```sh
+php artisan schedule:test --name="ebay:sync-listings"
+```
+
+## Configure your `SyncListingsService`
 
 ### `from(string|DateTimeInterface $date)`
 
@@ -137,6 +115,19 @@ Supports a maximum interval of 120 days (as per eBay limitations).
 ->interval('+119 days 23 hours 59 minutes 59 seconds')
 ```
 
+### `timeout(int $seconds, bool $failOnTimeout = false)`
+
+<div style="margin-top: 1rem">
+    <Badge type="danger">New</Badge> <Badge type="warning">Since 0.1.6</Badge>
+</div>
+
+Sets the default `timeout` in seconds and the `failOnTimeout` setting, see the 
+[Queues Laravel documentation page](https://laravel.com/docs/12.x/queues#timeout) for more details.
+
+```php
+->timeout(180, true)
+```
+
 ### `handler(class-string<SyncListingsHandler> $handler)`
 
 Registers the handler class responsible for processing data. This is required for queue execution.
@@ -153,7 +144,7 @@ Dispatches the initial sync job.
 ->dispatch('ebay-sync');
 ```
 
-## `SyncListingsHandler`
+## Write your `SyncListingsHandler`
 
 The handler defines how the retrieved data is processed. It receives callbacks at different stages 
 of the sync lifecycle.
@@ -165,34 +156,80 @@ use Rat\eBaySDK\Response;
 
 class MySyncListingsHandler extends SyncListingsHandler
 {
+    /**
+     * Called once before the first API request of the entire sync process.
+     * @param SyncListingsContext $context
+     * @return void
+     */
     public function onPrepare(SyncListingsContext $context): void
     {
-        // Prepare (called once before entire sync process)
+        //
     }
 
+    /**
+     * Called once after the job failed.
+     * @param null|Throwable $exception
+     * @param SyncListingsContext $context
+     * @return void
+     */
+    public function onFailed(?Throwable $exception, SyncListingsContext $context): void
+    {
+        //
+    }
+
+    /**
+     * Called once after the sync process has fully completed.
+     * @param SyncListingsContext $context
+     * @return void
+     */
     public function onFinish(SyncListingsContext $context): void
-        // Finish, Clean up (called once after entire sync process)
+    {
+        //
     }
 
+    /**
+     * Called before each GetSellerList API request is executed.
+     * @param array $payload
+     * @param SyncListingsContext $context
+     * @return array
+     */
     public function onBefore(array $payload, SyncListingsContext $context): array
     {
-        // Modify request (e.g. output selectors, detail level)
         return $payload;
     }
 
+    /**
+     * Called after each GetSellerList API request has completed.
+     * @param GetSellerList $request
+     * @param Response $response
+     * @param SyncListingsContext $context
+     * @return void
+     */
     public function onAfter(GetSellerList $request, Response $response, SyncListingsContext $context): void
     {
-        // Logging, metrics, diagnostics
+        //
     }
 
+    /**
+     * Called once per page with all items of that page.
+     * @param array $chunk
+     * @param SyncListingsContext $context
+     * @return void
+     */
     public function onChunk(array $chunk, SyncListingsContext $context): void
     {
-        // Bulk processing (recommended for database writes)
+        //
     }
 
+    /**
+     * Called for each individual listing item.
+     * @param array $item
+     * @param SyncListingsContext $context
+     * @return void
+     */
     public function onItem(array $item, SyncListingsContext $context): void
     {
-        // Per-item processing (optional)
+        //
     }
 }
 ```
@@ -201,17 +238,25 @@ class MySyncListingsHandler extends SyncListingsHandler
 
 Called once before the first API request of the entire sync process.
 
+### onFailed(SyncListingsContext $context)
+
+<div style="margin-top: 1rem">
+    <Badge type="danger">New</Badge> <Badge type="warning">Since 0.1.6</Badge>
+</div>
+
+Called once after the job failed.
+
 ### onFinish(SyncListingsContext $context)
 
 Called once after the sync process has fully completed.
 
 ### onBefore(array $payload, SyncListingsContext $context)
 
-Called before the API request is executed, must return the desired `GetSellerList` request instance.
+Called before each `GetSellerList` API request is executed.
 
 ### onAfter(GetSellerList $request, Response $response, SyncListingsContext $context)
 
-Called after the API request returns.
+Called after each `GetSellerList` API request has completed.
 
 ### onChunk(array $chunk, SyncListingsContext $context)
 
@@ -219,4 +264,4 @@ Called once per page with all items of that page.
 
 ### onItem(array $item, SyncListingsContext $context)
 
-Called for each individual listing.
+Called for each individual listing item.
