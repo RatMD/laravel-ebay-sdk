@@ -211,7 +211,7 @@ class SyncListingsService
             interval: $this->interval,
             handler: $this->handler,
             cacheKey: $cacheKey,
-            queue: $queue,
+            queue: $queue ?? 'default',
             payload: $payload
         );
 
