@@ -93,6 +93,12 @@ export default defineConfig({
                     ]
                 },
                 {
+                    text: "Cookbook",
+                    items: [
+                        { text: "Sync Orders", link: "/guide/cookbook/sync-orders" },
+                    ]
+                },
+                {
                     text: "Known Issues",
                     items: [
                         { text: "API Errors", link: "/guide/issues/errors" },
