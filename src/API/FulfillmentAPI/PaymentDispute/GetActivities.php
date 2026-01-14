@@ -18,7 +18,7 @@ class GetActivities implements BaseAPIRequest
      * API Ressource Path
      * @var string
      */
-    public const PATH = '/payment_dispute/{paymentDisputeId}/activity';
+    public const PATH = '/sell/fulfillment/v1/payment_dispute/{paymentDisputeId}/activity';
 
     /**
      * Create a new instance.

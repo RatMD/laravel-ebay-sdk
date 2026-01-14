@@ -19,7 +19,7 @@ class GetOrders implements BaseAPIRequest
      * API Ressource Path
      * @var string
      */
-    public const PATH = '/order';
+    public const PATH = '/sell/fulfillment/v1/order';
 
     /**
      * Create a new instance.

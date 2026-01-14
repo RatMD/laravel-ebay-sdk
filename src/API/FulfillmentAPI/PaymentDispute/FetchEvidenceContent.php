@@ -18,7 +18,7 @@ class FetchEvidenceContent implements BaseAPIRequest
      * API Ressource Path
      * @var string
      */
-    public const PATH = '/payment_dispute/{paymentDisputeId}/fetch_evidence_content';
+    public const PATH = '/sell/fulfillment/v1/payment_dispute/{paymentDisputeId}/fetch_evidence_content';
 
     /**
      * Create a new instance.

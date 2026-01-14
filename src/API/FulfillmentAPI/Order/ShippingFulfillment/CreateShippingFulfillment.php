@@ -18,7 +18,7 @@ class CreateShippingFulfillment implements BaseAPIRequest
      * API Ressource Path
      * @var string
      */
-    public const PATH = '/order/{orderId}/shipping_fulfillment';
+    public const PATH = '/sell/fulfillment/v1/order/{orderId}/shipping_fulfillment';
 
     /**
      * Create a new instance.

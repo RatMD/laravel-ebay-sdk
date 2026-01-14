@@ -18,7 +18,7 @@ class GetPaymentDisputeSummaries implements BaseAPIRequest
      * API Ressource Path
      * @var string
      */
-    public const PATH = '/payment_dispute_summary';
+    public const PATH = '/sell/fulfillment/v1/payment_dispute_summary';
 
     /**
      * Create a new instance.

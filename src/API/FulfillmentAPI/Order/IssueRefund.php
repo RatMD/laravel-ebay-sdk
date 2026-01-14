@@ -18,7 +18,7 @@ class IssueRefund implements BaseAPIRequest
      * API Ressource Path
      * @var string
      */
-    public const PATH = '/order/{orderId}/issue_refund';
+    public const PATH = '/sell/fulfillment/v1/order/{orderId}/issue_refund';
 
     /**
      * Create a new instance.

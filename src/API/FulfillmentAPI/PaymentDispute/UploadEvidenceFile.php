@@ -19,7 +19,7 @@ class UploadEvidenceFile implements BaseAPIRequest
      * API Ressource Path
      * @var string
      */
-    public const PATH = '/payment_dispute/{paymentDisputeId}/upload_evidence_file';
+    public const PATH = '/sell/fulfillment/v1/payment_dispute/{paymentDisputeId}/upload_evidence_file';
 
     /**
      * Create a new instance.
