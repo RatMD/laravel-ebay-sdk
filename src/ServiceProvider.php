@@ -4,6 +4,7 @@ namespace Rat\eBaySDK;
 
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 use Rat\eBaySDK\Commands\AuthorizeCommand;
+use Rat\eBaySDK\Commands\GenerateMarketplaceDeletionTokenCommand;
 
 class ServiceProvider extends LaravelServiceProvider
 {
@@ -43,6 +44,7 @@ class ServiceProvider extends LaravelServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 AuthorizeCommand::class,
+                GenerateMarketplaceDeletionTokenCommand::class,
             ]);
         }
     }
