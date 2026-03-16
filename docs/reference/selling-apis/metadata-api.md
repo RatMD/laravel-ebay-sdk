@@ -1,7 +1,7 @@
 ---
 outline: deep
 ---
-# Metadata API <Badge type="warning" style="margin-left:0.75rem;">v1.12.0</Badge> <DocsBadge path="sell/metadata/static/overview.html" />
+# Metadata API <Badge type="warning" style="margin-left:0.75rem;">v1.13.0</Badge> <DocsBadge path="sell/metadata/static/overview.html" />
 
 The Metadata API lets you retrieve metadata on eBay category policies, information on sales tax 
 jurisdictions, and available hazardous material related label information.
@@ -476,6 +476,32 @@ $request = new GetListingStructurePolicies(
 $response = $client->execute($request);
 ```
 
+### GetMinimumListingPricePolicies <DocsBadge path="sell/metadata/resources/marketplace/methods/getMinimumListingPricePolicies" />
+
+<ResourcePath method="GET">/marketplace/{marketplaceId}/get_minimum_listing_price_policies</ResourcePath>
+
+This method returns minimum listing price policies for supported types of listings on a specific 
+marketplace. This includes the minimum start price for auction listings, the minimum sale price for 
+fixed-price listings, and the minimum percentage value that a Buy It Now or auction listing must be 
+above the minimum start price for the same listing.
+
+> [!NOTE]
+> The only applicable listing type values for this method are `AUCTION` and `FIXED_PRICE_ITEM`.
+
+The identifier of the eBay marketplace for which to retrieve supported minimum listing price 
+policies is passed through the marketplace_id path parameter.
+
+```php
+use Rat\eBaySDK\API\MetadataAPI\Marketplace\GetMinimumListingPricePolicies;
+use Rat\eBaySDK\Client;
+
+$client = app(Client::class);
+$request = new GetMinimumListingPricePolicies(
+    marketplaceId: (string) $marketplaceId,
+);
+$response = $client->execute($request);
+```
+
 ### GetListingTypePolicies <DocsBadge path="sell/metadata/resources/marketplace/methods/getListingTypePolicies" />
 
 <ResourcePath method="GET">/marketplace/{marketplaceId}/get_listing_type_policies</ResourcePath>
@@ -490,7 +516,6 @@ review.
 If you specify a valid marketplace ID but that marketplace does not contain policy information, or 
 if you filter out all results, a successful call returns a 204 No content status code with an empty 
 response body.
-
 
 ```php
 use Rat\eBaySDK\API\MetadataAPI\Marketplace\GetListingTypePolicies;

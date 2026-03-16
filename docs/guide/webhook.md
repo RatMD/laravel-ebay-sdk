@@ -18,7 +18,7 @@ still enable them via the `ebay-sdk.php` configuration file:
 
 ```php
 return [
-    'webook' => [
+    'webhook' => [
         'routes' => false,
         'token' => env('EBAY_WEBHOOK_TOKEN', ''),
         'async' => false,
@@ -114,8 +114,6 @@ notification.
 https://example.tld/ebay/notify
 ```
 
-
-
 ## 3. Secure the Webhook Endpoint (Optional but Recommended)
 
 To protect your webhook endpoint from unauthorized requests, the SDK supports an optional webhook 
@@ -124,7 +122,7 @@ configuration file respectively:
 
 ```php{4}
 return [
-    'webook' => [
+    'webhook' => [
         'routes' => false,
         'token' => env('EBAY_WEBHOOK_TOKEN', ''),
         'async' => false,

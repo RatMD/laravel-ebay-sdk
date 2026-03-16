@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# Finances API <Badge type="warning" style="margin-left:0.75rem;">v1.17.3</Badge> <DocsBadge path="sell/finances/static/overview.html" />
+# Finances API <Badge type="warning" style="margin-left:0.75rem;">v1.18.0</Badge> <DocsBadge path="sell/finances/static/overview.html" />
 
 > [!CAUTION]
 > Due to EU & UK Payments regulatory requirements, an additional security verification via Digital 
@@ -20,6 +20,30 @@ such payouts to their bank account, loans/repayments, shipping costs, etc.
 
 The information returned is similar to that available under the Payments tab of the Seller Hub in 
 My eBay.
+
+## BillingActivity
+
+### BillingActivity <DocsBadge path="sell/finances/resources/billing_activity/methods/getBillingActivities" />
+
+<ResourcePath method="GET">/billing_activity</ResourcePath>
+
+This method retrieves filtered billing activities of the seller. Returned results are filtered 
+through query parameters such as date range, activity ID, listing ID, or order ID. Sorting and 
+pagination features help organize and navigate returned activities efficiently.
+
+```php
+use Rat\eBaySDK\API\FinancesAPI\BillingActivity\GetBillingActivities;
+use Rat\eBaySDK\Client;
+
+$client = app(Client::class);
+$request = new GetBillingActivities(
+    filter: (string) $filter = null,
+    sort: (string) $sort = null,
+    limit: (int) $limit = 100,
+    offset: (int) $offset = 0,
+);
+$response = $client->execute($request);
+```
 
 ## Payout
 

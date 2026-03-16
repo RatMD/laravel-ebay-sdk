@@ -108,6 +108,47 @@ should be attached to them.
 | `routes`      | Prevents the SDK from automatically registering OAuth routes. |
 | `middleware`  | Middleware stack applied to the built-in OAuth routes.        |
 
+
+## Marketplace Account Deletion Configuration
+
+This section controls the built-in endpoint used for **Marketplace Account Deletion / Closure**
+notifications required by eBay. These notifications are sent when a user requests that their data
+must be removed from your application.
+
+The SDK can register a reference implementation route that validates the endpoint, verifies signed
+requests, and dispatches Laravel events.
+
+```php
+'marketplace_deletion' => [
+    'routes' => false,
+    'middleware' => [],
+    'token' => env('EBAY_MARKETPLACE_DELETION_VERIFICATION_TOKEN', null),
+    'endpoint' => env('EBAY_MARKETPLACE_DELETION_ENDPOINT', null),
+    'public_key_cache_ttl' => 3600,
+],
+```
+
+| Key                    | Purpose                                                             |
+| ---------------------- | ------------------------------------------------------------------- |
+| `routes`               | Enables the built-in Marketplace Account Deletion endpoint          |
+| `middleware`           | Middleware applied to the built-in deletion route                   |
+| `token`                | Verification token used during endpoint validation                  |
+| `endpoint`             | Absolute URL of the deletion endpoint                               |
+| `public_key_cache_ttl` | Cache lifetime for eBay public keys used for signature verification |
+
+> [!IMPORTANT]
+> The `endpoint` value is used when generating the challenge response and must exactly match the 
+> endpoint configured in the eBay Developer Portal. If this value is null, the SDK will attempt to 
+> generate the URL automatically from the named route:
+>  
+> ```php
+> route('ebay-sdk.marketplace.deletion', absolute: true)
+> ```
+>
+> Setting the endpoint explicitly is recommended when using proxies, load balancers, tunnels, or 
+> custom domain setups.
+
+
 ## Webhook Configuration
 
 Controls the webhook handling for the eBay Platform Notifications (push). 

@@ -77,12 +77,14 @@ export default defineConfig({
                         { text: "Configuration", link: "/guide/configuration" },
                         { text: "Authorization", link: "/guide/authorize" },
                         { text: "Notifications", link: "/guide/webhook" },
+                        { text: "Marketplace Deletions", link: "/guide/marketplace" },
                     ]
                 },
                 {
                     text: "Commands",
                     items: [
                         { text: "ebay:authorize", link: "/guide/commands/authorize" },
+                        { text: "ebay:marketplace-token", link: "/guide/commands/marketplace-token" },
                     ]
                 },
                 {
@@ -265,6 +267,7 @@ export default defineConfig({
                     items: [
                         { text: "Overview", link: "/changelog/overview" },
                         { text: "Release Feeds", link: "/changelog/feeds" },
+                        { text: "SDK Changes", link: "/changelog/changes" },
                     ]
                 },
                 {

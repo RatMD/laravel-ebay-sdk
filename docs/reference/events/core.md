@@ -47,6 +47,61 @@ class YourEventListener
 }
 ```
 
+## MarketplaceAccountDeletionReceived
+
+Dispatched when a valid **Marketplace Account Deletion / Closure notification** has been received
+from eBay. This event is triggered after the SDK has successfully:
+
+- verified the request signature using eBay’s public key
+- validated the notification payload
+- confirmed that the request originated from eBay
+
+The event provides access to the decoded JSON payload, the request headers, and the raw request 
+body. You should listen to this event to remove stored user data as required by eBay’s data 
+protection and account deletion policies.
+
+```php
+namespace App\Listeners;
+
+use Rat\eBaySDK\Events\MarketplaceAccountDeletionReceived;
+
+class YourEventListener
+{
+    public function handle(MarketplaceAccountDeletionReceived $event): void
+    {
+        (array) $event->payload; // Decoded JSON payload
+        (array) $event->headers; // Request headers
+        (string) $event->raw;    // Raw request body
+
+        // Example:
+        $username = $event->payload['notification']['data']['username'] ?? null;
+        $userId = $event->payload['notification']['data']['userId'] ?? null;
+
+        // Delete user data here
+    }
+}
+```
+
+Example payload: 
+
+```json
+{
+    "metadata": { "topic": "MARKETPLACE_ACCOUNT_DELETION", "schemaVersion": "1.0", "deprecated": false },
+    "notification": {
+        "notificationId": "49feeaeb-4982-42d9-a377-9645b8479411_33f7e043-fed8-442b-9d44-791923bd9a6d",
+        "eventDate": "2021-03-19T20:43:59.462Z",
+        "publishDate": "2021-03-19T20:43:59.679Z",
+        "publishAttemptCount": 1,
+        "data": {
+            "username": "test_user",
+            "userId": "ma8vp1jySJC",
+            "eiasToken": "nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wJnY+gAZGEpwmdj6x9nY+seQ=="
+        }
+    }
+}
+```
+
+
 ## OAuthFailure
 
 Dispatched when the OAuth authorization process fails or is aborted. This event does not provide 
