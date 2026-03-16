@@ -175,7 +175,7 @@ class HandleMarketplaceDeletion
 }
 ```
 
-Example Payload: 
+Example payload: 
 
 ```json
 {
