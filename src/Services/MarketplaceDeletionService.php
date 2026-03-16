@@ -60,21 +60,20 @@ class MarketplaceDeletionService
             return false;
         }
 
-        $decoded = $this->decodeSignatureHeader($signatureHeader);
-        $kid = $decoded['kid'] ?? null;
-        $signature = $decoded['signature'] ?? null;
-
-        if (!is_string($kid) || $kid === '' || !is_string($signature) || $signature === '') {
-            return false;
-        }
-
-        $publicKey = $this->getPublicKey($kid);
-        if (!$this->verifySignature($payload, $signature, $publicKey)) {
-            return false;
-        }
-
         $data = json_decode($payload, true);
         if (!is_array($data)) {
+            return false;
+        }
+
+        $decoded = $this->decodeSignatureHeader($signatureHeader);
+        $keyId = $decoded['kid'] ?? null;
+        $signature = $decoded['signature'] ?? null;
+        if (!is_string($keyId) || empty($keyId) || !is_string($signature) || empty($signature)) {
+            return false;
+        }
+
+        $publicKey = $this->getPublicKey($keyId);
+        if (!$this->verifySignature($data, $signature, $publicKey)) {
             return false;
         }
 
@@ -126,12 +125,12 @@ class MarketplaceDeletionService
 
     /**
      *
-     * @param string $payload
+     * @param array $message
      * @param string $signature
      * @param string $publicKey
      * @return bool
      */
-    protected function verifySignature(string $payload, string $signature, string $publicKey): bool
+    protected function verifySignature(array $message, string $signature, string $publicKey): bool
     {
         $pem = $this->normalizePublicKey($publicKey);
 
@@ -140,8 +139,13 @@ class MarketplaceDeletionService
             return false;
         }
 
+        $encodedMessage = json_encode($message);
+        if ($encodedMessage === false) {
+            return false;
+        }
+
         $result = openssl_verify(
-            $payload,
+            $encodedMessage,
             $signatureBytes,
             $pem,
             OPENSSL_ALGO_SHA1
@@ -156,12 +160,17 @@ class MarketplaceDeletionService
      */
     protected function normalizePublicKey(string $publicKey): string
     {
-        if (str_contains($publicKey, 'BEGIN PUBLIC KEY')) {
-            return $publicKey;
-        } else {
+        $publicKey = trim($publicKey);
+
+        if (!preg_match('/^-----BEGIN PUBLIC KEY-----(.+)-----END PUBLIC KEY-----$/s', $publicKey, $matches)) {
             return "-----BEGIN PUBLIC KEY-----\n"
-                . chunk_split($publicKey, 64, "\n")
-                . "-----END PUBLIC KEY-----\n";
+                . implode("\n", str_split(preg_replace('/\s+/', '', $publicKey), 64))
+                . "\n-----END PUBLIC KEY-----";
+        } else {
+            $body = preg_replace('/\s+/', '', $matches[1]);
+            return "-----BEGIN PUBLIC KEY-----\n"
+                . implode("\n", str_split($body, 64))
+                . "\n-----END PUBLIC KEY-----";
         }
     }
 }

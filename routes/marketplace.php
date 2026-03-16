@@ -5,6 +5,6 @@ use Rat\eBaySDK\Http\Controllers\MarketplaceDeletionController;
 
 Route::prefix('ebay/marketplace')->name('ebay-sdk.')->group(function () {
     Route::match(['get', 'post'], '/deletion', [MarketplaceDeletionController::class, 'handle'])
-        ->middleware(config('ebay-sdk.marketplace_deletion.middleware', ['web']))
+        ->middleware(config('ebay-sdk.marketplace_deletion.middleware', []))
         ->name('marketplace.deletion');
 });
