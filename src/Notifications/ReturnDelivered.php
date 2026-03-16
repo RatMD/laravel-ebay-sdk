@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This notification is applicable to both buyers and sellers and is sent when a
  * return item is received by the seller.
@@ -16,9 +13,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class ReturnDelivered
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */

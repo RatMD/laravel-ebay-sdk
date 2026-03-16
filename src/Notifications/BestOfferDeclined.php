@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This buyer-facing notification is sent when a seller declines the buyer's Best
  * Offer on an item.
@@ -16,9 +13,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class BestOfferDeclined
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */

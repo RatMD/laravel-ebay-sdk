@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This buyer-facing notification is sent if that buyer did not end up as the
  * highest bidder for an auction item.
@@ -16,9 +13,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class ItemLost
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */

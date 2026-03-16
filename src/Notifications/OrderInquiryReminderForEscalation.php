@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This notification is sent to a subscribed seller alerting the seller that the
  * buyer will soon be eligible to escalate an Item Not Received inquiry into an
@@ -14,9 +11,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class OrderInquiryReminderForEscalation
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */

@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This seller-facing notification is sent each time a buyer purchases an item in a
  * single or multiple-quantity, fixed-price listing. This notification is only
@@ -17,9 +14,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class FixedPriceTransaction
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */

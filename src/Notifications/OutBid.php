@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This buyer-facing notification is sent when another buyer has outbid (placed a
  * higher bid) the subscribed buyer on an auction listing, and the subscribed buyer
@@ -18,9 +15,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class OutBid
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */

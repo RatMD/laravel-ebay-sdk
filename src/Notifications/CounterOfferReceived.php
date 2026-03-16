@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This buyer-facing notification is sent when a seller makes a counter offer to
  * the buyer's Best Offer on an item.
@@ -16,9 +13,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class CounterOfferReceived
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */

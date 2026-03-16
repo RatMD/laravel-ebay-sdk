@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This seller-facing notification is sent if a potential buyer has made a Best
  * Offer on a Best Offer-enabled listing.
@@ -16,9 +13,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class BestOffer
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */

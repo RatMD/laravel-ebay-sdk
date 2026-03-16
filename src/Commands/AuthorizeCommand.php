@@ -4,6 +4,7 @@ namespace Rat\eBaySDK\Commands;
 
 use Illuminate\Console\Command;
 use Rat\eBaySDK\Authentication\OAuthAuthentication;
+use Rat\eBaySDK\Environment;
 
 class AuthorizeCommand extends Command
 {
@@ -98,14 +99,14 @@ class AuthorizeCommand extends Command
             ];
         }
 
-        return new OAuthAuthentication(
+        return new OAuthAuthentication(new Environment(
             clientId: $this->option('client-id'),
             clientSecret: $this->option('client-secret'),
             redirectUri: $this->option('redirect-uri'),
             environment: $this->option('environment'),
             authorizationScopes: $authScopes,
             credentialScopes: $credScopes,
-        );
+        ));
     }
 
     /**

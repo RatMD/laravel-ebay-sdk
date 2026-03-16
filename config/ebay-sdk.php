@@ -89,6 +89,81 @@ return [
         ]
     ],
 
+    'marketplace_deletion' => [
+        /*
+        |----------------------------------------------------------------------
+        | Enable Marketplace Account Deletion Routes
+        |----------------------------------------------------------------------
+        |
+        | Determines whether the package should register its default endpoint
+        | for eBay Marketplace Account Deletion / Closure notifications.
+        |
+        */
+        'routes' => false,
+
+        /*
+        |----------------------------------------------------------------------
+        | Additional Middleware
+        |----------------------------------------------------------------------
+        |
+        | Extra middleware applied to the package’s built-in marketplace
+        | deletion endpoint. These will only take effect when the package
+        | routes are enabled.
+        |
+        */
+        'middleware' => [
+            'web'
+        ],
+
+        /*
+        |----------------------------------------------------------------------
+        | Marketplace Deletion Verification Token
+        |----------------------------------------------------------------------
+        |
+        | Shared verification token used for endpoint validation during the
+        | marketplace account deletion setup on eBay’s side.
+        |
+        */
+        'token' => env('EBAY_MARKETPLACE_DELETION_VERIFICATION_TOKEN', null),
+
+        /*
+        |----------------------------------------------------------------------
+        | Marketplace Deletion Endpoint URL
+        |----------------------------------------------------------------------
+        |
+        | Absolute public URL of your marketplace account deletion endpoint.
+        |
+        | This value is used during eBay’s endpoint challenge validation and
+        | must exactly match the endpoint URL registered in the eBay Developer
+        | Portal, otherwise the challenge verification will fail.
+        |
+        | If left null, the package may fall back to generating the endpoint
+        | URL from the named route, for example via:
+        |
+        | route('ebay-sdk.marketplace.deletion', absolute: true)
+        |
+        | Using an explicit value is recommended when your application runs
+        | behind proxies, load balancers, tunnels, or a non-trivial APP_URL
+        | setup.
+        |
+        */
+        'endpoint' => env('EBAY_MARKETPLACE_DELETION_ENDPOINT', null),
+
+        /*
+        |----------------------------------------------------------------------
+        | Public Key Cache TTL
+        |----------------------------------------------------------------------
+        |
+        | Number of seconds the retrieved eBay notification public keys should
+        | remain cached locally.
+        |
+        | These keys are used to verify signed marketplace account deletion
+        | notifications before the payload is accepted and processed.
+        |
+        */
+        'public_key_cache_ttl' => 3600,
+    ],
+
     'webhook' => [
         /*
          |----------------------------------------------------------------------

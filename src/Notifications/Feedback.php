@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This notification is applicable to both buyers and sellers and is sent when that
  * buyer or seller has left Feedback for the other party in the order, or has
@@ -18,9 +15,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class Feedback
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */

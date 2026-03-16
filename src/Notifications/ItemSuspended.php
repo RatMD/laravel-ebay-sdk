@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This notification is sent to a subscribed buyer or seller when a listing is
  * administratively taken down by eBay.
@@ -13,9 +10,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class ItemSuspended
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */

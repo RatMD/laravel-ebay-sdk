@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This notification is sent to a subscribed buyer and seller when that seller has
  * marked an item as 'shipped'.
@@ -13,9 +10,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class ItemMarkedShipped
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */

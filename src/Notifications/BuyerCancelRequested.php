@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This notification is sent to a subscribed seller when a buyer has requested an
  * order cancellation.
@@ -13,9 +10,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class BuyerCancelRequested
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */

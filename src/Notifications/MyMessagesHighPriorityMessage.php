@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This notification is sent to a subscribed buyer or seller when that user
  * receives a high-priority message in InBox.
@@ -22,9 +19,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class MyMessagesHighPriorityMessage
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */

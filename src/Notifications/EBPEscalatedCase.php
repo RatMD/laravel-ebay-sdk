@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This notification is applicable to both buyers an sellers and is sent when an
  * eBay Money Back Guarantee case is escalated to eBay customer support. This
@@ -19,9 +16,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class EBPEscalatedCase
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */

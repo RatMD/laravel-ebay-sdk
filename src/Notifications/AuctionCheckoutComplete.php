@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This seller-facing notification is sent when the winning bidder or buyer has
  * paid for the auction or fixed-price item and completed the checkout process. For
@@ -18,9 +15,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class AuctionCheckoutComplete
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */

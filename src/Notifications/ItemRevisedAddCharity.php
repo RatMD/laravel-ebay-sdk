@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This notification is sent to a subscribed seller when the seller has revised a
  * listing and added a nonprofit organization to receive a percentage (10 percent
@@ -14,9 +11,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class ItemRevisedAddCharity
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */

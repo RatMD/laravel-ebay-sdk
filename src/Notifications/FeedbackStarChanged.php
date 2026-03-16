@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This notification is applicable to both buyers and sellers and is sent when that
  * user's Feedback star has changed. Sent to a subscribing third party when a
@@ -17,9 +14,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class FeedbackStarChanged
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */

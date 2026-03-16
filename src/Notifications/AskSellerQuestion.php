@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This is a seller-facing notification that is sent when an eBay user has used the
  * Ask a Question feature on the seller's active listing. An eBay user does not
@@ -17,9 +14,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class AskSellerQuestion
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */

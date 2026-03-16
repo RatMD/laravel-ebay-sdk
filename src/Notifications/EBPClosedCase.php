@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This notification is is applicable to both buyers and sellers and is sent when
  * an eBay Money Back Guarantee case has been closed.
@@ -20,9 +17,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class EBPClosedCase
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */

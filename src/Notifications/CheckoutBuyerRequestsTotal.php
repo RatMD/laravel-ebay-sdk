@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This seller-facing notification is sent when a buyer/winning bidder is
  * requesting a total price before paying for the item. This notification is
@@ -18,9 +15,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class CheckoutBuyerRequestsTotal
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */

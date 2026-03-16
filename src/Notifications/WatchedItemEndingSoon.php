@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This buyer-facing notification is sent when a listing that the buyer is watching
  * is ending soon. This event has a TimeLeft property that defines the 'ending
@@ -17,9 +14,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class WatchedItemEndingSoon
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */

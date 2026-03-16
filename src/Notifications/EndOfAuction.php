@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This notification is applicable to both buyers and sellers and is sent as soon
  * as an auction listing ends with or without a winning bidder. This notification
@@ -19,9 +16,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class EndOfAuction
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */

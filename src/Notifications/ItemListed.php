@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This seller-facing notification is sent each time one of the subscribed seller's
  * items is listed or relisted. This notification is also triggered when the Unpaid
@@ -17,9 +14,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class ItemListed
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */

@@ -32,6 +32,10 @@ class ServiceProvider extends LaravelServiceProvider
             $this->loadRoutesFrom(__DIR__.'/../routes/oauth.php');
         }
 
+        if (config('ebay-sdk.marketplace_deletion.routes', false)) {
+            $this->loadRoutesFrom(__DIR__.'/../routes/marketplace.php');
+        }
+
         if (config('ebay-sdk.webhook.routes', false)) {
             $this->loadRoutesFrom(__DIR__.'/../routes/webhook.php');
         }

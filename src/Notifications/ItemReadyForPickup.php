@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This notification is sent to a subscribed buyer when an In-Store Pickup or Click
  * and Collect order is ready to be picked up at the merchant's store.
@@ -13,9 +10,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class ItemReadyForPickup
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */

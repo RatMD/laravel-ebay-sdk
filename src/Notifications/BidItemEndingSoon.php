@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This notification is sent to a subscribed buyer when the listing of the auction
  * item where the buyer has an active bid is about to end. This event has a
@@ -14,9 +11,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class BidItemEndingSoon
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */

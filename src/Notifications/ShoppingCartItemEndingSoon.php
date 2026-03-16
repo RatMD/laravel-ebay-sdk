@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This notification is sent to a subscribed buyer when an item in the buyer's
  * shopping cart is about to end. This event has a TimeLeft property that defines
@@ -14,9 +11,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class ShoppingCartItemEndingSoon
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */

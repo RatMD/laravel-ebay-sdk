@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This notification is sent to a subscribed seller when the quantity of a
  * multiple-quantity, Good 'Til Cancelled, fixed-price listing has reached '0'.
@@ -15,9 +12,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class ItemOutOfStock
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */

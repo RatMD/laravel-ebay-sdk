@@ -2,9 +2,6 @@
 
 namespace Rat\eBaySDK\Notifications;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
-
 /**
  * This notification is applicable to both buyers and sellers and is sent when a
  * response to the eBay Money Back Guarantee case is due from that user. When an
@@ -22,9 +19,6 @@ use Illuminate\Foundation\Events\Dispatchable;
  */
 class EBPMyResponseDue
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-
     /**
      * Create a new event instance.
      */
