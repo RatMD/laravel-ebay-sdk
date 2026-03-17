@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# Finances API <Badge type="warning" style="margin-left:0.75rem;">v1.18.0</Badge> <DocsBadge path="sell/finances/static/overview.html" />
+# Finances API <Badge type="warning" style="margin-left:0.75rem;">v1.19.0</Badge> <DocsBadge path="sell/finances/static/overview.html" />
 
 > [!CAUTION]
 > Due to EU & UK Payments regulatory requirements, an additional security verification via Digital 
