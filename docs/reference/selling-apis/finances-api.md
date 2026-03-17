@@ -70,17 +70,6 @@ $response = $client->execute($request);
 > 
 > eBay plans on expanding this to other markets in the future.
 
-> [!CAUTION] 
-> Due to EU & UK Payments regulatory requirements, an additional security verification via Digital 
-> Signatures is required for certain API calls that are made on behalf of EU/UK sellers, including 
-> all Finances API methods. Please refer to Digital Signatures for APIs to learn more on the 
-> impacted APIs and the process to create signatures to be included in the HTTP payload.
-
-> [!NOTE] 
-> The Finances API does not support Team Access. Financial information, such as payouts or 
-> transactions, is only returned for the user that makes the call. You cannot use any of the 
-> methods in this API to return financial information for another user.
-
 ### GetOrderEarnings <DocsBadge path="sell/finances/resources/order_earnings/methods/getOrderEarnings" />
 
 <ResourcePath method="GET">/order_earnings</ResourcePath>
