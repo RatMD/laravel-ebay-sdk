@@ -2,8 +2,13 @@
 
 This page documents detailed changes to the Laravel eBay SDK package.
 
-## Version 0.2.0 (Alpha)
+## Version 0.2.1 (Alpha)
+- Support for **Finances API v1.19.0**
+    - `Rat\eBaySDK\API\FinancesAPI\OrderEarnings\GetOrderEarnings`
+    - `Rat\eBaySDK\API\FinancesAPI\OrderEarnings\GtOrderEarningsById`
+    - `Rat\eBaySDK\API\FinancesAPI\OrderEarnings\GetOrderEarningsSummary`
 
+## Version 0.2.0 (Alpha)
 - Support for **Account API v2.2.0**
     - `Rat\eBaySDK\API\AccountAPIv2\CombinedShippingRules\CreateCalculatedShippingRules`
     - `Rat\eBaySDK\API\AccountAPIv2\CombinedShippingRules\CreateFlatShippingRules`

@@ -45,6 +45,122 @@ $request = new GetBillingActivities(
 $response = $client->execute($request);
 ```
 
+## OrderEarnings
+
+> [!NOTE]
+> Expenses include fees, shipping labels, and donations. Refunds include gross refunds, gross claims, 
+> and gross payment disputes.
+
+> [!NOTE]
+> Only charges and credits tied to the order are shown, and they appear in near real time for order
+> created within the selected order creation time window.
+
+> [!NOTE] 
+> Access to the **order_earnings** resource is currently limited to only US, China, or Hong Kong 
+> sellers who meet the following criteria and also request access:
+> 
+> - US sellers with the country of residence set to US and having a payout currency in USD.
+> 
+> - Hong Kong or China sellers having the country of residence set to HK or CN and the payout 
+> currency set to USD have access.
+> 
+> To request access, submit an application growth check to have the required OAuth scope added to 
+> your app. After submission, you can use the same growth check link to track the status of the 
+> request.
+> 
+> eBay plans on expanding this to other markets in the future.
+
+> [!CAUTION] 
+> Due to EU & UK Payments regulatory requirements, an additional security verification via Digital 
+> Signatures is required for certain API calls that are made on behalf of EU/UK sellers, including 
+> all Finances API methods. Please refer to Digital Signatures for APIs to learn more on the 
+> impacted APIs and the process to create signatures to be included in the HTTP payload.
+
+> [!NOTE] 
+> The Finances API does not support Team Access. Financial information, such as payouts or 
+> transactions, is only returned for the user that makes the call. You cannot use any of the 
+> methods in this API to return financial information for another user.
+
+### GetOrderEarnings <DocsBadge path="sell/finances/resources/order_earnings/methods/getOrderEarnings" />
+
+<ResourcePath method="GET">/order_earnings</ResourcePath>
+
+This method returns detailed order-level financial data for each order associated with a seller 
+account. The returned order-level financial data includes order earnings, gross amount, expenses, 
+and refunds. Order earnings includes earnings after deducting expenses and refunds from the gross 
+amount.
+
+The financial data for orders will be returned as filtered based on the order's creation date.
+
+Pagination is supported through the `limit` and `offset` parameters. These parameters can be used to 
+control the number of records returned in a single response and to retrieve subsequent pages of 
+results when the result set spans multiple pages.
+
+The response can be filtered by using the filter parameter. This parameter allows consumers to 
+restrict the results returned by the method based on supported filtering criteria.
+
+```php
+use Rat\eBaySDK\API\FinancesAPI\OrderEarnings\GetOrderEarnings;
+use Rat\eBaySDK\Client;
+
+$client = app(Client::class);
+$request = new GetOrderEarnings(
+    marketplaceId: (string) $marketplaceId,
+    filter: (string) $filter = null,
+    sort: (string) $sort = null,
+    limit: (int) $limit = 20,
+    offset: (int) $offset = 0,
+);
+$response = $client->execute($request);
+```
+
+### GetOrderEarningsById <DocsBadge path="sell/finances/resources/order_earnings/methods/getOrderEarningsById" />
+
+<ResourcePath method="GET">/order_earnings/{orderId}</ResourcePath>
+
+This method returns detailed order-level financial data including order earnings, gross amount, 
+expenses, and refunds. Order earnings includes earnings after deducting expenses and refunds from 
+the gross amount.
+
+The response returns earnings information only for the order identified by the order_id path 
+parameter.
+
+```php
+use Rat\eBaySDK\API\FinancesAPI\OrderEarnings\GetOrderEarningsById;
+use Rat\eBaySDK\Client;
+
+$client = app(Client::class);
+$request = new GetOrderEarningsById(
+    marketplaceId: (string) $marketplaceId,
+    orderId: (string) $orderId,
+);
+$response = $client->execute($request);
+```
+
+### GetOrderEarningsSummary <DocsBadge path="sell/finances/resources/order_earnings/methods/getOrderEarningsSummary" />
+
+<ResourcePath method="GET">/order_earnings_summary</ResourcePath>
+
+This method returns a summarized view of order earnings information for one or more orders 
+associated with a seller account. The method retrieves aggregated data for order earnings after 
+deducting expenses and refunds from the gross amount. You can use this method for high-level 
+financial reporting workflows.
+
+The response can be filtered by using the `filter` parameter. This parameter allows consumers to 
+restrict the summary results returned by the method based on supported filtering criteria.
+
+```php
+use Rat\eBaySDK\API\FinancesAPI\OrderEarnings\GetOrderEarningsSummary;
+use Rat\eBaySDK\Client;
+
+$client = app(Client::class);
+$request = new GetOrderEarningsSummary(
+    marketplaceId: (string) $marketplaceId,
+    filter: (string) $filter = null,
+);
+$response = $client->execute($request);
+```
+
 ## Payout
 
 ### GetPayout <DocsBadge path="sell/finances/resources/payout/methods/getPayout" />

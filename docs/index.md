@@ -32,7 +32,7 @@ head:
 <div style="max-width:640px;margin-top:2.5rem">
 
 > [!CAUTION]
-> This is an **experimental** eBay SDK in an early alpha stage. Not all APIs have been fully tested 
+> This is an **work-in-progress** eBay SDK in an alpha stage. Not all APIs have been fully tested 
 > or can be tested due to user, marketplace, country restrictions, or sandbox limitations.
 > While the SDK should be usable, breaking changes may occur at any time, including minor releases.
 
