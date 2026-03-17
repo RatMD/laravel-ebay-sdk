@@ -1,6 +1,11 @@
 rat.md/laravel-ebay-sdk / Changelog
 ===================================
 
+## Version 0.2.1 (Alpha)
+- Add: New `OrderEarnings\GetOrderEarnings` resource as of FinancesAPI v1.18.0.
+- Add: New `OrderEarnings\GtOrderEarningsById` resource as of FinancesAPI v1.18.0.
+- Add: New `OrderEarnings\GetOrderEarningsSummary` resource as of FinancesAPI v1.18.0.
+
 ## Version 0.2.0 (Alpha)
 - Add: New Marketplace Deletion Service / Controller and routes.
 - Add: New `MarketplaceAccountDeletionReceived` event to handle Marketplace Deletions.
