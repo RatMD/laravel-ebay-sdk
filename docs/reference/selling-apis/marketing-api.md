@@ -1,7 +1,7 @@
 ---
 outline: deep
 ---
-# Marketing API <Badge type="warning" style="margin-left:0.75rem;">v1.22.3</Badge> <DocsBadge path="sell/marketing/static/overview.html" />
+# Marketing API <Badge type="warning" style="margin-left:0.75rem;">v1.23.0</Badge> <DocsBadge path="sell/marketing/static/overview.html" />
 
 The Marketing API supports three eBay marketing features - Promoted Listings, Promotions Manager, 
 and Store Email Campaigns. Used separately or together, these three marketing features can increase 
@@ -1156,7 +1156,9 @@ $request = new GetCampaigns(
 $response = $client->execute($request);
 ```
 
-### LaunchCampaign <DocsBadge path="sell/marketing/resources/campaign/methods/launchCampaign" />
+### LaunchCampaign <Badge type="danger" text="Removed in v1.23.0"  />
+
+::: details Show Decommissioned Resource
 
 <ResourcePath method="POST">/ad_campaign/{campaignId}/launch</ResourcePath>
 
@@ -1175,6 +1177,8 @@ $request = new LaunchCampaign(
 );
 $response = $client->execute($request);
 ```
+
+:::
 
 ### PauseCampaign <DocsBadge path="sell/marketing/resources/campaign/methods/pauseCampaign" />
 
@@ -1217,7 +1221,9 @@ $request = new ResumeCampaign(
 $response = $client->execute($request);
 ```
 
-### SetupQuickCampaign <DocsBadge path="sell/marketing/resources/campaign/methods/setupQuickCampaign" />
+### SetupQuickCampaign <Badge type="danger" text="Removed in v1.23.0"  />
+
+::: details Show Decommissioned Resource
 
 <ResourcePath method="POST">/ad_campaign/setup_quick_campaign</ResourcePath>
 
@@ -1262,6 +1268,8 @@ $request = new SetupQuickCampaign(
 );
 $response = $client->execute($request);
 ```
+
+:::
 
 ### SuggestBudget <DocsBadge path="sell/marketing/resources/campaign/methods/suggestBudget" />
 

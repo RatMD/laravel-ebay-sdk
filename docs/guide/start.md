@@ -16,7 +16,7 @@ and Traditional (XML/SOAP) eBay APIs and is designed to evolve alongside eBay’
 ## Requirements
 
 - PHP ≥ 8.2
-- Laravel ≥ 11 | ≥ 12
+- Laravel ≥ 11 | ≥ 12 | ≥ 13
 
 > [!TIP]
 > We strongly recommend a task-scheduling enabled and queue-based Laravel setup to handle
