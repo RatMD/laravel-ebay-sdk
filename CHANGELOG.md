@@ -1,6 +1,15 @@
 rat.md/laravel-ebay-sdk / Changelog
 ===================================
 
+## Version 0.2.2 (Alpha)
+- Add: Support for Laravel 13.
+- Update: Decommissioned `Campaign\LaunchCampaign` resource as of MarketingAPI v1.23.0.
+- Update: Decommissioned `Campaign\SetupQuickCampaign` resource as of MarketingAPI v1.23.0.
+- Update: Support settings `--dev-id` on `AuthorizeCommand` Artisan command.
+- Update: Support new `--testing` argument on `AuthorizeCommand` Artisan command.
+- Fix: Testing environment.
+- Fix: Remove invalid `marketplace_id` query on `AdvertisingEligibility\GetAdvertisingEligibility` AccountAPI resource.
+
 ## Version 0.2.1 (Alpha)
 - Add: New `OrderEarnings\GetOrderEarnings` resource as of FinancesAPI v1.19.0.
 - Add: New `OrderEarnings\GtOrderEarningsById` resource as of FinancesAPI v1.19.0.

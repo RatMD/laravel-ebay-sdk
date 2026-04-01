@@ -5,6 +5,7 @@ namespace Rat\eBaySDK\API\MarketingAPI\Campaign;
 use Rat\eBaySDK\Concerns\CommonMethods;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
+use Rat\eBaySDK\Exceptions\DecommissionedException;
 
 /**
  * POST /ad_campaign/setup_quick_campaign
@@ -27,7 +28,9 @@ class SetupQuickCampaign implements BaseAPIRequest
      */
     public function __construct(
         public readonly array $payload,
-    ) { }
+    ) {
+        throw new DecommissionedException('This API resource has been decommissioned as of Version 1.23.0 of the MarketingAPI.');
+    }
 
     /**
      * @inheritdoc

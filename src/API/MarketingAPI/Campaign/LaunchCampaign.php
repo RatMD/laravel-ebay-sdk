@@ -5,6 +5,7 @@ namespace Rat\eBaySDK\API\MarketingAPI\Campaign;
 use Rat\eBaySDK\Concerns\CommonMethods;
 use Rat\eBaySDK\Contracts\BaseAPIRequest;
 use Rat\eBaySDK\Enums\HTTPMethod;
+use Rat\eBaySDK\Exceptions\DecommissionedException;
 
 /**
  * POST /ad_campaign/{campaignId}/launch
@@ -27,7 +28,9 @@ class LaunchCampaign implements BaseAPIRequest
      */
     public function __construct(
         public readonly string $campaignId,
-    ) { }
+    ) {
+        throw new DecommissionedException('This API resource has been deprecated and is no longer available as of Marketing API version 1.23.0.');
+    }
 
     /**
      * @inheritdoc

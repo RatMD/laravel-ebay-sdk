@@ -63,6 +63,6 @@ class GetAdvertisingEligibility implements BaseAPIRequest
      */
     public function query(): array
     {
-        return ['marketplace_id' => $this->marketplaceId, 'program_types' => $this->programTypes];
+        return ['program_types' => $this->programTypes];
     }
 }

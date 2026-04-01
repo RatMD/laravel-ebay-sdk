@@ -71,7 +71,59 @@ $response = $client->execute(new GetInventoryItem('MyCustomSKU'));
 
 ## Testing
 
-```bash
+To run the test suite, you first need to provide your eBay Sandbox credentials. So, create an 
+`.env.testing` file in the package root directory with the following details:
+
+```ini
+EBAY_CLIENT_ID='<Your Sandbox Client ID>'
+EBAY_CLIENT_SECRET='<Your Sandbox Client Secret>'
+EBAY_REDIRECT_URI='<Your Sandbox Redirect URI>'
+EBAY_DEV_ID='<Your Sandbox Dev ID>'
+EBAY_API_ENVIRONMENT='sandbox'
+
+EBAY_CACHING=false
+EBAY_DEBUG=true
+EBAY_LOCALE='<Your-Language>'
+
+EBAY_COMPATIBILITY_LEVEL=1395
+EBAY_SITE_ID=16
+```
+
+If you're unsure about your `EBAY_SITE_ID` refer to [src/Enums/SiteCode.php](src/Enums/SiteCode.php) 
+or the official documentation page at [developer.ebay.com](https://developer.ebay.com/devzone/xml/docs/Reference/eBay/types/SiteCodeType.html) 
+
+Install the required composer dependencies using:
+
+```sh
+composer install
+```
+
+Now, generate a valid and working refresh token using Testbench:
+
+```sh
+./vendor/bin/testbench ebay:authorize --testing
+```
+
+This will output an authorization URL in the console.
+
+1. Open this URL in your browser
+2. Sign in using your Sandbox account (not your production one)
+3. Grant access for the requested scopes
+4. After successful authorization, you will be redirected to eBay's oAuth page
+
+Once you see the success message, copy the full redirected URL and pass it back to the command (and 
+Yes, the quotes matter. Especially on Windows, where everything breaks if you blink wrong.)
+
+```sh
+./vendor/bin/testbench ebay:authorize "https://auth2.ebay.com/..." --testing
+```
+
+If the `.env.testing` file exists, the command will automatically create or update your 
+`PEST_EBAY_REFRESH_TOKEN=<token>`, if not, the token will be printed to the console instead.
+
+Once the refresh token is available, you can run the tests using:
+
+```sh
 ./vendor/bin/pest
 ```
 

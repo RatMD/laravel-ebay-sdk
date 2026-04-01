@@ -89,7 +89,7 @@ class Environment
      * @param null|bool $caching
      * @param null|string $locale
      * @param null|string $compatibilityLevel
-     * @param null|int $siteId
+     * @param null|int|string $siteId
      * @return void
      */
     public function __construct(
@@ -104,7 +104,7 @@ class Environment
         null|bool $caching = null,
         null|string $locale = null,
         null|string $compatibilityLevel = null,
-        null|int $siteId = null,
+        null|int|string $siteId = null,
     )
     {
         $this->clientId = $clientId ?? config('ebay-sdk.credentials.client_id');
@@ -118,7 +118,7 @@ class Environment
         $this->caching = is_null($caching) ? config('ebay-sdk.options.caching', false) : $caching;
         $this->locale = $locale ?? config('ebay-sdk.options.locale', 'en-US');
         $this->compatibilityLevel = $compatibilityLevel ?? config('ebay-sdk.traditional.compatibility_level', '1395');
-        $this->siteId = is_null($siteId) ? (int) config('ebay-sdk.traditional.site_id', 0) : $siteId;
+        $this->siteId = intval(is_null($siteId) ? config('ebay-sdk.traditional.site_id', 0) : $siteId);
     }
 
     /**

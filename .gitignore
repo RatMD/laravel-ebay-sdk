@@ -26,6 +26,7 @@ _ide_helper_models.php
 
 # Misc
 .env
+.env.testing
 testbench.yaml
 /docs
 /coverage
