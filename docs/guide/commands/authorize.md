@@ -16,22 +16,24 @@ php artisan ebay:authorize
     {code? : Authorization code to exchange, leave empty to generate a new URL}
     {--i|client-id= : Custom eBay OAuth client ID}
     {--s|client-secret= : Custom eBay OAuth client secret}
+    {--d|dev-id= : Custom eBay dev ID}
     {--r|redirect-uri= : Custom eBay redirect URI / RuName}
     {--e|environment= : Custom eBay API environment}
     {--a|auth-scopes=* : Custom list of OAuth authorization scopes}
     {--c|cred-scopes=* : Custom list of credential scopes}
     {--all-auth-scopes : Use all available OAuth authorization scopes}
     {--all-cred-scopes : Use all available credential scopes}
+    {--testing : Used to prepare PEST testing environment}
 ```
 
 ## Options
 
-### `--client-id` / `--client-secret`
+### `--client-id` / `--client-secret` / `--dev-id`
 
-Override the configured OAuth client ID/secret at runtime:
+Override the configured OAuth client ID (App ID), client secret (Cert ID) or dev ID at runtime:
 
 ```sh
-php artisan ebay:authorize --client-id="YOUR_ID" --client-secret="YOUR_SECRET"
+php artisan ebay:authorize --client-id="YOUR_ID" --client-secret="YOUR_SECRET" --dev-id="YOUR_ID"
 ```
 
 Useful if you have multiple apps or environments and do not want to change configuration files.
@@ -70,6 +72,19 @@ Use the built-in “all scopes” presets from the command:
 
 ```sh
 php artisan ebay:authorize --all-auth-scopes --all-cred-scopes
+```
+
+### `--testing`
+
+Prepares a Sandbox OAuth refresh token specifically for the PEST testing environment.
+
+This option is primarily intended when working on the package itself, where commands are executed 
+via Orchestra Testbench instead of a full Laravel application. It uses the `.env.testing` 
+configuration and will store the generated refresh token as `PEST_EBAY_REFRESH_TOKEN`, allowing the 
+test suite to run against real eBay endpoints if needed.
+
+```sh
+./vendor/bin/testbench ebay:authorize --testing
 ```
 
 ## Security Notes
